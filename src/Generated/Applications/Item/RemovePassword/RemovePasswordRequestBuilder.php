@@ -34,7 +34,7 @@ class RemovePasswordRequestBuilder extends BaseRequestBuilder
      * Remove a password from an application. This API is available in the following national cloud deployments.
      * @param RemovePasswordPostRequestBody $body The request body
      * @param RemovePasswordRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/application-removepassword?view=graph-rest-1.0 Find more info here
     */
     public function post(RemovePasswordPostRequestBody $body, ?RemovePasswordRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -65,6 +65,7 @@ class RemovePasswordRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

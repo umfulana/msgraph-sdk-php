@@ -34,7 +34,7 @@ class DataSourceItemRequestBuilder extends BaseRequestBuilder
     /**
      * Remove a dataSource object.
      * @param DataSourceItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/security-ediscoverysearch-delete-custodiansources?view=graph-rest-1.0 Find more info here
     */
     public function delete(?DataSourceItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -53,7 +53,7 @@ class DataSourceItemRequestBuilder extends BaseRequestBuilder
     /**
      * Custodian sources that are included in the eDiscovery search.
      * @param DataSourceItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DataSource|null>
     */
     public function get(?DataSourceItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -82,6 +82,7 @@ class DataSourceItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -95,7 +96,6 @@ class DataSourceItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -103,6 +103,7 @@ class DataSourceItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

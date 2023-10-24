@@ -34,7 +34,7 @@ class ImportedWindowsAutopilotDeviceIdentityItemRequestBuilder extends BaseReque
     /**
      * Deletes a importedWindowsAutopilotDeviceIdentity.
      * @param ImportedWindowsAutopilotDeviceIdentityItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/intune-enrollment-importedwindowsautopilotdeviceidentity-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?ImportedWindowsAutopilotDeviceIdentityItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -53,7 +53,7 @@ class ImportedWindowsAutopilotDeviceIdentityItemRequestBuilder extends BaseReque
     /**
      * Read properties and relationships of the importedWindowsAutopilotDeviceIdentity object.
      * @param ImportedWindowsAutopilotDeviceIdentityItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ImportedWindowsAutopilotDeviceIdentity|null>
      * @link https://learn.microsoft.com/graph/api/intune-enrollment-importedwindowsautopilotdeviceidentity-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?ImportedWindowsAutopilotDeviceIdentityItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -73,7 +73,7 @@ class ImportedWindowsAutopilotDeviceIdentityItemRequestBuilder extends BaseReque
      * Update the navigation property importedWindowsAutopilotDeviceIdentities in deviceManagement
      * @param ImportedWindowsAutopilotDeviceIdentity $body The request body
      * @param ImportedWindowsAutopilotDeviceIdentityItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ImportedWindowsAutopilotDeviceIdentity|null>
     */
     public function patch(ImportedWindowsAutopilotDeviceIdentity $body, ?ImportedWindowsAutopilotDeviceIdentityItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPatchRequestInformation($body, $requestConfiguration);
@@ -102,6 +102,7 @@ class ImportedWindowsAutopilotDeviceIdentityItemRequestBuilder extends BaseReque
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -115,7 +116,6 @@ class ImportedWindowsAutopilotDeviceIdentityItemRequestBuilder extends BaseReque
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -123,6 +123,7 @@ class ImportedWindowsAutopilotDeviceIdentityItemRequestBuilder extends BaseReque
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -137,11 +138,11 @@ class ImportedWindowsAutopilotDeviceIdentityItemRequestBuilder extends BaseReque
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

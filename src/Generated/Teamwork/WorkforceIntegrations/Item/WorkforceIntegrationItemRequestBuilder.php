@@ -34,7 +34,7 @@ class WorkforceIntegrationItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete an instance of a workforceIntegration. This API is available in the following national cloud deployments.
      * @param WorkforceIntegrationItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/workforceintegration-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?WorkforceIntegrationItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -53,7 +53,7 @@ class WorkforceIntegrationItemRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve the properties and relationships of a workforceIntegration object. This API is available in the following national cloud deployments.
      * @param WorkforceIntegrationItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<WorkforceIntegration|null>
      * @link https://learn.microsoft.com/graph/api/workforceintegration-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?WorkforceIntegrationItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -73,7 +73,7 @@ class WorkforceIntegrationItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of a workforceIntegration object. This API is available in the following national cloud deployments.
      * @param WorkforceIntegration $body The request body
      * @param WorkforceIntegrationItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<WorkforceIntegration|null>
      * @link https://learn.microsoft.com/graph/api/workforceintegration-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(WorkforceIntegration $body, ?WorkforceIntegrationItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -103,6 +103,7 @@ class WorkforceIntegrationItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -116,7 +117,6 @@ class WorkforceIntegrationItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -124,6 +124,7 @@ class WorkforceIntegrationItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -138,11 +139,11 @@ class WorkforceIntegrationItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

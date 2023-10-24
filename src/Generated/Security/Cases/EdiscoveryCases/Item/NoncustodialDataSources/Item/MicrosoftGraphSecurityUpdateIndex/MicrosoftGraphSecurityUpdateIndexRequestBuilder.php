@@ -33,7 +33,7 @@ class MicrosoftGraphSecurityUpdateIndexRequestBuilder extends BaseRequestBuilder
     /**
      * Trigger an indexOperation to make a non-custodial data source and its associated data source searchable. This API is available in the following national cloud deployments.
      * @param MicrosoftGraphSecurityUpdateIndexRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/security-ediscoverynoncustodialdatasource-updateindex?view=graph-rest-1.0 Find more info here
     */
     public function post(?MicrosoftGraphSecurityUpdateIndexRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -63,6 +63,7 @@ class MicrosoftGraphSecurityUpdateIndexRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 

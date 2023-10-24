@@ -33,7 +33,7 @@ class AcceptRecommendationsRequestBuilder extends BaseRequestBuilder
     /**
      * Allows the acceptance of recommendations on all accessReviewInstanceDecisionItem objects that haven't been reviewed on an accessReviewInstance object for which the calling user is a reviewer. This API is available in the following national cloud deployments.
      * @param AcceptRecommendationsRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/accessreviewinstance-acceptrecommendations?view=graph-rest-1.0 Find more info here
     */
     public function post(?AcceptRecommendationsRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -63,6 +63,7 @@ class AcceptRecommendationsRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 

@@ -34,7 +34,7 @@ class ApprovalStageItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete navigation property stages for identityGovernance
      * @param ApprovalStageItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?ApprovalStageItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -52,7 +52,7 @@ class ApprovalStageItemRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve the properties of an approvalStage object. An approval stage is contained within an approval object. This API is available in the following national cloud deployments.
      * @param ApprovalStageItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ApprovalStage|null>
      * @link https://learn.microsoft.com/graph/api/approvalstage-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?ApprovalStageItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -72,7 +72,7 @@ class ApprovalStageItemRequestBuilder extends BaseRequestBuilder
      * Approve or deny an approvalStage object in an approval. This API is available in the following national cloud deployments.
      * @param ApprovalStage $body The request body
      * @param ApprovalStageItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ApprovalStage|null>
      * @link https://learn.microsoft.com/graph/api/approvalstage-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(ApprovalStage $body, ?ApprovalStageItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -102,6 +102,7 @@ class ApprovalStageItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -115,7 +116,6 @@ class ApprovalStageItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -123,6 +123,7 @@ class ApprovalStageItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -137,11 +138,11 @@ class ApprovalStageItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

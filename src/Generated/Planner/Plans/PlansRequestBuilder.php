@@ -55,7 +55,7 @@ class PlansRequestBuilder extends BaseRequestBuilder
     /**
      * Get a list of plannerPlan objects. This API is available in the following national cloud deployments.
      * @param PlansRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<PlannerPlanCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/planner-list-plans?view=graph-rest-1.0 Find more info here
     */
     public function get(?PlansRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -75,7 +75,7 @@ class PlansRequestBuilder extends BaseRequestBuilder
      * Use this API to create a new plannerPlan. This API is available in the following national cloud deployments.
      * @param PlannerPlan $body The request body
      * @param PlansRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<PlannerPlan|null>
      * @link https://learn.microsoft.com/graph/api/planner-post-plans?view=graph-rest-1.0 Find more info here
     */
     public function post(PlannerPlan $body, ?PlansRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -101,7 +101,6 @@ class PlansRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -109,6 +108,7 @@ class PlansRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -123,11 +123,11 @@ class PlansRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

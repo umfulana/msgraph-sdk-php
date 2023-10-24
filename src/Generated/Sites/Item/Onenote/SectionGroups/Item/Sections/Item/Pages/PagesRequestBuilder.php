@@ -55,7 +55,7 @@ class PagesRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve a list of page objects from the specified section. This API is available in the following national cloud deployments.
      * @param PagesRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<OnenotePageCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/section-list-pages?view=graph-rest-1.0 Find more info here
     */
     public function get(?PagesRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -75,7 +75,7 @@ class PagesRequestBuilder extends BaseRequestBuilder
      * Create a new page in the specified section. This API is available in the following national cloud deployments.
      * @param OnenotePage $body The request body
      * @param PagesRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<OnenotePage|null>
      * @link https://learn.microsoft.com/graph/api/section-post-pages?view=graph-rest-1.0 Find more info here
     */
     public function post(OnenotePage $body, ?PagesRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -101,7 +101,6 @@ class PagesRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -109,6 +108,7 @@ class PagesRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -123,11 +123,11 @@ class PagesRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

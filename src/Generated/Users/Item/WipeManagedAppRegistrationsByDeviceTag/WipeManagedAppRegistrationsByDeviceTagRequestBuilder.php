@@ -34,7 +34,7 @@ class WipeManagedAppRegistrationsByDeviceTagRequestBuilder extends BaseRequestBu
      * Issues a wipe operation on an app registration with specified device tag.
      * @param WipeManagedAppRegistrationsByDeviceTagPostRequestBody $body The request body
      * @param WipeManagedAppRegistrationsByDeviceTagRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/intune-mam-user-wipemanagedappregistrationsbydevicetag?view=graph-rest-1.0 Find more info here
     */
     public function post(WipeManagedAppRegistrationsByDeviceTagPostRequestBody $body, ?WipeManagedAppRegistrationsByDeviceTagRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -65,6 +65,7 @@ class WipeManagedAppRegistrationsByDeviceTagRequestBuilder extends BaseRequestBu
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

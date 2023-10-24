@@ -82,7 +82,7 @@ class EdiscoveryNoncustodialDataSourceItemRequestBuilder extends BaseRequestBuil
     /**
      * Delete navigation property noncustodialDataSources for security
      * @param EdiscoveryNoncustodialDataSourceItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?EdiscoveryNoncustodialDataSourceItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -100,7 +100,7 @@ class EdiscoveryNoncustodialDataSourceItemRequestBuilder extends BaseRequestBuil
     /**
      * Returns a list of case ediscoveryNoncustodialDataSource objects for this case.
      * @param EdiscoveryNoncustodialDataSourceItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<EdiscoveryNoncustodialDataSource|null>
     */
     public function get(?EdiscoveryNoncustodialDataSourceItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -119,7 +119,7 @@ class EdiscoveryNoncustodialDataSourceItemRequestBuilder extends BaseRequestBuil
      * Update the navigation property noncustodialDataSources in security
      * @param EdiscoveryNoncustodialDataSource $body The request body
      * @param EdiscoveryNoncustodialDataSourceItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<EdiscoveryNoncustodialDataSource|null>
     */
     public function patch(EdiscoveryNoncustodialDataSource $body, ?EdiscoveryNoncustodialDataSourceItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPatchRequestInformation($body, $requestConfiguration);
@@ -148,6 +148,7 @@ class EdiscoveryNoncustodialDataSourceItemRequestBuilder extends BaseRequestBuil
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -161,7 +162,6 @@ class EdiscoveryNoncustodialDataSourceItemRequestBuilder extends BaseRequestBuil
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -169,6 +169,7 @@ class EdiscoveryNoncustodialDataSourceItemRequestBuilder extends BaseRequestBuil
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -183,11 +184,11 @@ class EdiscoveryNoncustodialDataSourceItemRequestBuilder extends BaseRequestBuil
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

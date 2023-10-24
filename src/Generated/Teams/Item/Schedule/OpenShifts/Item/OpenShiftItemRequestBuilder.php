@@ -34,7 +34,7 @@ class OpenShiftItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete an openShift object. This API is available in the following national cloud deployments.
      * @param OpenShiftItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/openshift-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?OpenShiftItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -53,7 +53,7 @@ class OpenShiftItemRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve the properties and relationships of an openshift object. This API is available in the following national cloud deployments.
      * @param OpenShiftItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<OpenShift|null>
      * @link https://learn.microsoft.com/graph/api/openshift-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?OpenShiftItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -73,7 +73,7 @@ class OpenShiftItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of an openShift object.
      * @param OpenShift $body The request body
      * @param OpenShiftItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<OpenShift|null>
      * @link https://learn.microsoft.com/graph/api/openshift-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(OpenShift $body, ?OpenShiftItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -103,6 +103,7 @@ class OpenShiftItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -116,7 +117,6 @@ class OpenShiftItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -124,6 +124,7 @@ class OpenShiftItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -138,11 +139,11 @@ class OpenShiftItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

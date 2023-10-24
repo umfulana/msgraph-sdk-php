@@ -34,7 +34,7 @@ class SendActivityNotificationToRecipientsRequestBuilder extends BaseRequestBuil
      * Send activity feed notifications to multiple users, in bulk.  For more details about sending notifications and the requirements for doing so, seesending Teams activity notifications. This API is available in the following national cloud deployments.
      * @param SendActivityNotificationToRecipientsPostRequestBody $body The request body
      * @param SendActivityNotificationToRecipientsRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/teamwork-sendactivitynotificationtorecipients?view=graph-rest-1.0 Find more info here
     */
     public function post(SendActivityNotificationToRecipientsPostRequestBody $body, ?SendActivityNotificationToRecipientsRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -65,6 +65,7 @@ class SendActivityNotificationToRecipientsRequestBuilder extends BaseRequestBuil
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

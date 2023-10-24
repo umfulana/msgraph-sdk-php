@@ -55,7 +55,7 @@ class UserExperienceAnalyticsAppHealthOSVersionPerformanceRequestBuilder extends
     /**
      * User experience analytics appHealth OS version Performance
      * @param UserExperienceAnalyticsAppHealthOSVersionPerformanceRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UserExperienceAnalyticsAppHealthOSVersionPerformanceCollectionResponse|null>
     */
     public function get(?UserExperienceAnalyticsAppHealthOSVersionPerformanceRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -74,7 +74,7 @@ class UserExperienceAnalyticsAppHealthOSVersionPerformanceRequestBuilder extends
      * Create new navigation property to userExperienceAnalyticsAppHealthOSVersionPerformance for deviceManagement
      * @param UserExperienceAnalyticsAppHealthOSVersionPerformance $body The request body
      * @param UserExperienceAnalyticsAppHealthOSVersionPerformanceRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UserExperienceAnalyticsAppHealthOSVersionPerformance|null>
     */
     public function post(UserExperienceAnalyticsAppHealthOSVersionPerformance $body, ?UserExperienceAnalyticsAppHealthOSVersionPerformanceRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPostRequestInformation($body, $requestConfiguration);
@@ -99,7 +99,6 @@ class UserExperienceAnalyticsAppHealthOSVersionPerformanceRequestBuilder extends
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -107,6 +106,7 @@ class UserExperienceAnalyticsAppHealthOSVersionPerformanceRequestBuilder extends
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -121,11 +121,11 @@ class UserExperienceAnalyticsAppHealthOSVersionPerformanceRequestBuilder extends
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

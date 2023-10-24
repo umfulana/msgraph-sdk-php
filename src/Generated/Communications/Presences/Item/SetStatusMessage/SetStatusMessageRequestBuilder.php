@@ -34,7 +34,7 @@ class SetStatusMessageRequestBuilder extends BaseRequestBuilder
      * Set a presence status message for a user. An optional expiration date and time can be supplied. This API is available in the following national cloud deployments.
      * @param SetStatusMessagePostRequestBody $body The request body
      * @param SetStatusMessageRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/presence-setstatusmessage?view=graph-rest-1.0 Find more info here
     */
     public function post(SetStatusMessagePostRequestBody $body, ?SetStatusMessageRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -65,6 +65,7 @@ class SetStatusMessageRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

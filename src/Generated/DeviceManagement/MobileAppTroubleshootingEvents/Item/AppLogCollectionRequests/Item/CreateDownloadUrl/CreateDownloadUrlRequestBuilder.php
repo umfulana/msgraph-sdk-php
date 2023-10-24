@@ -34,7 +34,7 @@ class CreateDownloadUrlRequestBuilder extends BaseRequestBuilder
     /**
      * Not yet documented
      * @param CreateDownloadUrlRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<AppLogCollectionDownloadDetails|null>
      * @link https://learn.microsoft.com/graph/api/intune-devices-applogcollectionrequest-createdownloadurl?view=graph-rest-1.0 Find more info here
     */
     public function post(?CreateDownloadUrlRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -60,11 +60,11 @@ class CreateDownloadUrlRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

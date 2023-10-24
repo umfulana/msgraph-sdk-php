@@ -55,7 +55,7 @@ class TokenIssuancePoliciesRequestBuilder extends BaseRequestBuilder
     /**
      * Get a list of tokenIssuancePolicy objects. This API is available in the following national cloud deployments.
      * @param TokenIssuancePoliciesRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<TokenIssuancePolicyCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/tokenissuancepolicy-list?view=graph-rest-1.0 Find more info here
     */
     public function get(?TokenIssuancePoliciesRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -75,7 +75,7 @@ class TokenIssuancePoliciesRequestBuilder extends BaseRequestBuilder
      * Create a new tokenIssuancePolicy object. This API is available in the following national cloud deployments.
      * @param TokenIssuancePolicy $body The request body
      * @param TokenIssuancePoliciesRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<TokenIssuancePolicy|null>
      * @link https://learn.microsoft.com/graph/api/tokenissuancepolicy-post-tokenissuancepolicy?view=graph-rest-1.0 Find more info here
     */
     public function post(TokenIssuancePolicy $body, ?TokenIssuancePoliciesRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -101,7 +101,6 @@ class TokenIssuancePoliciesRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -109,6 +108,7 @@ class TokenIssuancePoliciesRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -123,11 +123,11 @@ class TokenIssuancePoliciesRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

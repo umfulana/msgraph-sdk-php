@@ -37,7 +37,7 @@ class DirectoryRolesWithRoleTemplateIdRequestBuilder extends BaseRequestBuilder
     /**
      * Delete entity from directoryRoles by roleTemplateId
      * @param DirectoryRolesWithRoleTemplateIdRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?DirectoryRolesWithRoleTemplateIdRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -55,7 +55,7 @@ class DirectoryRolesWithRoleTemplateIdRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve the properties of a directoryRole object. The role must be activated in tenant for a successful response. You can use both the object ID and template ID of the directoryRole with this API. The template ID of a built-in role is immutable and can be seen in the role description on the Microsoft Entra admin center. For details, see Role template IDs. This API is available in the following national cloud deployments.
      * @param DirectoryRolesWithRoleTemplateIdRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DirectoryRole|null>
      * @link https://learn.microsoft.com/graph/api/directoryrole-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?DirectoryRolesWithRoleTemplateIdRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -75,7 +75,7 @@ class DirectoryRolesWithRoleTemplateIdRequestBuilder extends BaseRequestBuilder
      * Update entity in directoryRoles by roleTemplateId
      * @param DirectoryRole $body The request body
      * @param DirectoryRolesWithRoleTemplateIdRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DirectoryRole|null>
     */
     public function patch(DirectoryRole $body, ?DirectoryRolesWithRoleTemplateIdRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPatchRequestInformation($body, $requestConfiguration);
@@ -104,6 +104,7 @@ class DirectoryRolesWithRoleTemplateIdRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -117,7 +118,6 @@ class DirectoryRolesWithRoleTemplateIdRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -125,6 +125,7 @@ class DirectoryRolesWithRoleTemplateIdRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -139,11 +140,11 @@ class DirectoryRolesWithRoleTemplateIdRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

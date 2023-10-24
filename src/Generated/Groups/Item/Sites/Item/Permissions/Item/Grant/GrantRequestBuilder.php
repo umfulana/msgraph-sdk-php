@@ -34,7 +34,7 @@ class GrantRequestBuilder extends BaseRequestBuilder
      * Grant users access to a link represented by a permission][]. This API is available in the following [national cloud deployments.
      * @param GrantPostRequestBody $body The request body
      * @param GrantRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<GrantPostResponse|null>
      * @link https://learn.microsoft.com/graph/api/permission-grant?view=graph-rest-1.0 Find more info here
     */
     public function post(GrantPostRequestBody $body, ?GrantRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -61,11 +61,11 @@ class GrantRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

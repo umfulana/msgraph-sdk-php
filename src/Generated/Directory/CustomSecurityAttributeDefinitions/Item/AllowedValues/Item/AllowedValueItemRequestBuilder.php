@@ -34,7 +34,7 @@ class AllowedValueItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete navigation property allowedValues for directory
      * @param AllowedValueItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?AllowedValueItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -52,7 +52,7 @@ class AllowedValueItemRequestBuilder extends BaseRequestBuilder
     /**
      * Read the properties and relationships of an allowedValue object. This API is available in the following national cloud deployments.
      * @param AllowedValueItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<AllowedValue|null>
      * @link https://learn.microsoft.com/graph/api/allowedvalue-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?AllowedValueItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -72,7 +72,7 @@ class AllowedValueItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of an allowedValue object. This API is available in the following national cloud deployments.
      * @param AllowedValue $body The request body
      * @param AllowedValueItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<AllowedValue|null>
      * @link https://learn.microsoft.com/graph/api/allowedvalue-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(AllowedValue $body, ?AllowedValueItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -102,6 +102,7 @@ class AllowedValueItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -115,7 +116,6 @@ class AllowedValueItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -123,6 +123,7 @@ class AllowedValueItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -137,11 +138,11 @@ class AllowedValueItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

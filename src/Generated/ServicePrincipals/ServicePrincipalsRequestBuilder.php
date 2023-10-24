@@ -87,7 +87,7 @@ class ServicePrincipalsRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve a list of servicePrincipal objects. This API is available in the following national cloud deployments.
      * @param ServicePrincipalsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ServicePrincipalCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/serviceprincipal-list?view=graph-rest-1.0 Find more info here
     */
     public function get(?ServicePrincipalsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -107,7 +107,7 @@ class ServicePrincipalsRequestBuilder extends BaseRequestBuilder
      * Create a new servicePrincipal object. This API is available in the following national cloud deployments.
      * @param ServicePrincipal $body The request body
      * @param ServicePrincipalsRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ServicePrincipal|null>
      * @link https://learn.microsoft.com/graph/api/serviceprincipal-post-serviceprincipals?view=graph-rest-1.0 Find more info here
     */
     public function post(ServicePrincipal $body, ?ServicePrincipalsRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -133,7 +133,6 @@ class ServicePrincipalsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -141,6 +140,7 @@ class ServicePrincipalsRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -155,11 +155,11 @@ class ServicePrincipalsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

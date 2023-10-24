@@ -63,7 +63,7 @@ class SchoolsRequestBuilder extends BaseRequestBuilder
     /**
      * Get a list of the educationSchool objects and their properties. This API is available in the following national cloud deployments.
      * @param SchoolsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<EducationSchoolCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/educationschool-list?view=graph-rest-1.0 Find more info here
     */
     public function get(?SchoolsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -83,7 +83,7 @@ class SchoolsRequestBuilder extends BaseRequestBuilder
      * Create a new educationSchool object. This API is available in the following national cloud deployments.
      * @param EducationSchool $body The request body
      * @param SchoolsRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<EducationSchool|null>
      * @link https://learn.microsoft.com/graph/api/educationschool-post?view=graph-rest-1.0 Find more info here
     */
     public function post(EducationSchool $body, ?SchoolsRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -109,7 +109,6 @@ class SchoolsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -117,6 +116,7 @@ class SchoolsRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -131,11 +131,11 @@ class SchoolsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

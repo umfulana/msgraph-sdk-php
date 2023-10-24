@@ -34,7 +34,7 @@ class OpenShiftChangeRequestItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete navigation property openShiftChangeRequests for groups
      * @param OpenShiftChangeRequestItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?OpenShiftChangeRequestItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -52,7 +52,7 @@ class OpenShiftChangeRequestItemRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve the properties and relationships of an openShiftChangeRequest object. This API is available in the following national cloud deployments.
      * @param OpenShiftChangeRequestItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<OpenShiftChangeRequest|null>
      * @link https://learn.microsoft.com/graph/api/openshiftchangerequest-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?OpenShiftChangeRequestItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -72,7 +72,7 @@ class OpenShiftChangeRequestItemRequestBuilder extends BaseRequestBuilder
      * Update the navigation property openShiftChangeRequests in groups
      * @param OpenShiftChangeRequest $body The request body
      * @param OpenShiftChangeRequestItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<OpenShiftChangeRequest|null>
     */
     public function patch(OpenShiftChangeRequest $body, ?OpenShiftChangeRequestItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPatchRequestInformation($body, $requestConfiguration);
@@ -101,6 +101,7 @@ class OpenShiftChangeRequestItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -114,7 +115,6 @@ class OpenShiftChangeRequestItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -122,6 +122,7 @@ class OpenShiftChangeRequestItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -136,11 +137,11 @@ class OpenShiftChangeRequestItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

@@ -55,7 +55,7 @@ class B2xUserFlowsRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve a list of b2xIdentityUserFlow objects. This API is available in the following national cloud deployments.
      * @param B2xUserFlowsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<B2xIdentityUserFlowCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/identitycontainer-list-b2xuserflows?view=graph-rest-1.0 Find more info here
     */
     public function get(?B2xUserFlowsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -75,7 +75,7 @@ class B2xUserFlowsRequestBuilder extends BaseRequestBuilder
      * Create a new b2xIdentityUserFlow object. This API is available in the following national cloud deployments.
      * @param B2xIdentityUserFlow $body The request body
      * @param B2xUserFlowsRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<B2xIdentityUserFlow|null>
      * @link https://learn.microsoft.com/graph/api/identitycontainer-post-b2xuserflows?view=graph-rest-1.0 Find more info here
     */
     public function post(B2xIdentityUserFlow $body, ?B2xUserFlowsRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -101,7 +101,6 @@ class B2xUserFlowsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -109,6 +108,7 @@ class B2xUserFlowsRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -123,11 +123,11 @@ class B2xUserFlowsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

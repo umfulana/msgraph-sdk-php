@@ -42,7 +42,7 @@ class WorkbookChartPointItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete navigation property points for drives
      * @param WorkbookChartPointItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?WorkbookChartPointItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -60,7 +60,7 @@ class WorkbookChartPointItemRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve the properties and relationships of chartpoint object. This API is available in the following national cloud deployments.
      * @param WorkbookChartPointItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<WorkbookChartPoint|null>
      * @link https://learn.microsoft.com/graph/api/chartpoint-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?WorkbookChartPointItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -80,7 +80,7 @@ class WorkbookChartPointItemRequestBuilder extends BaseRequestBuilder
      * Update the navigation property points in drives
      * @param WorkbookChartPoint $body The request body
      * @param WorkbookChartPointItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<WorkbookChartPoint|null>
     */
     public function patch(WorkbookChartPoint $body, ?WorkbookChartPointItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPatchRequestInformation($body, $requestConfiguration);
@@ -109,6 +109,7 @@ class WorkbookChartPointItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -122,7 +123,6 @@ class WorkbookChartPointItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -130,6 +130,7 @@ class WorkbookChartPointItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -144,11 +145,11 @@ class WorkbookChartPointItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

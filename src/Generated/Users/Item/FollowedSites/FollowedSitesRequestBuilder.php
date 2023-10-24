@@ -54,7 +54,7 @@ class FollowedSitesRequestBuilder extends BaseRequestBuilder
     /**
      * List the sites that have been followed by the signed in user. This API is available in the following national cloud deployments.
      * @param FollowedSitesRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<SiteCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/sites-list-followed?view=graph-rest-1.0 Find more info here
     */
     public function get(?FollowedSitesRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -80,7 +80,6 @@ class FollowedSitesRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -88,6 +87,7 @@ class FollowedSitesRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

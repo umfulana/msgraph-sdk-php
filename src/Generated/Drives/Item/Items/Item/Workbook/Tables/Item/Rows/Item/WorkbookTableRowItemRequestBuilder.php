@@ -42,7 +42,7 @@ class WorkbookTableRowItemRequestBuilder extends BaseRequestBuilder
     /**
      * Deletes the row from the table. This API is available in the following national cloud deployments.
      * @param WorkbookTableRowItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/tablerow-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?WorkbookTableRowItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -61,7 +61,7 @@ class WorkbookTableRowItemRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve the properties and relationships of tablerow object. This API is available in the following national cloud deployments.
      * @param WorkbookTableRowItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<WorkbookTableRow|null>
      * @link https://learn.microsoft.com/graph/api/tablerow-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?WorkbookTableRowItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -81,7 +81,7 @@ class WorkbookTableRowItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of tablerow object. This API is available in the following national cloud deployments.
      * @param WorkbookTableRow $body The request body
      * @param WorkbookTableRowItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<WorkbookTableRow|null>
      * @link https://learn.microsoft.com/graph/api/tablerow-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(WorkbookTableRow $body, ?WorkbookTableRowItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -111,6 +111,7 @@ class WorkbookTableRowItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -124,7 +125,6 @@ class WorkbookTableRowItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -132,6 +132,7 @@ class WorkbookTableRowItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -146,11 +147,11 @@ class WorkbookTableRowItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

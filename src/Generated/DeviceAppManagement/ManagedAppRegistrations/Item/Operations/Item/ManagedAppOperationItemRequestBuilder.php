@@ -34,7 +34,7 @@ class ManagedAppOperationItemRequestBuilder extends BaseRequestBuilder
     /**
      * Deletes a managedAppOperation.
      * @param ManagedAppOperationItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/intune-mam-managedappoperation-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?ManagedAppOperationItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -53,7 +53,7 @@ class ManagedAppOperationItemRequestBuilder extends BaseRequestBuilder
     /**
      * Read properties and relationships of the managedAppOperation object.
      * @param ManagedAppOperationItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ManagedAppOperation|null>
      * @link https://learn.microsoft.com/graph/api/intune-mam-managedappoperation-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?ManagedAppOperationItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -73,7 +73,7 @@ class ManagedAppOperationItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of a managedAppOperation object.
      * @param ManagedAppOperation $body The request body
      * @param ManagedAppOperationItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ManagedAppOperation|null>
      * @link https://learn.microsoft.com/graph/api/intune-mam-managedappoperation-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(ManagedAppOperation $body, ?ManagedAppOperationItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -103,6 +103,7 @@ class ManagedAppOperationItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -116,7 +117,6 @@ class ManagedAppOperationItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -124,6 +124,7 @@ class ManagedAppOperationItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -138,11 +139,11 @@ class ManagedAppOperationItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

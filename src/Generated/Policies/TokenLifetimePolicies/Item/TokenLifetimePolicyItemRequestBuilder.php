@@ -42,7 +42,7 @@ class TokenLifetimePolicyItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete a tokenLifetimePolicy object. This API is available in the following national cloud deployments.
      * @param TokenLifetimePolicyItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/tokenlifetimepolicy-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?TokenLifetimePolicyItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -61,7 +61,7 @@ class TokenLifetimePolicyItemRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve the properties and relationships of a tokenLifetimePolicy object. This API is available in the following national cloud deployments.
      * @param TokenLifetimePolicyItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<TokenLifetimePolicy|null>
      * @link https://learn.microsoft.com/graph/api/tokenlifetimepolicy-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?TokenLifetimePolicyItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -81,7 +81,7 @@ class TokenLifetimePolicyItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of a tokenLifetimePolicy object. This API is available in the following national cloud deployments.
      * @param TokenLifetimePolicy $body The request body
      * @param TokenLifetimePolicyItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<TokenLifetimePolicy|null>
      * @link https://learn.microsoft.com/graph/api/tokenlifetimepolicy-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(TokenLifetimePolicy $body, ?TokenLifetimePolicyItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -111,6 +111,7 @@ class TokenLifetimePolicyItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -124,7 +125,6 @@ class TokenLifetimePolicyItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -132,6 +132,7 @@ class TokenLifetimePolicyItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -146,11 +147,11 @@ class TokenLifetimePolicyItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

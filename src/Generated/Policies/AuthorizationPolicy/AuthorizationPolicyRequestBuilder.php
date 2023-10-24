@@ -34,7 +34,7 @@ class AuthorizationPolicyRequestBuilder extends BaseRequestBuilder
     /**
      * Delete navigation property authorizationPolicy for policies
      * @param AuthorizationPolicyRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?AuthorizationPolicyRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -52,7 +52,7 @@ class AuthorizationPolicyRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve the properties of an authorizationPolicy object. This API is available in the following national cloud deployments.
      * @param AuthorizationPolicyRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<AuthorizationPolicy|null>
      * @link https://learn.microsoft.com/graph/api/authorizationpolicy-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?AuthorizationPolicyRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -72,7 +72,7 @@ class AuthorizationPolicyRequestBuilder extends BaseRequestBuilder
      * Update the properties of an authorizationPolicy object. This API is available in the following national cloud deployments.
      * @param AuthorizationPolicy $body The request body
      * @param AuthorizationPolicyRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<AuthorizationPolicy|null>
      * @link https://learn.microsoft.com/graph/api/authorizationpolicy-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(AuthorizationPolicy $body, ?AuthorizationPolicyRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -102,6 +102,7 @@ class AuthorizationPolicyRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -115,7 +116,6 @@ class AuthorizationPolicyRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -123,6 +123,7 @@ class AuthorizationPolicyRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -137,11 +138,11 @@ class AuthorizationPolicyRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

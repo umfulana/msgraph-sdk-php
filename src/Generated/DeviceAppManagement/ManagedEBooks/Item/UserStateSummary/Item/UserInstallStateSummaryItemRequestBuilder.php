@@ -42,7 +42,7 @@ class UserInstallStateSummaryItemRequestBuilder extends BaseRequestBuilder
     /**
      * Deletes a userInstallStateSummary.
      * @param UserInstallStateSummaryItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/intune-books-userinstallstatesummary-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?UserInstallStateSummaryItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -61,7 +61,7 @@ class UserInstallStateSummaryItemRequestBuilder extends BaseRequestBuilder
     /**
      * Read properties and relationships of the userInstallStateSummary object.
      * @param UserInstallStateSummaryItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UserInstallStateSummary|null>
      * @link https://learn.microsoft.com/graph/api/intune-books-userinstallstatesummary-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?UserInstallStateSummaryItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -81,7 +81,7 @@ class UserInstallStateSummaryItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of a userInstallStateSummary object.
      * @param UserInstallStateSummary $body The request body
      * @param UserInstallStateSummaryItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UserInstallStateSummary|null>
      * @link https://learn.microsoft.com/graph/api/intune-books-userinstallstatesummary-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(UserInstallStateSummary $body, ?UserInstallStateSummaryItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -111,6 +111,7 @@ class UserInstallStateSummaryItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -124,7 +125,6 @@ class UserInstallStateSummaryItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -132,6 +132,7 @@ class UserInstallStateSummaryItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -146,11 +147,11 @@ class UserInstallStateSummaryItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

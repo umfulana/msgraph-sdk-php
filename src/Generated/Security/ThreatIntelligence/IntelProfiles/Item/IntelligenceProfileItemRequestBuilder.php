@@ -42,7 +42,7 @@ class IntelligenceProfileItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete navigation property intelProfiles for security
      * @param IntelligenceProfileItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?IntelligenceProfileItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -60,7 +60,7 @@ class IntelligenceProfileItemRequestBuilder extends BaseRequestBuilder
     /**
      * Read the properties and relationships of a intelligenceProfile object. This API is available in the following national cloud deployments.
      * @param IntelligenceProfileItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<IntelligenceProfile|null>
      * @link https://learn.microsoft.com/graph/api/security-intelligenceprofile-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?IntelligenceProfileItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -80,7 +80,7 @@ class IntelligenceProfileItemRequestBuilder extends BaseRequestBuilder
      * Update the navigation property intelProfiles in security
      * @param IntelligenceProfile $body The request body
      * @param IntelligenceProfileItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<IntelligenceProfile|null>
     */
     public function patch(IntelligenceProfile $body, ?IntelligenceProfileItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPatchRequestInformation($body, $requestConfiguration);
@@ -109,6 +109,7 @@ class IntelligenceProfileItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -122,7 +123,6 @@ class IntelligenceProfileItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -130,6 +130,7 @@ class IntelligenceProfileItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -144,11 +145,11 @@ class IntelligenceProfileItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

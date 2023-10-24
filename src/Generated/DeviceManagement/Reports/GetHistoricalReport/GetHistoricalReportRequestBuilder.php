@@ -35,7 +35,7 @@ class GetHistoricalReportRequestBuilder extends BaseRequestBuilder
      * Not yet documented
      * @param GetHistoricalReportPostRequestBody $body The request body
      * @param GetHistoricalReportRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<StreamInterface|null>
      * @link https://learn.microsoft.com/graph/api/intune-reporting-devicemanagementreports-gethistoricalreport?view=graph-rest-1.0 Find more info here
     */
     public function post(GetHistoricalReportPostRequestBody $body, ?GetHistoricalReportRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -66,6 +66,7 @@ class GetHistoricalReportRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/octet-stream, application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

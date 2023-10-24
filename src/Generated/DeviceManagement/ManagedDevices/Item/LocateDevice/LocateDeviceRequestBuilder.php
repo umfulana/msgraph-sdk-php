@@ -33,7 +33,7 @@ class LocateDeviceRequestBuilder extends BaseRequestBuilder
     /**
      * Locate a device
      * @param LocateDeviceRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/intune-devices-manageddevice-locatedevice?view=graph-rest-1.0 Find more info here
     */
     public function post(?LocateDeviceRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -63,6 +63,7 @@ class LocateDeviceRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 

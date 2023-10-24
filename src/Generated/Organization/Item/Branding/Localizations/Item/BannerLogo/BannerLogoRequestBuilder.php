@@ -34,7 +34,7 @@ class BannerLogoRequestBuilder extends BaseRequestBuilder
     /**
      * A banner version of your company logo that appears on the sign-in page. The allowed types are PNG or JPEG not larger than 36 × 245 pixels. We recommend using a transparent image with no padding around the logo.
      * @param BannerLogoRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<StreamInterface|null>
      * @link https://learn.microsoft.com/graph/api/organizationalbranding-list-localizations?view=graph-rest-1.0 Find more info here
     */
     public function get(?BannerLogoRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -54,7 +54,7 @@ class BannerLogoRequestBuilder extends BaseRequestBuilder
      * A banner version of your company logo that appears on the sign-in page. The allowed types are PNG or JPEG not larger than 36 × 245 pixels. We recommend using a transparent image with no padding around the logo.
      * @param StreamInterface $body Binary request body
      * @param BannerLogoRequestBuilderPutRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<StreamInterface|null>
     */
     public function put(StreamInterface $body, ?BannerLogoRequestBuilderPutRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPutRequestInformation($body, $requestConfiguration);
@@ -83,6 +83,7 @@ class BannerLogoRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/octet-stream, application/json, application/json");
         return $requestInfo;
     }
 
@@ -101,7 +102,8 @@ class BannerLogoRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
-        $requestInfo->setStreamContent($body);
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
+        $requestInfo->setStreamContent($body, "application/octet-stream");
         return $requestInfo;
     }
 

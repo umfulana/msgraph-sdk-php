@@ -34,7 +34,7 @@ class RestartRequestBuilder extends BaseRequestBuilder
      * Restart a stopped synchronization job, forcing it to reprocess all the objects in the directory. Optionally clears existing the synchronization state and previous errors. This API is available in the following national cloud deployments.
      * @param RestartPostRequestBody $body The request body
      * @param RestartRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/synchronization-synchronizationjob-restart?view=graph-rest-1.0 Find more info here
     */
     public function post(RestartPostRequestBody $body, ?RestartRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -65,6 +65,7 @@ class RestartRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

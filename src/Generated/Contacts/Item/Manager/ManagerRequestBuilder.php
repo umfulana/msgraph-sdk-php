@@ -34,7 +34,7 @@ class ManagerRequestBuilder extends BaseRequestBuilder
     /**
      * Get this organizational contact's manager. This API is available in the following national cloud deployments.
      * @param ManagerRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DirectoryObject|null>
      * @link https://learn.microsoft.com/graph/api/orgcontact-get-manager?view=graph-rest-1.0 Find more info here
     */
     public function get(?ManagerRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -60,7 +60,6 @@ class ManagerRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -68,6 +67,7 @@ class ManagerRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

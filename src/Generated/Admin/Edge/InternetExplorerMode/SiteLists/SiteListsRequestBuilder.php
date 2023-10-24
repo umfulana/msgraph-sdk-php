@@ -55,7 +55,7 @@ class SiteListsRequestBuilder extends BaseRequestBuilder
     /**
      * Get a list of the browserSiteList objects and their properties. This API is available in the following national cloud deployments.
      * @param SiteListsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<BrowserSiteListCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/internetexplorermode-list-sitelists?view=graph-rest-1.0 Find more info here
     */
     public function get(?SiteListsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -75,7 +75,7 @@ class SiteListsRequestBuilder extends BaseRequestBuilder
      * Create a new browserSiteList object to support Internet Explorer mode. This API is available in the following national cloud deployments.
      * @param BrowserSiteList $body The request body
      * @param SiteListsRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<BrowserSiteList|null>
      * @link https://learn.microsoft.com/graph/api/internetexplorermode-post-sitelists?view=graph-rest-1.0 Find more info here
     */
     public function post(BrowserSiteList $body, ?SiteListsRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -101,7 +101,6 @@ class SiteListsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -109,6 +108,7 @@ class SiteListsRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -123,11 +123,11 @@ class SiteListsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

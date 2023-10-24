@@ -122,7 +122,7 @@ class WorkbookTableItemRequestBuilder extends BaseRequestBuilder
     /**
      * Deletes the table. This API is available in the following national cloud deployments.
      * @param WorkbookTableItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/table-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?WorkbookTableItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -141,7 +141,7 @@ class WorkbookTableItemRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve the properties and relationships of table object. This API is available in the following national cloud deployments.
      * @param WorkbookTableItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<WorkbookTable|null>
      * @link https://learn.microsoft.com/graph/api/table-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?WorkbookTableItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -161,7 +161,7 @@ class WorkbookTableItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of table object. This API is available in the following national cloud deployments.
      * @param WorkbookTable $body The request body
      * @param WorkbookTableItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<WorkbookTable|null>
      * @link https://learn.microsoft.com/graph/api/table-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(WorkbookTable $body, ?WorkbookTableItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -191,6 +191,7 @@ class WorkbookTableItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -204,7 +205,6 @@ class WorkbookTableItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -212,6 +212,7 @@ class WorkbookTableItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -226,11 +227,11 @@ class WorkbookTableItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

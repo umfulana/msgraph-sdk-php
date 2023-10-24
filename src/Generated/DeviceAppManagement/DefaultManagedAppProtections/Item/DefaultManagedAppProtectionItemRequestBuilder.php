@@ -50,7 +50,7 @@ class DefaultManagedAppProtectionItemRequestBuilder extends BaseRequestBuilder
     /**
      * Deletes a defaultManagedAppProtection.
      * @param DefaultManagedAppProtectionItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/intune-mam-defaultmanagedappprotection-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?DefaultManagedAppProtectionItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -69,7 +69,7 @@ class DefaultManagedAppProtectionItemRequestBuilder extends BaseRequestBuilder
     /**
      * Read properties and relationships of the defaultManagedAppProtection object.
      * @param DefaultManagedAppProtectionItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DefaultManagedAppProtection|null>
      * @link https://learn.microsoft.com/graph/api/intune-mam-defaultmanagedappprotection-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?DefaultManagedAppProtectionItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -89,7 +89,7 @@ class DefaultManagedAppProtectionItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of a defaultManagedAppProtection object.
      * @param DefaultManagedAppProtection $body The request body
      * @param DefaultManagedAppProtectionItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DefaultManagedAppProtection|null>
      * @link https://learn.microsoft.com/graph/api/intune-mam-defaultmanagedappprotection-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(DefaultManagedAppProtection $body, ?DefaultManagedAppProtectionItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -119,6 +119,7 @@ class DefaultManagedAppProtectionItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -132,7 +133,6 @@ class DefaultManagedAppProtectionItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -140,6 +140,7 @@ class DefaultManagedAppProtectionItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -154,11 +155,11 @@ class DefaultManagedAppProtectionItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

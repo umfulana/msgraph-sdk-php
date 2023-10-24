@@ -34,7 +34,7 @@ class TeamsAppSettingsRequestBuilder extends BaseRequestBuilder
     /**
      * Delete navigation property teamsAppSettings for teamwork
      * @param TeamsAppSettingsRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?TeamsAppSettingsRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -52,7 +52,7 @@ class TeamsAppSettingsRequestBuilder extends BaseRequestBuilder
     /**
      * Get the tenant-wide teamsAppSettings for all Teams apps in the tenant. This API is available in the following national cloud deployments.
      * @param TeamsAppSettingsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<TeamsAppSettings|null>
      * @link https://learn.microsoft.com/graph/api/teamsappsettings-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?TeamsAppSettingsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -72,7 +72,7 @@ class TeamsAppSettingsRequestBuilder extends BaseRequestBuilder
      * Update the tenant-wide teamsAppSettings for all Teams apps in the tenant. This API is available in the following national cloud deployments.
      * @param TeamsAppSettings $body The request body
      * @param TeamsAppSettingsRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<TeamsAppSettings|null>
      * @link https://learn.microsoft.com/graph/api/teamsappsettings-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(TeamsAppSettings $body, ?TeamsAppSettingsRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -102,6 +102,7 @@ class TeamsAppSettingsRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -115,7 +116,6 @@ class TeamsAppSettingsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -123,6 +123,7 @@ class TeamsAppSettingsRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -137,11 +138,11 @@ class TeamsAppSettingsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

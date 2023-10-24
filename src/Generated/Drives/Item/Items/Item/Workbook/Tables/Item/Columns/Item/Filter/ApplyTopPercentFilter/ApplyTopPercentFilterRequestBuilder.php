@@ -34,7 +34,7 @@ class ApplyTopPercentFilterRequestBuilder extends BaseRequestBuilder
      * Invoke action applyTopPercentFilter
      * @param ApplyTopPercentFilterPostRequestBody $body The request body
      * @param ApplyTopPercentFilterRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function post(ApplyTopPercentFilterPostRequestBody $body, ?ApplyTopPercentFilterRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPostRequestInformation($body, $requestConfiguration);
@@ -64,6 +64,7 @@ class ApplyTopPercentFilterRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

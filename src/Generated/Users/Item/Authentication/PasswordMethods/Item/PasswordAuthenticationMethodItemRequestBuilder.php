@@ -34,7 +34,7 @@ class PasswordAuthenticationMethodItemRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve a password that's registered to a user, represented by a passwordAuthenticationMethod object. For security, the password itself will never be returned in the object and the password property is always null. This API is available in the following national cloud deployments.
      * @param PasswordAuthenticationMethodItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<PasswordAuthenticationMethod|null>
      * @link https://learn.microsoft.com/graph/api/passwordauthenticationmethod-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?PasswordAuthenticationMethodItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -60,7 +60,6 @@ class PasswordAuthenticationMethodItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -68,6 +67,7 @@ class PasswordAuthenticationMethodItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

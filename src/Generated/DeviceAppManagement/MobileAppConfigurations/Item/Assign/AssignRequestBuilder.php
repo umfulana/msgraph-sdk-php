@@ -34,7 +34,7 @@ class AssignRequestBuilder extends BaseRequestBuilder
      * Not yet documented
      * @param AssignPostRequestBody $body The request body
      * @param AssignRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/intune-apps-manageddevicemobileappconfiguration-assign?view=graph-rest-1.0 Find more info here
     */
     public function post(AssignPostRequestBody $body, ?AssignRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -65,6 +65,7 @@ class AssignRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

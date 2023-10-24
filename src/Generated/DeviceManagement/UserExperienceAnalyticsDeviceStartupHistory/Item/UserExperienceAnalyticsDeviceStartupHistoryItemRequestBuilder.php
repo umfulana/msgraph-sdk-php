@@ -34,7 +34,7 @@ class UserExperienceAnalyticsDeviceStartupHistoryItemRequestBuilder extends Base
     /**
      * Delete navigation property userExperienceAnalyticsDeviceStartupHistory for deviceManagement
      * @param UserExperienceAnalyticsDeviceStartupHistoryItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?UserExperienceAnalyticsDeviceStartupHistoryItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -52,7 +52,7 @@ class UserExperienceAnalyticsDeviceStartupHistoryItemRequestBuilder extends Base
     /**
      * User experience analytics device Startup History
      * @param UserExperienceAnalyticsDeviceStartupHistoryItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UserExperienceAnalyticsDeviceStartupHistory|null>
     */
     public function get(?UserExperienceAnalyticsDeviceStartupHistoryItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -71,7 +71,7 @@ class UserExperienceAnalyticsDeviceStartupHistoryItemRequestBuilder extends Base
      * Update the navigation property userExperienceAnalyticsDeviceStartupHistory in deviceManagement
      * @param UserExperienceAnalyticsDeviceStartupHistory $body The request body
      * @param UserExperienceAnalyticsDeviceStartupHistoryItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UserExperienceAnalyticsDeviceStartupHistory|null>
     */
     public function patch(UserExperienceAnalyticsDeviceStartupHistory $body, ?UserExperienceAnalyticsDeviceStartupHistoryItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPatchRequestInformation($body, $requestConfiguration);
@@ -100,6 +100,7 @@ class UserExperienceAnalyticsDeviceStartupHistoryItemRequestBuilder extends Base
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -113,7 +114,6 @@ class UserExperienceAnalyticsDeviceStartupHistoryItemRequestBuilder extends Base
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -121,6 +121,7 @@ class UserExperienceAnalyticsDeviceStartupHistoryItemRequestBuilder extends Base
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -135,11 +136,11 @@ class UserExperienceAnalyticsDeviceStartupHistoryItemRequestBuilder extends Base
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

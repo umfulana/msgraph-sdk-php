@@ -71,7 +71,7 @@ class UserAttributeAssignmentsRequestBuilder extends BaseRequestBuilder
     /**
      * Get the identityUserFlowAttributeAssignment resources from the userAttributeAssignments navigation property in a b2xIdentityUserFlow. This API is available in the following national cloud deployments.
      * @param UserAttributeAssignmentsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<IdentityUserFlowAttributeAssignmentCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/b2xidentityuserflow-list-userattributeassignments?view=graph-rest-1.0 Find more info here
     */
     public function get(?UserAttributeAssignmentsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -91,7 +91,7 @@ class UserAttributeAssignmentsRequestBuilder extends BaseRequestBuilder
      * Create a new identityUserFlowAttributeAssignment object in a b2xIdentityUserFlow. This API is available in the following national cloud deployments.
      * @param IdentityUserFlowAttributeAssignment $body The request body
      * @param UserAttributeAssignmentsRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<IdentityUserFlowAttributeAssignment|null>
      * @link https://learn.microsoft.com/graph/api/b2xidentityuserflow-post-userattributeassignments?view=graph-rest-1.0 Find more info here
     */
     public function post(IdentityUserFlowAttributeAssignment $body, ?UserAttributeAssignmentsRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -117,7 +117,6 @@ class UserAttributeAssignmentsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -125,6 +124,7 @@ class UserAttributeAssignmentsRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -139,11 +139,11 @@ class UserAttributeAssignmentsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

@@ -33,7 +33,7 @@ class RemoveFavoriteRequestBuilder extends BaseRequestBuilder
     /**
      * Remove the group from the list of the current user's favorite groups. Supported for Microsoft 365 groups only. This API is available in the following national cloud deployments.
      * @param RemoveFavoriteRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/group-removefavorite?view=graph-rest-1.0 Find more info here
     */
     public function post(?RemoveFavoriteRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -63,6 +63,7 @@ class RemoveFavoriteRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 

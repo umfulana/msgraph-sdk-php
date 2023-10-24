@@ -34,7 +34,7 @@ class DelegatedAdminAccessAssignmentItemRequestBuilder extends BaseRequestBuilde
     /**
      * Delete a delegatedAdminAccessAssignment object. This API is available in the following national cloud deployments.
      * @param DelegatedAdminAccessAssignmentItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/delegatedadminaccessassignment-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?DelegatedAdminAccessAssignmentItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -53,7 +53,7 @@ class DelegatedAdminAccessAssignmentItemRequestBuilder extends BaseRequestBuilde
     /**
      * Read the properties of a delegatedAdminAccessAssignment object. This API is available in the following national cloud deployments.
      * @param DelegatedAdminAccessAssignmentItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DelegatedAdminAccessAssignment|null>
      * @link https://learn.microsoft.com/graph/api/delegatedadminaccessassignment-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?DelegatedAdminAccessAssignmentItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -73,7 +73,7 @@ class DelegatedAdminAccessAssignmentItemRequestBuilder extends BaseRequestBuilde
      * Update the properties of a delegatedAdminAccessAssignment object. This API is available in the following national cloud deployments.
      * @param DelegatedAdminAccessAssignment $body The request body
      * @param DelegatedAdminAccessAssignmentItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DelegatedAdminAccessAssignment|null>
      * @link https://learn.microsoft.com/graph/api/delegatedadminaccessassignment-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(DelegatedAdminAccessAssignment $body, ?DelegatedAdminAccessAssignmentItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -103,6 +103,7 @@ class DelegatedAdminAccessAssignmentItemRequestBuilder extends BaseRequestBuilde
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -116,7 +117,6 @@ class DelegatedAdminAccessAssignmentItemRequestBuilder extends BaseRequestBuilde
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -124,6 +124,7 @@ class DelegatedAdminAccessAssignmentItemRequestBuilder extends BaseRequestBuilde
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -138,11 +139,11 @@ class DelegatedAdminAccessAssignmentItemRequestBuilder extends BaseRequestBuilde
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

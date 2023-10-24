@@ -33,7 +33,7 @@ class DisableSmsSignInRequestBuilder extends BaseRequestBuilder
     /**
      * Disable SMS sign-in for an existing mobile phone number registered to a user. The number will no longer be available for SMS sign-in, which can prevent your user from signing in. This API is available in the following national cloud deployments.
      * @param DisableSmsSignInRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/phoneauthenticationmethod-disablesmssignin?view=graph-rest-1.0 Find more info here
     */
     public function post(?DisableSmsSignInRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -63,6 +63,7 @@ class DisableSmsSignInRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 

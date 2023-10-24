@@ -50,7 +50,7 @@ class GroupLifecyclePolicyItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete a groupLifecyclePolicy. This API is available in the following national cloud deployments.
      * @param GroupLifecyclePolicyItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/grouplifecyclepolicy-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?GroupLifecyclePolicyItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -69,7 +69,7 @@ class GroupLifecyclePolicyItemRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve the properties and relationships of a groupLifecyclePolicies object. This API is available in the following national cloud deployments.
      * @param GroupLifecyclePolicyItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<GroupLifecyclePolicy|null>
      * @link https://learn.microsoft.com/graph/api/grouplifecyclepolicy-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?GroupLifecyclePolicyItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -89,7 +89,7 @@ class GroupLifecyclePolicyItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of a groupLifecyclePolicygroupLifecyclePolicy resource type object. This API is available in the following national cloud deployments.
      * @param GroupLifecyclePolicy $body The request body
      * @param GroupLifecyclePolicyItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<GroupLifecyclePolicy|null>
      * @link https://learn.microsoft.com/graph/api/grouplifecyclepolicy-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(GroupLifecyclePolicy $body, ?GroupLifecyclePolicyItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -119,6 +119,7 @@ class GroupLifecyclePolicyItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -132,7 +133,6 @@ class GroupLifecyclePolicyItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -140,6 +140,7 @@ class GroupLifecyclePolicyItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -154,11 +155,11 @@ class GroupLifecyclePolicyItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

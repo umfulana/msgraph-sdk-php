@@ -34,7 +34,7 @@ class MarkChatReadForUserRequestBuilder extends BaseRequestBuilder
      * Mark a chat as read for a user. This API is available in the following national cloud deployments.
      * @param MarkChatReadForUserPostRequestBody $body The request body
      * @param MarkChatReadForUserRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/chat-markchatreadforuser?view=graph-rest-1.0 Find more info here
     */
     public function post(MarkChatReadForUserPostRequestBody $body, ?MarkChatReadForUserRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -65,6 +65,7 @@ class MarkChatReadForUserRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

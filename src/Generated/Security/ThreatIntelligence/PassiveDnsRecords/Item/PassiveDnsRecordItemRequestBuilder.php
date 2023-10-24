@@ -50,7 +50,7 @@ class PassiveDnsRecordItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete navigation property passiveDnsRecords for security
      * @param PassiveDnsRecordItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?PassiveDnsRecordItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -68,7 +68,7 @@ class PassiveDnsRecordItemRequestBuilder extends BaseRequestBuilder
     /**
      * Read the properties and relationships of a passiveDnsRecord object. This API is available in the following national cloud deployments.
      * @param PassiveDnsRecordItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<PassiveDnsRecord|null>
      * @link https://learn.microsoft.com/graph/api/security-passivednsrecord-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?PassiveDnsRecordItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -88,7 +88,7 @@ class PassiveDnsRecordItemRequestBuilder extends BaseRequestBuilder
      * Update the navigation property passiveDnsRecords in security
      * @param PassiveDnsRecord $body The request body
      * @param PassiveDnsRecordItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<PassiveDnsRecord|null>
     */
     public function patch(PassiveDnsRecord $body, ?PassiveDnsRecordItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPatchRequestInformation($body, $requestConfiguration);
@@ -117,6 +117,7 @@ class PassiveDnsRecordItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -130,7 +131,6 @@ class PassiveDnsRecordItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -138,6 +138,7 @@ class PassiveDnsRecordItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -152,11 +153,11 @@ class PassiveDnsRecordItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

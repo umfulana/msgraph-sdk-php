@@ -63,7 +63,7 @@ class AssignmentCategoriesRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve a list of educationCategory objects. Only teachers can perform this operation. This API is available in the following national cloud deployments.
      * @param AssignmentCategoriesRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<EducationCategoryCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/educationclass-list-categories?view=graph-rest-1.0 Find more info here
     */
     public function get(?AssignmentCategoriesRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -83,7 +83,7 @@ class AssignmentCategoriesRequestBuilder extends BaseRequestBuilder
      * Create a new educationCategory on an educationClass. Only teachers can perform this operation. This API is available in the following national cloud deployments.
      * @param EducationCategory $body The request body
      * @param AssignmentCategoriesRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<EducationCategory|null>
      * @link https://learn.microsoft.com/graph/api/educationclass-post-category?view=graph-rest-1.0 Find more info here
     */
     public function post(EducationCategory $body, ?AssignmentCategoriesRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -109,7 +109,6 @@ class AssignmentCategoriesRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -117,6 +116,7 @@ class AssignmentCategoriesRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -131,11 +131,11 @@ class AssignmentCategoriesRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

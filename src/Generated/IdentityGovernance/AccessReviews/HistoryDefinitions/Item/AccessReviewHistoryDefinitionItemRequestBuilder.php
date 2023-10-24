@@ -42,7 +42,7 @@ class AccessReviewHistoryDefinitionItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete navigation property historyDefinitions for identityGovernance
      * @param AccessReviewHistoryDefinitionItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?AccessReviewHistoryDefinitionItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -60,7 +60,7 @@ class AccessReviewHistoryDefinitionItemRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve an accessReviewHistoryDefinition object by its identifier. All the properties of the access review history definition object are returned. If the definition is 30 days or older, a 404 Not Found error is returned. This API is available in the following national cloud deployments.
      * @param AccessReviewHistoryDefinitionItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<AccessReviewHistoryDefinition|null>
      * @link https://learn.microsoft.com/graph/api/accessreviewhistorydefinition-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?AccessReviewHistoryDefinitionItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -80,7 +80,7 @@ class AccessReviewHistoryDefinitionItemRequestBuilder extends BaseRequestBuilder
      * Update the navigation property historyDefinitions in identityGovernance
      * @param AccessReviewHistoryDefinition $body The request body
      * @param AccessReviewHistoryDefinitionItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<AccessReviewHistoryDefinition|null>
     */
     public function patch(AccessReviewHistoryDefinition $body, ?AccessReviewHistoryDefinitionItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPatchRequestInformation($body, $requestConfiguration);
@@ -109,6 +109,7 @@ class AccessReviewHistoryDefinitionItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -122,7 +123,6 @@ class AccessReviewHistoryDefinitionItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -130,6 +130,7 @@ class AccessReviewHistoryDefinitionItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -144,11 +145,11 @@ class AccessReviewHistoryDefinitionItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

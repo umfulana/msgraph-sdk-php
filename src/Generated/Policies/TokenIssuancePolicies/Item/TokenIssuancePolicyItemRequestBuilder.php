@@ -42,7 +42,7 @@ class TokenIssuancePolicyItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete a tokenIssuancePolicy object. This API is available in the following national cloud deployments.
      * @param TokenIssuancePolicyItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/tokenissuancepolicy-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?TokenIssuancePolicyItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -59,9 +59,9 @@ class TokenIssuancePolicyItemRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * The policy that specifies the characteristics of SAML tokens issued by Azure AD.
+     * The policy that specifies the characteristics of SAML tokens issued by Microsoft Entra ID.
      * @param TokenIssuancePolicyItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<TokenIssuancePolicy|null>
     */
     public function get(?TokenIssuancePolicyItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -80,7 +80,7 @@ class TokenIssuancePolicyItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of a tokenIssuancePolicy object. This API is available in the following national cloud deployments.
      * @param TokenIssuancePolicy $body The request body
      * @param TokenIssuancePolicyItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<TokenIssuancePolicy|null>
      * @link https://learn.microsoft.com/graph/api/tokenissuancepolicy-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(TokenIssuancePolicy $body, ?TokenIssuancePolicyItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -110,11 +110,12 @@ class TokenIssuancePolicyItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
     /**
-     * The policy that specifies the characteristics of SAML tokens issued by Azure AD.
+     * The policy that specifies the characteristics of SAML tokens issued by Microsoft Entra ID.
      * @param TokenIssuancePolicyItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return RequestInformation
     */
@@ -123,7 +124,6 @@ class TokenIssuancePolicyItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -131,6 +131,7 @@ class TokenIssuancePolicyItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -145,11 +146,11 @@ class TokenIssuancePolicyItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

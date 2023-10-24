@@ -32,9 +32,9 @@ class ScopedRoleMembershipItemRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * Remove an Azure Active Directory (Azure AD) role assignment with administrative unit scope. This API is available in the following national cloud deployments.
+     * Remove a Microsoft Entra role assignment with administrative unit scope. This API is available in the following national cloud deployments.
      * @param ScopedRoleMembershipItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/administrativeunit-delete-scopedrolemembers?view=graph-rest-1.0 Find more info here
     */
     public function delete(?ScopedRoleMembershipItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -51,9 +51,9 @@ class ScopedRoleMembershipItemRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * Get an Azure Active Directory (Azure AD) role assignment with administrative unit scope. This API is available in the following national cloud deployments.
+     * Get a Microsoft Entra role assignment with administrative unit scope. This API is available in the following national cloud deployments.
      * @param ScopedRoleMembershipItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ScopedRoleMembership|null>
      * @link https://learn.microsoft.com/graph/api/administrativeunit-get-scopedrolemembers?view=graph-rest-1.0 Find more info here
     */
     public function get(?ScopedRoleMembershipItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -73,7 +73,7 @@ class ScopedRoleMembershipItemRequestBuilder extends BaseRequestBuilder
      * Update the navigation property scopedRoleMembers in directory
      * @param ScopedRoleMembership $body The request body
      * @param ScopedRoleMembershipItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ScopedRoleMembership|null>
     */
     public function patch(ScopedRoleMembership $body, ?ScopedRoleMembershipItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPatchRequestInformation($body, $requestConfiguration);
@@ -89,7 +89,7 @@ class ScopedRoleMembershipItemRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * Remove an Azure Active Directory (Azure AD) role assignment with administrative unit scope. This API is available in the following national cloud deployments.
+     * Remove a Microsoft Entra role assignment with administrative unit scope. This API is available in the following national cloud deployments.
      * @param ScopedRoleMembershipItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return RequestInformation
     */
@@ -102,11 +102,12 @@ class ScopedRoleMembershipItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
     /**
-     * Get an Azure Active Directory (Azure AD) role assignment with administrative unit scope. This API is available in the following national cloud deployments.
+     * Get a Microsoft Entra role assignment with administrative unit scope. This API is available in the following national cloud deployments.
      * @param ScopedRoleMembershipItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return RequestInformation
     */
@@ -115,7 +116,6 @@ class ScopedRoleMembershipItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -123,6 +123,7 @@ class ScopedRoleMembershipItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -137,11 +138,11 @@ class ScopedRoleMembershipItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

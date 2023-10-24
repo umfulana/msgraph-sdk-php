@@ -34,7 +34,7 @@ class OnenotePatchContentRequestBuilder extends BaseRequestBuilder
      * Invoke action onenotePatchContent
      * @param OnenotePatchContentPostRequestBody $body The request body
      * @param OnenotePatchContentRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function post(OnenotePatchContentPostRequestBody $body, ?OnenotePatchContentRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPostRequestInformation($body, $requestConfiguration);
@@ -64,6 +64,7 @@ class OnenotePatchContentRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

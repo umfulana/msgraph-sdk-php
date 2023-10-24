@@ -63,7 +63,7 @@ class JobsRequestBuilder extends BaseRequestBuilder
     /**
      * List existing jobs for a given application instance (service principal). This API is available in the following national cloud deployments.
      * @param JobsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<SynchronizationJobCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/synchronization-synchronization-list-jobs?view=graph-rest-1.0 Find more info here
     */
     public function get(?JobsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -83,7 +83,7 @@ class JobsRequestBuilder extends BaseRequestBuilder
      * Create new synchronization job with a default synchronization schema. The job is created in a disabled state. Call Start job to start synchronization. This API is available in the following national cloud deployments.
      * @param SynchronizationJob $body The request body
      * @param JobsRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<SynchronizationJob|null>
      * @link https://learn.microsoft.com/graph/api/synchronization-synchronization-post-jobs?view=graph-rest-1.0 Find more info here
     */
     public function post(SynchronizationJob $body, ?JobsRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -109,7 +109,6 @@ class JobsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -117,6 +116,7 @@ class JobsRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -131,11 +131,11 @@ class JobsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

@@ -55,7 +55,7 @@ class UserExperienceAnalyticsDeviceStartupProcessPerformanceRequestBuilder exten
     /**
      * User experience analytics device Startup Process Performance
      * @param UserExperienceAnalyticsDeviceStartupProcessPerformanceRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UserExperienceAnalyticsDeviceStartupProcessPerformanceCollectionResponse|null>
     */
     public function get(?UserExperienceAnalyticsDeviceStartupProcessPerformanceRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -74,7 +74,7 @@ class UserExperienceAnalyticsDeviceStartupProcessPerformanceRequestBuilder exten
      * Create new navigation property to userExperienceAnalyticsDeviceStartupProcessPerformance for deviceManagement
      * @param UserExperienceAnalyticsDeviceStartupProcessPerformance $body The request body
      * @param UserExperienceAnalyticsDeviceStartupProcessPerformanceRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UserExperienceAnalyticsDeviceStartupProcessPerformance|null>
     */
     public function post(UserExperienceAnalyticsDeviceStartupProcessPerformance $body, ?UserExperienceAnalyticsDeviceStartupProcessPerformanceRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPostRequestInformation($body, $requestConfiguration);
@@ -99,7 +99,6 @@ class UserExperienceAnalyticsDeviceStartupProcessPerformanceRequestBuilder exten
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -107,6 +106,7 @@ class UserExperienceAnalyticsDeviceStartupProcessPerformanceRequestBuilder exten
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -121,11 +121,11 @@ class UserExperienceAnalyticsDeviceStartupProcessPerformanceRequestBuilder exten
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

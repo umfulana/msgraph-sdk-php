@@ -42,7 +42,7 @@ class GraphWindowsMobileMSIRequestBuilder extends BaseRequestBuilder
     /**
      * Get the items of type microsoft.graph.windowsMobileMSI in the microsoft.graph.mobileApp collection
      * @param GraphWindowsMobileMSIRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<WindowsMobileMSICollectionResponse|null>
     */
     public function get(?GraphWindowsMobileMSIRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -67,7 +67,6 @@ class GraphWindowsMobileMSIRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -75,6 +74,7 @@ class GraphWindowsMobileMSIRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

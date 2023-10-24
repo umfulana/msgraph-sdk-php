@@ -42,7 +42,7 @@ class CustomSecurityAttributeDefinitionItemRequestBuilder extends BaseRequestBui
     /**
      * Delete navigation property customSecurityAttributeDefinitions for directory
      * @param CustomSecurityAttributeDefinitionItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?CustomSecurityAttributeDefinitionItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -60,7 +60,7 @@ class CustomSecurityAttributeDefinitionItemRequestBuilder extends BaseRequestBui
     /**
      * Read the properties and relationships of a customSecurityAttributeDefinition object. This API is available in the following national cloud deployments.
      * @param CustomSecurityAttributeDefinitionItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<CustomSecurityAttributeDefinition|null>
      * @link https://learn.microsoft.com/graph/api/customsecurityattributedefinition-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?CustomSecurityAttributeDefinitionItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -80,7 +80,7 @@ class CustomSecurityAttributeDefinitionItemRequestBuilder extends BaseRequestBui
      * Update the properties of a customSecurityAttributeDefinition object. This API is available in the following national cloud deployments.
      * @param CustomSecurityAttributeDefinition $body The request body
      * @param CustomSecurityAttributeDefinitionItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<CustomSecurityAttributeDefinition|null>
      * @link https://learn.microsoft.com/graph/api/customsecurityattributedefinition-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(CustomSecurityAttributeDefinition $body, ?CustomSecurityAttributeDefinitionItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -110,6 +110,7 @@ class CustomSecurityAttributeDefinitionItemRequestBuilder extends BaseRequestBui
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -123,7 +124,6 @@ class CustomSecurityAttributeDefinitionItemRequestBuilder extends BaseRequestBui
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -131,6 +131,7 @@ class CustomSecurityAttributeDefinitionItemRequestBuilder extends BaseRequestBui
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -145,11 +146,11 @@ class CustomSecurityAttributeDefinitionItemRequestBuilder extends BaseRequestBui
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

@@ -66,7 +66,7 @@ class SetItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete a set object. This API is available in the following national cloud deployments.
      * @param SetItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/termstore-set-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?SetItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -85,7 +85,7 @@ class SetItemRequestBuilder extends BaseRequestBuilder
     /**
      * Read the properties and relationships of a set object. This API is available in the following national cloud deployments.
      * @param SetItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<Set|null>
      * @link https://learn.microsoft.com/graph/api/termstore-set-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?SetItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -105,7 +105,7 @@ class SetItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of a set object. This API is available in the following national cloud deployments.
      * @param Set $body The request body
      * @param SetItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<Set|null>
      * @link https://learn.microsoft.com/graph/api/termstore-set-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(Set $body, ?SetItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -135,6 +135,7 @@ class SetItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -148,7 +149,6 @@ class SetItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -156,6 +156,7 @@ class SetItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -170,11 +171,11 @@ class SetItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

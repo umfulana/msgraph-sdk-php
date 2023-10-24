@@ -33,7 +33,7 @@ class PublishRequestBuilder extends BaseRequestBuilder
     /**
      * Publishes a contentType][] present in the content type hub site. This API is available in the following [national cloud deployments.
      * @param PublishRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/contenttype-publish?view=graph-rest-1.0 Find more info here
     */
     public function post(?PublishRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -63,6 +63,7 @@ class PublishRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 

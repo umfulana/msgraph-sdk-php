@@ -70,7 +70,7 @@ class DirectReportsRequestBuilder extends BaseRequestBuilder
     /**
      * The users and contacts that report to the user. (The users and contacts that have their manager property set to this user.) Read-only. Nullable. Supports $expand.
      * @param DirectReportsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DirectoryObjectCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/user-list-directreports?view=graph-rest-1.0 Find more info here
     */
     public function get(?DirectReportsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -96,7 +96,6 @@ class DirectReportsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -104,6 +103,7 @@ class DirectReportsRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

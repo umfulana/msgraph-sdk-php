@@ -34,7 +34,7 @@ class DeviceCompliancePolicyAssignmentItemRequestBuilder extends BaseRequestBuil
     /**
      * Deletes a deviceCompliancePolicyAssignment.
      * @param DeviceCompliancePolicyAssignmentItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/intune-deviceconfig-devicecompliancepolicyassignment-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?DeviceCompliancePolicyAssignmentItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -53,7 +53,7 @@ class DeviceCompliancePolicyAssignmentItemRequestBuilder extends BaseRequestBuil
     /**
      * Read properties and relationships of the deviceCompliancePolicyAssignment object.
      * @param DeviceCompliancePolicyAssignmentItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DeviceCompliancePolicyAssignment|null>
      * @link https://learn.microsoft.com/graph/api/intune-deviceconfig-devicecompliancepolicyassignment-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?DeviceCompliancePolicyAssignmentItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -73,7 +73,7 @@ class DeviceCompliancePolicyAssignmentItemRequestBuilder extends BaseRequestBuil
      * Update the properties of a deviceCompliancePolicyAssignment object.
      * @param DeviceCompliancePolicyAssignment $body The request body
      * @param DeviceCompliancePolicyAssignmentItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DeviceCompliancePolicyAssignment|null>
      * @link https://learn.microsoft.com/graph/api/intune-deviceconfig-devicecompliancepolicyassignment-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(DeviceCompliancePolicyAssignment $body, ?DeviceCompliancePolicyAssignmentItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -103,6 +103,7 @@ class DeviceCompliancePolicyAssignmentItemRequestBuilder extends BaseRequestBuil
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -116,7 +117,6 @@ class DeviceCompliancePolicyAssignmentItemRequestBuilder extends BaseRequestBuil
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -124,6 +124,7 @@ class DeviceCompliancePolicyAssignmentItemRequestBuilder extends BaseRequestBuil
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -138,11 +139,11 @@ class DeviceCompliancePolicyAssignmentItemRequestBuilder extends BaseRequestBuil
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

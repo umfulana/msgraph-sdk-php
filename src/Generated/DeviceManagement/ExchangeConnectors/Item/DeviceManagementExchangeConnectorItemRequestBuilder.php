@@ -42,7 +42,7 @@ class DeviceManagementExchangeConnectorItemRequestBuilder extends BaseRequestBui
     /**
      * Deletes a deviceManagementExchangeConnector.
      * @param DeviceManagementExchangeConnectorItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/intune-onboarding-devicemanagementexchangeconnector-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?DeviceManagementExchangeConnectorItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -61,7 +61,7 @@ class DeviceManagementExchangeConnectorItemRequestBuilder extends BaseRequestBui
     /**
      * Read properties and relationships of the deviceManagementExchangeConnector object.
      * @param DeviceManagementExchangeConnectorItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DeviceManagementExchangeConnector|null>
      * @link https://learn.microsoft.com/graph/api/intune-onboarding-devicemanagementexchangeconnector-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?DeviceManagementExchangeConnectorItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -81,7 +81,7 @@ class DeviceManagementExchangeConnectorItemRequestBuilder extends BaseRequestBui
      * Update the properties of a deviceManagementExchangeConnector object.
      * @param DeviceManagementExchangeConnector $body The request body
      * @param DeviceManagementExchangeConnectorItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DeviceManagementExchangeConnector|null>
      * @link https://learn.microsoft.com/graph/api/intune-onboarding-devicemanagementexchangeconnector-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(DeviceManagementExchangeConnector $body, ?DeviceManagementExchangeConnectorItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -111,6 +111,7 @@ class DeviceManagementExchangeConnectorItemRequestBuilder extends BaseRequestBui
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -124,7 +125,6 @@ class DeviceManagementExchangeConnectorItemRequestBuilder extends BaseRequestBui
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -132,6 +132,7 @@ class DeviceManagementExchangeConnectorItemRequestBuilder extends BaseRequestBui
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -146,11 +147,11 @@ class DeviceManagementExchangeConnectorItemRequestBuilder extends BaseRequestBui
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

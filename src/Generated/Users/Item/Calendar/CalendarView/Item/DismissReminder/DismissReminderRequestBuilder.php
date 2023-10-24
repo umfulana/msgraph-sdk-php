@@ -33,7 +33,7 @@ class DismissReminderRequestBuilder extends BaseRequestBuilder
     /**
      * Dismiss a reminder that has been triggered for an event in a user calendar. This API is available in the following national cloud deployments.
      * @param DismissReminderRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/event-dismissreminder?view=graph-rest-1.0 Find more info here
     */
     public function post(?DismissReminderRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -63,6 +63,7 @@ class DismissReminderRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 

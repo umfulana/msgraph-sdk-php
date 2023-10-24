@@ -35,7 +35,7 @@ class AddRequestBuilder extends BaseRequestBuilder
      * Adds rows to the end of the table. Note that the API can accept multiple rows data using this API. Adding one row at a time could lead to performance degradation. The recommended approach would be to batch the rows together in a single call rather than doing single row insertion. For best results, collect the rows to be inserted on the application side and perform single rows add operation. Experiment with the number of rows to determine the ideal number of rows to use in single API call.  This API is available in the following national cloud deployments.
      * @param AddPostRequestBody $body The request body
      * @param AddRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<WorkbookTableRow|null>
      * @link https://learn.microsoft.com/graph/api/tablerowcollection-add?view=graph-rest-1.0 Find more info here
     */
     public function post(AddPostRequestBody $body, ?AddRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -62,11 +62,11 @@ class AddRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

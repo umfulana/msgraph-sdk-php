@@ -33,7 +33,7 @@ class SupportedLanguagesRequestBuilder extends BaseRequestBuilder
     /**
      * Get the list of locales and languages that are supported for the user, as configured on the user's mailbox server. When setting up an Outlook client, the user selects the preferred language from this supported list. You can subsequently get the preferred language bygetting the user's mailbox settings. This API is available in the following national cloud deployments.
      * @param SupportedLanguagesRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<SupportedLanguagesGetResponse|null>
      * @link https://learn.microsoft.com/graph/api/outlookuser-supportedlanguages?view=graph-rest-1.0 Find more info here
     */
     public function get(?SupportedLanguagesRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -59,7 +59,6 @@ class SupportedLanguagesRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -67,6 +66,7 @@ class SupportedLanguagesRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

@@ -34,7 +34,7 @@ class ManagedDeviceOverviewRequestBuilder extends BaseRequestBuilder
     /**
      * Read properties and relationships of the managedDeviceOverview object.
      * @param ManagedDeviceOverviewRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ManagedDeviceOverview|null>
      * @link https://learn.microsoft.com/graph/api/intune-devices-manageddeviceoverview-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?ManagedDeviceOverviewRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -60,7 +60,6 @@ class ManagedDeviceOverviewRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -68,6 +67,7 @@ class ManagedDeviceOverviewRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

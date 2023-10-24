@@ -34,7 +34,7 @@ class SendActivityNotificationRequestBuilder extends BaseRequestBuilder
      * Send an activity feed notification to a user. For more details about sending notifications and the requirements for doing so, see sending Teams activity notifications. This API is available in the following national cloud deployments.
      * @param SendActivityNotificationPostRequestBody $body The request body
      * @param SendActivityNotificationRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/userteamwork-sendactivitynotification?view=graph-rest-1.0 Find more info here
     */
     public function post(SendActivityNotificationPostRequestBody $body, ?SendActivityNotificationRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -65,6 +65,7 @@ class SendActivityNotificationRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

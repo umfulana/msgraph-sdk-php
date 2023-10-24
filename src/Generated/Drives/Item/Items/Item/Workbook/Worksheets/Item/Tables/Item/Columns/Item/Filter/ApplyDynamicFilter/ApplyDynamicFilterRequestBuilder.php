@@ -34,7 +34,7 @@ class ApplyDynamicFilterRequestBuilder extends BaseRequestBuilder
      * Invoke action applyDynamicFilter
      * @param ApplyDynamicFilterPostRequestBody $body The request body
      * @param ApplyDynamicFilterRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function post(ApplyDynamicFilterPostRequestBody $body, ?ApplyDynamicFilterRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPostRequestInformation($body, $requestConfiguration);
@@ -64,6 +64,7 @@ class ApplyDynamicFilterRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

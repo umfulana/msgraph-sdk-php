@@ -70,7 +70,7 @@ class TransitiveMemberOfRequestBuilder extends BaseRequestBuilder
     /**
      * Groups that this contact is a member of, including groups that the contact is nested under. Read-only. Nullable.
      * @param TransitiveMemberOfRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DirectoryObjectCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/orgcontact-list-transitivememberof?view=graph-rest-1.0 Find more info here
     */
     public function get(?TransitiveMemberOfRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -96,7 +96,6 @@ class TransitiveMemberOfRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -104,6 +103,7 @@ class TransitiveMemberOfRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

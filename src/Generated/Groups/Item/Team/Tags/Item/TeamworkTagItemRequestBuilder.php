@@ -42,7 +42,7 @@ class TeamworkTagItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete a tag object permanently. This API is available in the following national cloud deployments.
      * @param TeamworkTagItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/teamworktag-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?TeamworkTagItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -61,7 +61,7 @@ class TeamworkTagItemRequestBuilder extends BaseRequestBuilder
     /**
      * Read the properties and relationships of a tag object. This API is available in the following national cloud deployments.
      * @param TeamworkTagItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<TeamworkTag|null>
      * @link https://learn.microsoft.com/graph/api/teamworktag-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?TeamworkTagItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -81,7 +81,7 @@ class TeamworkTagItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of a tag object. This API is available in the following national cloud deployments.
      * @param TeamworkTag $body The request body
      * @param TeamworkTagItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<TeamworkTag|null>
      * @link https://learn.microsoft.com/graph/api/teamworktag-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(TeamworkTag $body, ?TeamworkTagItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -111,6 +111,7 @@ class TeamworkTagItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -124,7 +125,6 @@ class TeamworkTagItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -132,6 +132,7 @@ class TeamworkTagItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -146,11 +147,11 @@ class TeamworkTagItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

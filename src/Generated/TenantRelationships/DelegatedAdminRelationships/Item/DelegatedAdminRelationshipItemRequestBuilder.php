@@ -58,7 +58,7 @@ class DelegatedAdminRelationshipItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete a delegatedAdminRelationship object. A relationship can only be deleted if it's in the 'created' status.  This API is available in the following national cloud deployments.
      * @param DelegatedAdminRelationshipItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/delegatedadminrelationship-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?DelegatedAdminRelationshipItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -77,7 +77,7 @@ class DelegatedAdminRelationshipItemRequestBuilder extends BaseRequestBuilder
     /**
      * Read the properties of a delegatedAdminRelationship object. This API is available in the following national cloud deployments.
      * @param DelegatedAdminRelationshipItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DelegatedAdminRelationship|null>
      * @link https://learn.microsoft.com/graph/api/delegatedadminrelationship-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?DelegatedAdminRelationshipItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -97,7 +97,7 @@ class DelegatedAdminRelationshipItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of a delegatedAdminRelationship object. A relationship can only be updated if it's in the created status. This API is available in the following national cloud deployments.
      * @param DelegatedAdminRelationship $body The request body
      * @param DelegatedAdminRelationshipItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DelegatedAdminRelationship|null>
      * @link https://learn.microsoft.com/graph/api/delegatedadminrelationship-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(DelegatedAdminRelationship $body, ?DelegatedAdminRelationshipItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -127,6 +127,7 @@ class DelegatedAdminRelationshipItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -140,7 +141,6 @@ class DelegatedAdminRelationshipItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -148,6 +148,7 @@ class DelegatedAdminRelationshipItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -162,11 +163,11 @@ class DelegatedAdminRelationshipItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

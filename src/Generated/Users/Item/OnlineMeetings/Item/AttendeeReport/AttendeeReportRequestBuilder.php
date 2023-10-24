@@ -34,7 +34,7 @@ class AttendeeReportRequestBuilder extends BaseRequestBuilder
     /**
      * Get attendeeReport for the navigation property onlineMeetings from users
      * @param AttendeeReportRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<StreamInterface|null>
      * @link https://learn.microsoft.com/graph/api/onlinemeeting-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?AttendeeReportRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -54,7 +54,7 @@ class AttendeeReportRequestBuilder extends BaseRequestBuilder
      * Update attendeeReport for the navigation property onlineMeetings in users
      * @param StreamInterface $body Binary request body
      * @param AttendeeReportRequestBuilderPutRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<StreamInterface|null>
     */
     public function put(StreamInterface $body, ?AttendeeReportRequestBuilderPutRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPutRequestInformation($body, $requestConfiguration);
@@ -83,6 +83,7 @@ class AttendeeReportRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/octet-stream, application/json, application/json");
         return $requestInfo;
     }
 
@@ -101,7 +102,8 @@ class AttendeeReportRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
-        $requestInfo->setStreamContent($body);
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
+        $requestInfo->setStreamContent($body, "application/octet-stream");
         return $requestInfo;
     }
 

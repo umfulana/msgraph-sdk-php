@@ -50,7 +50,7 @@ class ContactFolderItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete contactFolder other than the default contactFolder. This API is available in the following national cloud deployments.
      * @param ContactFolderItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/contactfolder-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?ContactFolderItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -69,7 +69,7 @@ class ContactFolderItemRequestBuilder extends BaseRequestBuilder
     /**
      * Get a contact folder by using the contact folder ID. There are two scenarios where an app can get another user's contact folder: This API is available in the following national cloud deployments.
      * @param ContactFolderItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ContactFolder|null>
      * @link https://learn.microsoft.com/graph/api/contactfolder-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?ContactFolderItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -89,7 +89,7 @@ class ContactFolderItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of contactfolder object. This API is available in the following national cloud deployments.
      * @param ContactFolder $body The request body
      * @param ContactFolderItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ContactFolder|null>
      * @link https://learn.microsoft.com/graph/api/contactfolder-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(ContactFolder $body, ?ContactFolderItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -119,6 +119,7 @@ class ContactFolderItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -132,7 +133,6 @@ class ContactFolderItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -140,6 +140,7 @@ class ContactFolderItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -154,11 +155,11 @@ class ContactFolderItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

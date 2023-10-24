@@ -34,7 +34,7 @@ class ChangePasswordRequestBuilder extends BaseRequestBuilder
      * Enable the user to update their password. Any user can update their password without belonging to any administrator role. This API is available in the following national cloud deployments.
      * @param ChangePasswordPostRequestBody $body The request body
      * @param ChangePasswordRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/user-changepassword?view=graph-rest-1.0 Find more info here
     */
     public function post(ChangePasswordPostRequestBody $body, ?ChangePasswordRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -65,6 +65,7 @@ class ChangePasswordRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

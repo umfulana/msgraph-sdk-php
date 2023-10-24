@@ -66,7 +66,7 @@ class UnifiedRoleEligibilityScheduleInstanceItemRequestBuilder extends BaseReque
     /**
      * Delete navigation property roleEligibilityScheduleInstances for roleManagement
      * @param UnifiedRoleEligibilityScheduleInstanceItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?UnifiedRoleEligibilityScheduleInstanceItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -84,7 +84,7 @@ class UnifiedRoleEligibilityScheduleInstanceItemRequestBuilder extends BaseReque
     /**
      * Get the instance of a role eligibility. This API is available in the following national cloud deployments.
      * @param UnifiedRoleEligibilityScheduleInstanceItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UnifiedRoleEligibilityScheduleInstance|null>
      * @link https://learn.microsoft.com/graph/api/unifiedroleeligibilityscheduleinstance-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?UnifiedRoleEligibilityScheduleInstanceItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -104,7 +104,7 @@ class UnifiedRoleEligibilityScheduleInstanceItemRequestBuilder extends BaseReque
      * Update the navigation property roleEligibilityScheduleInstances in roleManagement
      * @param UnifiedRoleEligibilityScheduleInstance $body The request body
      * @param UnifiedRoleEligibilityScheduleInstanceItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UnifiedRoleEligibilityScheduleInstance|null>
     */
     public function patch(UnifiedRoleEligibilityScheduleInstance $body, ?UnifiedRoleEligibilityScheduleInstanceItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPatchRequestInformation($body, $requestConfiguration);
@@ -133,6 +133,7 @@ class UnifiedRoleEligibilityScheduleInstanceItemRequestBuilder extends BaseReque
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -146,7 +147,6 @@ class UnifiedRoleEligibilityScheduleInstanceItemRequestBuilder extends BaseReque
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -154,6 +154,7 @@ class UnifiedRoleEligibilityScheduleInstanceItemRequestBuilder extends BaseReque
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -168,11 +169,11 @@ class UnifiedRoleEligibilityScheduleInstanceItemRequestBuilder extends BaseReque
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

@@ -34,7 +34,7 @@ class DelegatedAdminRelationshipRequestItemRequestBuilder extends BaseRequestBui
     /**
      * Delete navigation property requests for tenantRelationships
      * @param DelegatedAdminRelationshipRequestItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?DelegatedAdminRelationshipRequestItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -52,7 +52,7 @@ class DelegatedAdminRelationshipRequestItemRequestBuilder extends BaseRequestBui
     /**
      * Read the properties and relationships of a delegatedAdminRelationshipRequest object. This API is available in the following national cloud deployments.
      * @param DelegatedAdminRelationshipRequestItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DelegatedAdminRelationshipRequest|null>
      * @link https://learn.microsoft.com/graph/api/delegatedadminrelationshiprequest-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?DelegatedAdminRelationshipRequestItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -72,7 +72,7 @@ class DelegatedAdminRelationshipRequestItemRequestBuilder extends BaseRequestBui
      * Update the navigation property requests in tenantRelationships
      * @param DelegatedAdminRelationshipRequest $body The request body
      * @param DelegatedAdminRelationshipRequestItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DelegatedAdminRelationshipRequest|null>
     */
     public function patch(DelegatedAdminRelationshipRequest $body, ?DelegatedAdminRelationshipRequestItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPatchRequestInformation($body, $requestConfiguration);
@@ -101,6 +101,7 @@ class DelegatedAdminRelationshipRequestItemRequestBuilder extends BaseRequestBui
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -114,7 +115,6 @@ class DelegatedAdminRelationshipRequestItemRequestBuilder extends BaseRequestBui
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -122,6 +122,7 @@ class DelegatedAdminRelationshipRequestItemRequestBuilder extends BaseRequestBui
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -136,11 +137,11 @@ class DelegatedAdminRelationshipRequestItemRequestBuilder extends BaseRequestBui
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

@@ -34,7 +34,7 @@ class ValidatePermissionRequestBuilder extends BaseRequestBuilder
      * Invoke action validatePermission
      * @param ValidatePermissionPostRequestBody $body The request body
      * @param ValidatePermissionRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function post(ValidatePermissionPostRequestBody $body, ?ValidatePermissionRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPostRequestInformation($body, $requestConfiguration);
@@ -64,6 +64,7 @@ class ValidatePermissionRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

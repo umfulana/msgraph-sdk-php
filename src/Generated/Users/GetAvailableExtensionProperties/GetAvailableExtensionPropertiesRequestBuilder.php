@@ -34,7 +34,7 @@ class GetAvailableExtensionPropertiesRequestBuilder extends BaseRequestBuilder
      * Return all directory extension definitions that have been registered in a directory, including through multi-tenant apps. The following entities support extension properties: This API is available in the following national cloud deployments.
      * @param GetAvailableExtensionPropertiesPostRequestBody $body The request body
      * @param GetAvailableExtensionPropertiesRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<GetAvailableExtensionPropertiesPostResponse|null>
      * @link https://learn.microsoft.com/graph/api/directoryobject-getavailableextensionproperties?view=graph-rest-1.0 Find more info here
     */
     public function post(GetAvailableExtensionPropertiesPostRequestBody $body, ?GetAvailableExtensionPropertiesRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -61,11 +61,11 @@ class GetAvailableExtensionPropertiesRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

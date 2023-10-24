@@ -42,7 +42,7 @@ class TermsAndConditionsAcceptanceStatusItemRequestBuilder extends BaseRequestBu
     /**
      * Deletes a termsAndConditionsAcceptanceStatus.
      * @param TermsAndConditionsAcceptanceStatusItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/intune-companyterms-termsandconditionsacceptancestatus-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?TermsAndConditionsAcceptanceStatusItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -61,7 +61,7 @@ class TermsAndConditionsAcceptanceStatusItemRequestBuilder extends BaseRequestBu
     /**
      * Read properties and relationships of the termsAndConditionsAcceptanceStatus object.
      * @param TermsAndConditionsAcceptanceStatusItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<TermsAndConditionsAcceptanceStatus|null>
      * @link https://learn.microsoft.com/graph/api/intune-companyterms-termsandconditionsacceptancestatus-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?TermsAndConditionsAcceptanceStatusItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -81,7 +81,7 @@ class TermsAndConditionsAcceptanceStatusItemRequestBuilder extends BaseRequestBu
      * Update the properties of a termsAndConditionsAcceptanceStatus object.
      * @param TermsAndConditionsAcceptanceStatus $body The request body
      * @param TermsAndConditionsAcceptanceStatusItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<TermsAndConditionsAcceptanceStatus|null>
      * @link https://learn.microsoft.com/graph/api/intune-companyterms-termsandconditionsacceptancestatus-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(TermsAndConditionsAcceptanceStatus $body, ?TermsAndConditionsAcceptanceStatusItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -111,6 +111,7 @@ class TermsAndConditionsAcceptanceStatusItemRequestBuilder extends BaseRequestBu
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -124,7 +125,6 @@ class TermsAndConditionsAcceptanceStatusItemRequestBuilder extends BaseRequestBu
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -132,6 +132,7 @@ class TermsAndConditionsAcceptanceStatusItemRequestBuilder extends BaseRequestBu
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -146,11 +147,11 @@ class TermsAndConditionsAcceptanceStatusItemRequestBuilder extends BaseRequestBu
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

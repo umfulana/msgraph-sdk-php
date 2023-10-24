@@ -55,7 +55,7 @@ class MdmWindowsInformationProtectionPoliciesRequestBuilder extends BaseRequestB
     /**
      * List properties and relationships of the mdmWindowsInformationProtectionPolicy objects.
      * @param MdmWindowsInformationProtectionPoliciesRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<MdmWindowsInformationProtectionPolicyCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/intune-mam-mdmwindowsinformationprotectionpolicy-list?view=graph-rest-1.0 Find more info here
     */
     public function get(?MdmWindowsInformationProtectionPoliciesRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -75,7 +75,7 @@ class MdmWindowsInformationProtectionPoliciesRequestBuilder extends BaseRequestB
      * Create a new mdmWindowsInformationProtectionPolicy object.
      * @param MdmWindowsInformationProtectionPolicy $body The request body
      * @param MdmWindowsInformationProtectionPoliciesRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<MdmWindowsInformationProtectionPolicy|null>
      * @link https://learn.microsoft.com/graph/api/intune-mam-mdmwindowsinformationprotectionpolicy-create?view=graph-rest-1.0 Find more info here
     */
     public function post(MdmWindowsInformationProtectionPolicy $body, ?MdmWindowsInformationProtectionPoliciesRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -101,7 +101,6 @@ class MdmWindowsInformationProtectionPoliciesRequestBuilder extends BaseRequestB
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -109,6 +108,7 @@ class MdmWindowsInformationProtectionPoliciesRequestBuilder extends BaseRequestB
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -123,11 +123,11 @@ class MdmWindowsInformationProtectionPoliciesRequestBuilder extends BaseRequestB
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

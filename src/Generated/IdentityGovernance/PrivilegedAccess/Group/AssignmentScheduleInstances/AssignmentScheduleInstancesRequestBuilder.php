@@ -63,9 +63,9 @@ class AssignmentScheduleInstancesRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * Get a list of the privilegedAccessGroupAssignmentScheduleInstance objects and their properties.
+     * Get a list of the privilegedAccessGroupAssignmentScheduleInstance objects and their properties. This API is available in the following national cloud deployments.
      * @param AssignmentScheduleInstancesRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<PrivilegedAccessGroupAssignmentScheduleInstanceCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/privilegedaccessgroup-list-assignmentscheduleinstances?view=graph-rest-1.0 Find more info here
     */
     public function get(?AssignmentScheduleInstancesRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -85,7 +85,7 @@ class AssignmentScheduleInstancesRequestBuilder extends BaseRequestBuilder
      * Create new navigation property to assignmentScheduleInstances for identityGovernance
      * @param PrivilegedAccessGroupAssignmentScheduleInstance $body The request body
      * @param AssignmentScheduleInstancesRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<PrivilegedAccessGroupAssignmentScheduleInstance|null>
     */
     public function post(PrivilegedAccessGroupAssignmentScheduleInstance $body, ?AssignmentScheduleInstancesRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPostRequestInformation($body, $requestConfiguration);
@@ -101,7 +101,7 @@ class AssignmentScheduleInstancesRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * Get a list of the privilegedAccessGroupAssignmentScheduleInstance objects and their properties.
+     * Get a list of the privilegedAccessGroupAssignmentScheduleInstance objects and their properties. This API is available in the following national cloud deployments.
      * @param AssignmentScheduleInstancesRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return RequestInformation
     */
@@ -110,7 +110,6 @@ class AssignmentScheduleInstancesRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -118,6 +117,7 @@ class AssignmentScheduleInstancesRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -132,11 +132,11 @@ class AssignmentScheduleInstancesRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

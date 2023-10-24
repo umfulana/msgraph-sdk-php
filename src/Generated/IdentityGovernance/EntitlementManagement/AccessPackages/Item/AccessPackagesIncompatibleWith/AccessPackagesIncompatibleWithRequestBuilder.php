@@ -54,7 +54,7 @@ class AccessPackagesIncompatibleWithRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve a list of the accessPackage objects that have marked a specified accessPackage as incompatible. This API is available in the following national cloud deployments.
      * @param AccessPackagesIncompatibleWithRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<AccessPackageCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/accesspackage-list-accesspackagesincompatiblewith?view=graph-rest-1.0 Find more info here
     */
     public function get(?AccessPackagesIncompatibleWithRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -80,7 +80,6 @@ class AccessPackagesIncompatibleWithRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -88,6 +87,7 @@ class AccessPackagesIncompatibleWithRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

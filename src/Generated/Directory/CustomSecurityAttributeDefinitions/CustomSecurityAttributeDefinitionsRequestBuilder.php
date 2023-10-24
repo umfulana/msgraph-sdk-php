@@ -55,7 +55,7 @@ class CustomSecurityAttributeDefinitionsRequestBuilder extends BaseRequestBuilde
     /**
      * Get a list of the customSecurityAttributeDefinition objects and their properties. This API is available in the following national cloud deployments.
      * @param CustomSecurityAttributeDefinitionsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<CustomSecurityAttributeDefinitionCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/directory-list-customsecurityattributedefinitions?view=graph-rest-1.0 Find more info here
     */
     public function get(?CustomSecurityAttributeDefinitionsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -75,7 +75,7 @@ class CustomSecurityAttributeDefinitionsRequestBuilder extends BaseRequestBuilde
      * Create a new customSecurityAttributeDefinition object. This API is available in the following national cloud deployments.
      * @param CustomSecurityAttributeDefinition $body The request body
      * @param CustomSecurityAttributeDefinitionsRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<CustomSecurityAttributeDefinition|null>
      * @link https://learn.microsoft.com/graph/api/directory-post-customsecurityattributedefinitions?view=graph-rest-1.0 Find more info here
     */
     public function post(CustomSecurityAttributeDefinition $body, ?CustomSecurityAttributeDefinitionsRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -101,7 +101,6 @@ class CustomSecurityAttributeDefinitionsRequestBuilder extends BaseRequestBuilde
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -109,6 +108,7 @@ class CustomSecurityAttributeDefinitionsRequestBuilder extends BaseRequestBuilde
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -123,11 +123,11 @@ class CustomSecurityAttributeDefinitionsRequestBuilder extends BaseRequestBuilde
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

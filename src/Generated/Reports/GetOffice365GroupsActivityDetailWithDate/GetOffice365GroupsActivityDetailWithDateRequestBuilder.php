@@ -38,7 +38,7 @@ class GetOffice365GroupsActivityDetailWithDateRequestBuilder extends BaseRequest
     /**
      * Invoke function getOffice365GroupsActivityDetail
      * @param GetOffice365GroupsActivityDetailWithDateRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<StreamInterface|null>
     */
     public function get(?GetOffice365GroupsActivityDetailWithDateRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -67,6 +67,7 @@ class GetOffice365GroupsActivityDetailWithDateRequestBuilder extends BaseRequest
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/octet-stream, application/json, application/json");
         return $requestInfo;
     }
 

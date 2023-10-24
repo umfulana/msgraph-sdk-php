@@ -50,7 +50,7 @@ class ContactItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete a contact. This API is available in the following national cloud deployments.
      * @param ContactItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/contact-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?ContactItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -69,7 +69,7 @@ class ContactItemRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve the properties and relationships of a contact object. There are two scenarios where an app can get a contact in another user's contact folder: This API is available in the following national cloud deployments.
      * @param ContactItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<Contact|null>
      * @link https://learn.microsoft.com/graph/api/contact-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?ContactItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -89,7 +89,7 @@ class ContactItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of a contact object. This API is available in the following national cloud deployments.
      * @param Contact $body The request body
      * @param ContactItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<Contact|null>
      * @link https://learn.microsoft.com/graph/api/contact-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(Contact $body, ?ContactItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -119,6 +119,7 @@ class ContactItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -132,7 +133,6 @@ class ContactItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -140,6 +140,7 @@ class ContactItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -154,11 +155,11 @@ class ContactItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

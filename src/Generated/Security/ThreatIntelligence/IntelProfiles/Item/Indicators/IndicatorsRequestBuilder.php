@@ -54,7 +54,7 @@ class IndicatorsRequestBuilder extends BaseRequestBuilder
     /**
      * Get the intelligenceProfileIndicator resources from the indicators navigation property of an intelligenceProfile. This API is available in the following national cloud deployments.
      * @param IndicatorsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<IntelligenceProfileIndicatorCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/security-intelligenceprofile-list-indicators?view=graph-rest-1.0 Find more info here
     */
     public function get(?IndicatorsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -80,7 +80,6 @@ class IndicatorsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -88,6 +87,7 @@ class IndicatorsRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

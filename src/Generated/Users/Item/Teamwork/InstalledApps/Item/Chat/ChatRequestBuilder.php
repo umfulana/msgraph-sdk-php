@@ -34,7 +34,7 @@ class ChatRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve the chat of the specified user and Teams app. This API is available in the following national cloud deployments.
      * @param ChatRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<Chat|null>
      * @link https://learn.microsoft.com/graph/api/userscopeteamsappinstallation-get-chat?view=graph-rest-1.0 Find more info here
     */
     public function get(?ChatRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -60,7 +60,6 @@ class ChatRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -68,6 +67,7 @@ class ChatRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

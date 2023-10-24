@@ -114,7 +114,7 @@ class ContentTypeItemRequestBuilder extends BaseRequestBuilder
     /**
      * Remove a content type][contentType] from a [list][] or a [site][]. This API is available in the following [national cloud deployments.
      * @param ContentTypeItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/contenttype-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?ContentTypeItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -133,7 +133,7 @@ class ContentTypeItemRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve the metadata for a content type][contentType] in a [site][] or a [list][]. This API is available in the following [national cloud deployments.
      * @param ContentTypeItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ContentType|null>
      * @link https://learn.microsoft.com/graph/api/contenttype-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?ContentTypeItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -153,7 +153,7 @@ class ContentTypeItemRequestBuilder extends BaseRequestBuilder
      * Update a content type][contentType]. This API is available in the following [national cloud deployments.
      * @param ContentType $body The request body
      * @param ContentTypeItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ContentType|null>
      * @link https://learn.microsoft.com/graph/api/contenttype-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(ContentType $body, ?ContentTypeItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -183,6 +183,7 @@ class ContentTypeItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -196,7 +197,6 @@ class ContentTypeItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -204,6 +204,7 @@ class ContentTypeItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -218,11 +219,11 @@ class ContentTypeItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

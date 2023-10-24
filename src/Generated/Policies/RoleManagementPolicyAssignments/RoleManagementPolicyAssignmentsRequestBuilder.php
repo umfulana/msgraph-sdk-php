@@ -53,9 +53,9 @@ class RoleManagementPolicyAssignmentsRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * Get the details of all role management policy assignments made in PIM for Azure AD roles and PIM for groups. This API is available in the following national cloud deployments.
+     * Get the details of all role management policy assignments made in PIM for Microsoft Entra roles and PIM for groups. This API is available in the following national cloud deployments.
      * @param RoleManagementPolicyAssignmentsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UnifiedRoleManagementPolicyAssignmentCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/policyroot-list-rolemanagementpolicyassignments?view=graph-rest-1.0 Find more info here
     */
     public function get(?RoleManagementPolicyAssignmentsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -75,7 +75,7 @@ class RoleManagementPolicyAssignmentsRequestBuilder extends BaseRequestBuilder
      * Create new navigation property to roleManagementPolicyAssignments for policies
      * @param UnifiedRoleManagementPolicyAssignment $body The request body
      * @param RoleManagementPolicyAssignmentsRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UnifiedRoleManagementPolicyAssignment|null>
     */
     public function post(UnifiedRoleManagementPolicyAssignment $body, ?RoleManagementPolicyAssignmentsRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPostRequestInformation($body, $requestConfiguration);
@@ -91,7 +91,7 @@ class RoleManagementPolicyAssignmentsRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * Get the details of all role management policy assignments made in PIM for Azure AD roles and PIM for groups. This API is available in the following national cloud deployments.
+     * Get the details of all role management policy assignments made in PIM for Microsoft Entra roles and PIM for groups. This API is available in the following national cloud deployments.
      * @param RoleManagementPolicyAssignmentsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return RequestInformation
     */
@@ -100,7 +100,6 @@ class RoleManagementPolicyAssignmentsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -108,6 +107,7 @@ class RoleManagementPolicyAssignmentsRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -122,11 +122,11 @@ class RoleManagementPolicyAssignmentsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

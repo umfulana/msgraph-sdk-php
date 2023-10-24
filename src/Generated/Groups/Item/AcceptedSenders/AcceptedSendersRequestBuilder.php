@@ -62,7 +62,7 @@ class AcceptedSendersRequestBuilder extends BaseRequestBuilder
     /**
      * Users in the accepted senders list can post to conversations of the group (identified in the GET request URL).Make sure you do not specify the same user or group in the accepted senders and rejected senders lists, otherwise you will get an error. This API is available in the following national cloud deployments.
      * @param AcceptedSendersRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DirectoryObjectCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/group-list-acceptedsenders?view=graph-rest-1.0 Find more info here
     */
     public function get(?AcceptedSendersRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -88,7 +88,6 @@ class AcceptedSendersRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -96,6 +95,7 @@ class AcceptedSendersRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

@@ -87,7 +87,7 @@ class GroupSettingTemplatesRequestBuilder extends BaseRequestBuilder
     /**
      * Group setting templates represents a set of templates from which group settings may be created and used within a tenant. This operation retrieves the list of available groupSettingTemplates objects. This API is available in the following national cloud deployments.
      * @param GroupSettingTemplatesRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<GroupSettingTemplateCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/groupsettingtemplate-list?view=graph-rest-1.0 Find more info here
     */
     public function get(?GroupSettingTemplatesRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -107,7 +107,7 @@ class GroupSettingTemplatesRequestBuilder extends BaseRequestBuilder
      * Add new entity to groupSettingTemplates
      * @param GroupSettingTemplate $body The request body
      * @param GroupSettingTemplatesRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<GroupSettingTemplate|null>
     */
     public function post(GroupSettingTemplate $body, ?GroupSettingTemplatesRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPostRequestInformation($body, $requestConfiguration);
@@ -132,7 +132,6 @@ class GroupSettingTemplatesRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -140,6 +139,7 @@ class GroupSettingTemplatesRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -154,11 +154,11 @@ class GroupSettingTemplatesRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

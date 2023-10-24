@@ -55,7 +55,7 @@ class DeviceCompliancePolicySettingStateSummariesRequestBuilder extends BaseRequ
     /**
      * List properties and relationships of the deviceCompliancePolicySettingStateSummary objects.
      * @param DeviceCompliancePolicySettingStateSummariesRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DeviceCompliancePolicySettingStateSummaryCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/intune-deviceconfig-devicecompliancepolicysettingstatesummary-list?view=graph-rest-1.0 Find more info here
     */
     public function get(?DeviceCompliancePolicySettingStateSummariesRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -75,7 +75,7 @@ class DeviceCompliancePolicySettingStateSummariesRequestBuilder extends BaseRequ
      * Create a new deviceCompliancePolicySettingStateSummary object.
      * @param DeviceCompliancePolicySettingStateSummary $body The request body
      * @param DeviceCompliancePolicySettingStateSummariesRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DeviceCompliancePolicySettingStateSummary|null>
      * @link https://learn.microsoft.com/graph/api/intune-deviceconfig-devicecompliancepolicysettingstatesummary-create?view=graph-rest-1.0 Find more info here
     */
     public function post(DeviceCompliancePolicySettingStateSummary $body, ?DeviceCompliancePolicySettingStateSummariesRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -101,7 +101,6 @@ class DeviceCompliancePolicySettingStateSummariesRequestBuilder extends BaseRequ
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -109,6 +108,7 @@ class DeviceCompliancePolicySettingStateSummariesRequestBuilder extends BaseRequ
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -123,11 +123,11 @@ class DeviceCompliancePolicySettingStateSummariesRequestBuilder extends BaseRequ
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

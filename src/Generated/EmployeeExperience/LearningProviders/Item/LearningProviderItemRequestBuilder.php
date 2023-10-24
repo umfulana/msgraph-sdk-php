@@ -50,7 +50,7 @@ class LearningProviderItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete a learningProvider resource and remove its registration in Viva Learning for a tenant.
      * @param LearningProviderItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/employeeexperience-delete-learningproviders?view=graph-rest-1.0 Find more info here
     */
     public function delete(?LearningProviderItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -69,7 +69,7 @@ class LearningProviderItemRequestBuilder extends BaseRequestBuilder
     /**
      * Read the properties and relationships of a learningProvider object. This API is available in the following national cloud deployments.
      * @param LearningProviderItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<LearningProvider|null>
      * @link https://learn.microsoft.com/graph/api/learningprovider-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?LearningProviderItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -89,7 +89,7 @@ class LearningProviderItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of a learningProvider object. This API is available in the following national cloud deployments.
      * @param LearningProvider $body The request body
      * @param LearningProviderItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<LearningProvider|null>
      * @link https://learn.microsoft.com/graph/api/learningprovider-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(LearningProvider $body, ?LearningProviderItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -119,6 +119,7 @@ class LearningProviderItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -132,7 +133,6 @@ class LearningProviderItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -140,6 +140,7 @@ class LearningProviderItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -154,11 +155,11 @@ class LearningProviderItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

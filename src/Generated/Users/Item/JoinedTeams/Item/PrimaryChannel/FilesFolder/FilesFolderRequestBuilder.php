@@ -42,7 +42,7 @@ class FilesFolderRequestBuilder extends BaseRequestBuilder
     /**
      * Get the metadata for the location where the files of a channel are stored.  This API is available in the following national cloud deployments.
      * @param FilesFolderRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DriveItem|null>
      * @link https://learn.microsoft.com/graph/api/channel-get-filesfolder?view=graph-rest-1.0 Find more info here
     */
     public function get(?FilesFolderRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -68,7 +68,6 @@ class FilesFolderRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -76,6 +75,7 @@ class FilesFolderRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

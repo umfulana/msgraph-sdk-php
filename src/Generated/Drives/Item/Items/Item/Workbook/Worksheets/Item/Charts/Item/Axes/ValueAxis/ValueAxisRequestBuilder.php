@@ -66,7 +66,7 @@ class ValueAxisRequestBuilder extends BaseRequestBuilder
     /**
      * Delete navigation property valueAxis for drives
      * @param ValueAxisRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?ValueAxisRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -84,7 +84,7 @@ class ValueAxisRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve the properties and relationships of chartaxis object. This API is available in the following national cloud deployments.
      * @param ValueAxisRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<WorkbookChartAxis|null>
      * @link https://learn.microsoft.com/graph/api/chartaxis-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?ValueAxisRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -104,7 +104,7 @@ class ValueAxisRequestBuilder extends BaseRequestBuilder
      * Update the properties of chartaxis object. This API is available in the following national cloud deployments.
      * @param WorkbookChartAxis $body The request body
      * @param ValueAxisRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<WorkbookChartAxis|null>
      * @link https://learn.microsoft.com/graph/api/chartaxis-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(WorkbookChartAxis $body, ?ValueAxisRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -134,6 +134,7 @@ class ValueAxisRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -147,7 +148,6 @@ class ValueAxisRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -155,6 +155,7 @@ class ValueAxisRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -169,11 +170,11 @@ class ValueAxisRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

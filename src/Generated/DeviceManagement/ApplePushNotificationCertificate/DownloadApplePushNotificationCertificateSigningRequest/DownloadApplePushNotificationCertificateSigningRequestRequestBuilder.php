@@ -33,7 +33,7 @@ class DownloadApplePushNotificationCertificateSigningRequestRequestBuilder exten
     /**
      * Download Apple push notification certificate signing request
      * @param DownloadApplePushNotificationCertificateSigningRequestRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<DownloadApplePushNotificationCertificateSigningRequestGetResponse|null>
     */
     public function get(?DownloadApplePushNotificationCertificateSigningRequestRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -58,11 +58,11 @@ class DownloadApplePushNotificationCertificateSigningRequestRequestBuilder exten
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

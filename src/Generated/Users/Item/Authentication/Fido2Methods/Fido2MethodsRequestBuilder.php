@@ -54,7 +54,7 @@ class Fido2MethodsRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve a list of a user's FIDO2 Security Key Authentication Method objects and their properties. This API is available in the following national cloud deployments.
      * @param Fido2MethodsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<Fido2AuthenticationMethodCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/fido2authenticationmethod-list?view=graph-rest-1.0 Find more info here
     */
     public function get(?Fido2MethodsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -80,7 +80,6 @@ class Fido2MethodsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -88,6 +87,7 @@ class Fido2MethodsRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

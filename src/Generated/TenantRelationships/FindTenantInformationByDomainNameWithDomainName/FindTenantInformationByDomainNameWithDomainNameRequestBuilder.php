@@ -37,7 +37,7 @@ class FindTenantInformationByDomainNameWithDomainNameRequestBuilder extends Base
     /**
      * Invoke function findTenantInformationByDomainName
      * @param FindTenantInformationByDomainNameWithDomainNameRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<TenantInformation|null>
     */
     public function get(?FindTenantInformationByDomainNameWithDomainNameRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -62,11 +62,11 @@ class FindTenantInformationByDomainNameWithDomainNameRequestBuilder extends Base
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

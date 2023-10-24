@@ -50,7 +50,7 @@ class PrivilegedAccessGroupEligibilityScheduleItemRequestBuilder extends BaseReq
     /**
      * Delete navigation property eligibilitySchedules for identityGovernance
      * @param PrivilegedAccessGroupEligibilityScheduleItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?PrivilegedAccessGroupEligibilityScheduleItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -66,9 +66,9 @@ class PrivilegedAccessGroupEligibilityScheduleItemRequestBuilder extends BaseReq
     }
 
     /**
-     * Read the properties and relationships of a privilegedAccessGroupEligibilitySchedule object.
+     * Read the properties and relationships of a privilegedAccessGroupEligibilitySchedule object. This API is available in the following national cloud deployments.
      * @param PrivilegedAccessGroupEligibilityScheduleItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<PrivilegedAccessGroupEligibilitySchedule|null>
      * @link https://learn.microsoft.com/graph/api/privilegedaccessgroupeligibilityschedule-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?PrivilegedAccessGroupEligibilityScheduleItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -88,7 +88,7 @@ class PrivilegedAccessGroupEligibilityScheduleItemRequestBuilder extends BaseReq
      * Update the navigation property eligibilitySchedules in identityGovernance
      * @param PrivilegedAccessGroupEligibilitySchedule $body The request body
      * @param PrivilegedAccessGroupEligibilityScheduleItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<PrivilegedAccessGroupEligibilitySchedule|null>
     */
     public function patch(PrivilegedAccessGroupEligibilitySchedule $body, ?PrivilegedAccessGroupEligibilityScheduleItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPatchRequestInformation($body, $requestConfiguration);
@@ -117,11 +117,12 @@ class PrivilegedAccessGroupEligibilityScheduleItemRequestBuilder extends BaseReq
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
     /**
-     * Read the properties and relationships of a privilegedAccessGroupEligibilitySchedule object.
+     * Read the properties and relationships of a privilegedAccessGroupEligibilitySchedule object. This API is available in the following national cloud deployments.
      * @param PrivilegedAccessGroupEligibilityScheduleItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return RequestInformation
     */
@@ -130,7 +131,6 @@ class PrivilegedAccessGroupEligibilityScheduleItemRequestBuilder extends BaseReq
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -138,6 +138,7 @@ class PrivilegedAccessGroupEligibilityScheduleItemRequestBuilder extends BaseReq
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -152,11 +153,11 @@ class PrivilegedAccessGroupEligibilityScheduleItemRequestBuilder extends BaseReq
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

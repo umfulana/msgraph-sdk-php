@@ -54,7 +54,7 @@ class ParentHostPairsRequestBuilder extends BaseRequestBuilder
     /**
      * Get the list of hostPair resources associated with a host, where that host is the *child* and has an incoming pairing with a *parent*. This API is available in the following national cloud deployments.
      * @param ParentHostPairsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<HostPairCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/security-host-list-parenthostpairs?view=graph-rest-1.0 Find more info here
     */
     public function get(?ParentHostPairsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -80,7 +80,6 @@ class ParentHostPairsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -88,6 +87,7 @@ class ParentHostPairsRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

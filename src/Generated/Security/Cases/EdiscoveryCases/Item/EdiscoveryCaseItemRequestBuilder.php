@@ -106,7 +106,7 @@ class EdiscoveryCaseItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete an ediscoveryCase object. This API is available in the following national cloud deployments.
      * @param EdiscoveryCaseItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/security-casesroot-delete-ediscoverycases?view=graph-rest-1.0 Find more info here
     */
     public function delete(?EdiscoveryCaseItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -125,7 +125,7 @@ class EdiscoveryCaseItemRequestBuilder extends BaseRequestBuilder
     /**
      * Read the properties and relationships of an ediscoveryCase object. This API is available in the following national cloud deployments.
      * @param EdiscoveryCaseItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<EdiscoveryCase|null>
      * @link https://learn.microsoft.com/graph/api/security-ediscoverycase-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?EdiscoveryCaseItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -145,7 +145,7 @@ class EdiscoveryCaseItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of an ediscoveryCase object. This API is available in the following national cloud deployments.
      * @param EdiscoveryCase $body The request body
      * @param EdiscoveryCaseItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<EdiscoveryCase|null>
      * @link https://learn.microsoft.com/graph/api/security-ediscoverycase-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(EdiscoveryCase $body, ?EdiscoveryCaseItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -175,6 +175,7 @@ class EdiscoveryCaseItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -188,7 +189,6 @@ class EdiscoveryCaseItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -196,6 +196,7 @@ class EdiscoveryCaseItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -210,11 +211,11 @@ class EdiscoveryCaseItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

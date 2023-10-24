@@ -34,7 +34,7 @@ class DeleteUserFromSharedAppleDeviceRequestBuilder extends BaseRequestBuilder
      * Delete user from shared Apple device
      * @param DeleteUserFromSharedAppleDevicePostRequestBody $body The request body
      * @param DeleteUserFromSharedAppleDeviceRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/intune-devices-manageddevice-deleteuserfromsharedappledevice?view=graph-rest-1.0 Find more info here
     */
     public function post(DeleteUserFromSharedAppleDevicePostRequestBody $body, ?DeleteUserFromSharedAppleDeviceRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -65,6 +65,7 @@ class DeleteUserFromSharedAppleDeviceRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

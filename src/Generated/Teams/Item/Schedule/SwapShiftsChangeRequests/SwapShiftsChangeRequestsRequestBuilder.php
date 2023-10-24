@@ -55,7 +55,7 @@ class SwapShiftsChangeRequestsRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve a list of swapShiftsChangeRequest objects in the team. This API is available in the following national cloud deployments.
      * @param SwapShiftsChangeRequestsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<SwapShiftsChangeRequestCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/swapshiftschangerequest-list?view=graph-rest-1.0 Find more info here
     */
     public function get(?SwapShiftsChangeRequestsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -75,7 +75,7 @@ class SwapShiftsChangeRequestsRequestBuilder extends BaseRequestBuilder
      * Create an instance of a swapShiftsChangeRequest object. This API is available in the following national cloud deployments.
      * @param SwapShiftsChangeRequest $body The request body
      * @param SwapShiftsChangeRequestsRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<SwapShiftsChangeRequest|null>
      * @link https://learn.microsoft.com/graph/api/swapshiftschangerequest-post?view=graph-rest-1.0 Find more info here
     */
     public function post(SwapShiftsChangeRequest $body, ?SwapShiftsChangeRequestsRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -101,7 +101,6 @@ class SwapShiftsChangeRequestsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -109,6 +108,7 @@ class SwapShiftsChangeRequestsRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -123,11 +123,11 @@ class SwapShiftsChangeRequestsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

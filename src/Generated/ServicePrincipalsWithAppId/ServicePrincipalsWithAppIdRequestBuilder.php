@@ -37,7 +37,7 @@ class ServicePrincipalsWithAppIdRequestBuilder extends BaseRequestBuilder
     /**
      * Delete a servicePrincipal object. This API is available in the following national cloud deployments.
      * @param ServicePrincipalsWithAppIdRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/serviceprincipal-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?ServicePrincipalsWithAppIdRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -56,7 +56,7 @@ class ServicePrincipalsWithAppIdRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve the properties and relationships of a servicePrincipal object. This API is available in the following national cloud deployments.
      * @param ServicePrincipalsWithAppIdRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ServicePrincipal|null>
      * @link https://learn.microsoft.com/graph/api/serviceprincipal-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?ServicePrincipalsWithAppIdRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -76,7 +76,7 @@ class ServicePrincipalsWithAppIdRequestBuilder extends BaseRequestBuilder
      * Update entity in servicePrincipals by appId
      * @param ServicePrincipal $body The request body
      * @param ServicePrincipalsWithAppIdRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ServicePrincipal|null>
     */
     public function patch(ServicePrincipal $body, ?ServicePrincipalsWithAppIdRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPatchRequestInformation($body, $requestConfiguration);
@@ -105,6 +105,7 @@ class ServicePrincipalsWithAppIdRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -118,7 +119,6 @@ class ServicePrincipalsWithAppIdRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -126,6 +126,7 @@ class ServicePrincipalsWithAppIdRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -140,11 +141,11 @@ class ServicePrincipalsWithAppIdRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

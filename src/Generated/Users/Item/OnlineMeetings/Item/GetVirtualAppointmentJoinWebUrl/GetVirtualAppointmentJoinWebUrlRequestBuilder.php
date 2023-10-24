@@ -33,7 +33,7 @@ class GetVirtualAppointmentJoinWebUrlRequestBuilder extends BaseRequestBuilder
     /**
      * Invoke function getVirtualAppointmentJoinWebUrl
      * @param GetVirtualAppointmentJoinWebUrlRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<GetVirtualAppointmentJoinWebUrlGetResponse|null>
     */
     public function get(?GetVirtualAppointmentJoinWebUrlRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -58,11 +58,11 @@ class GetVirtualAppointmentJoinWebUrlRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

@@ -35,7 +35,7 @@ class AddKeyRequestBuilder extends BaseRequestBuilder
      * Adds a key credential to a servicePrincipal. This method along with removeKey can be used by a servicePrincipal to automate rolling its expiring keys. As part of the request validation for this method, a proof of possession of an existing key is verified before the action can be performed.  ServicePrincipals that don’t have any existing valid certificates (i.e.: no certificates have been added yet, or all certificates have expired), won’t be able to use this service action. Update servicePrincipal can be used to perform an update instead. This API is available in the following national cloud deployments.
      * @param AddKeyPostRequestBody $body The request body
      * @param AddKeyRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<KeyCredential|null>
      * @link https://learn.microsoft.com/graph/api/serviceprincipal-addkey?view=graph-rest-1.0 Find more info here
     */
     public function post(AddKeyPostRequestBody $body, ?AddKeyRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -62,11 +62,11 @@ class AddKeyRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

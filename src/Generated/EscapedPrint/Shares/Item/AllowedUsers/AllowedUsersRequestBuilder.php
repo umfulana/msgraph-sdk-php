@@ -62,7 +62,7 @@ class AllowedUsersRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve a list of users who have been granted access to submit print jobs to the associated printerShare. This API is available in the following national cloud deployments.
      * @param AllowedUsersRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UserCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/printershare-list-allowedusers?view=graph-rest-1.0 Find more info here
     */
     public function get(?AllowedUsersRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -88,7 +88,6 @@ class AllowedUsersRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -96,6 +95,7 @@ class AllowedUsersRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

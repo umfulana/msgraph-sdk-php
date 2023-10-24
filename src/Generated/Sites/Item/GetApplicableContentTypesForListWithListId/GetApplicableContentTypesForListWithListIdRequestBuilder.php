@@ -36,7 +36,7 @@ class GetApplicableContentTypesForListWithListIdRequestBuilder extends BaseReque
     /**
      * Invoke function getApplicableContentTypesForList
      * @param GetApplicableContentTypesForListWithListIdRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<GetApplicableContentTypesForListWithListIdGetResponse|null>
     */
     public function get(?GetApplicableContentTypesForListWithListIdRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -61,7 +61,6 @@ class GetApplicableContentTypesForListWithListIdRequestBuilder extends BaseReque
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -69,6 +68,7 @@ class GetApplicableContentTypesForListWithListIdRequestBuilder extends BaseReque
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

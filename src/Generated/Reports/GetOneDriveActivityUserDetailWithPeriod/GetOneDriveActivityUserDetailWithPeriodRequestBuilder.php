@@ -37,7 +37,7 @@ class GetOneDriveActivityUserDetailWithPeriodRequestBuilder extends BaseRequestB
     /**
      * Invoke function getOneDriveActivityUserDetail
      * @param GetOneDriveActivityUserDetailWithPeriodRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<StreamInterface|null>
     */
     public function get(?GetOneDriveActivityUserDetailWithPeriodRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -66,6 +66,7 @@ class GetOneDriveActivityUserDetailWithPeriodRequestBuilder extends BaseRequestB
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/octet-stream, application/json, application/json");
         return $requestInfo;
     }
 

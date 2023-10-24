@@ -34,7 +34,7 @@ class CustomCSSRequestBuilder extends BaseRequestBuilder
     /**
      * CSS styling that appears on the sign-in page. The allowed format is .css format only and not larger than 25 KB.
      * @param CustomCSSRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<StreamInterface|null>
      * @link https://learn.microsoft.com/graph/api/organizationalbranding-list-localizations?view=graph-rest-1.0 Find more info here
     */
     public function get(?CustomCSSRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -54,7 +54,7 @@ class CustomCSSRequestBuilder extends BaseRequestBuilder
      * CSS styling that appears on the sign-in page. The allowed format is .css format only and not larger than 25 KB.
      * @param StreamInterface $body Binary request body
      * @param CustomCSSRequestBuilderPutRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<StreamInterface|null>
     */
     public function put(StreamInterface $body, ?CustomCSSRequestBuilderPutRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPutRequestInformation($body, $requestConfiguration);
@@ -83,6 +83,7 @@ class CustomCSSRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/octet-stream, application/json, application/json");
         return $requestInfo;
     }
 
@@ -101,7 +102,8 @@ class CustomCSSRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
-        $requestInfo->setStreamContent($body);
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
+        $requestInfo->setStreamContent($body, "application/octet-stream");
         return $requestInfo;
     }
 

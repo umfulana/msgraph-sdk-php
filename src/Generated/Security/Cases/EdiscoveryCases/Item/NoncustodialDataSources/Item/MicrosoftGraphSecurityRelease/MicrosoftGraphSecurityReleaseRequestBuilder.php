@@ -33,7 +33,7 @@ class MicrosoftGraphSecurityReleaseRequestBuilder extends BaseRequestBuilder
     /**
      * Release the non-custodial data source from the case. This API is available in the following national cloud deployments.
      * @param MicrosoftGraphSecurityReleaseRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/security-ediscoverynoncustodialdatasource-release?view=graph-rest-1.0 Find more info here
     */
     public function post(?MicrosoftGraphSecurityReleaseRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -63,6 +63,7 @@ class MicrosoftGraphSecurityReleaseRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 

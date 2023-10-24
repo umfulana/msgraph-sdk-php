@@ -66,7 +66,7 @@ class GraphWindowsUniversalAppXRequestBuilder extends BaseRequestBuilder
     /**
      * Get the item of type microsoft.graph.mobileApp as microsoft.graph.windowsUniversalAppX
      * @param GraphWindowsUniversalAppXRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<WindowsUniversalAppX|null>
     */
     public function get(?GraphWindowsUniversalAppXRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -91,7 +91,6 @@ class GraphWindowsUniversalAppXRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -99,6 +98,7 @@ class GraphWindowsUniversalAppXRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

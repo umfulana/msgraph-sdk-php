@@ -90,7 +90,7 @@ class OrganizationalBrandingLocalizationItemRequestBuilder extends BaseRequestBu
     /**
      * Delete a localized branding object. To delete the organizationalBrandingLocalization object, all images (Stream types) must first be removed from the object. This API is available in the following national cloud deployments.
      * @param OrganizationalBrandingLocalizationItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/organizationalbrandinglocalization-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?OrganizationalBrandingLocalizationItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -109,7 +109,7 @@ class OrganizationalBrandingLocalizationItemRequestBuilder extends BaseRequestBu
     /**
      * Read the properties and relationships of an organizationalBrandingLocalization object. To retrieve a localization branding object, specify the value of id in the URL. This API is available in the following national cloud deployments.
      * @param OrganizationalBrandingLocalizationItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<OrganizationalBrandingLocalization|null>
      * @link https://learn.microsoft.com/graph/api/organizationalbrandinglocalization-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?OrganizationalBrandingLocalizationItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -129,7 +129,7 @@ class OrganizationalBrandingLocalizationItemRequestBuilder extends BaseRequestBu
      * Update the properties of an organizationalBrandingLocalization object for a specific localization. This API is available in the following national cloud deployments.
      * @param OrganizationalBrandingLocalization $body The request body
      * @param OrganizationalBrandingLocalizationItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<OrganizationalBrandingLocalization|null>
      * @link https://learn.microsoft.com/graph/api/organizationalbrandinglocalization-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(OrganizationalBrandingLocalization $body, ?OrganizationalBrandingLocalizationItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -159,6 +159,7 @@ class OrganizationalBrandingLocalizationItemRequestBuilder extends BaseRequestBu
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -172,7 +173,6 @@ class OrganizationalBrandingLocalizationItemRequestBuilder extends BaseRequestBu
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -180,6 +180,7 @@ class OrganizationalBrandingLocalizationItemRequestBuilder extends BaseRequestBu
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -194,11 +195,11 @@ class OrganizationalBrandingLocalizationItemRequestBuilder extends BaseRequestBu
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

@@ -37,7 +37,7 @@ class DevicesWithDeviceIdRequestBuilder extends BaseRequestBuilder
     /**
      * Delete a registered device. This API is available in the following national cloud deployments.
      * @param DevicesWithDeviceIdRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/device-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?DevicesWithDeviceIdRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -56,7 +56,7 @@ class DevicesWithDeviceIdRequestBuilder extends BaseRequestBuilder
     /**
      * Get the properties and relationships of a device object. This API is available in the following national cloud deployments.
      * @param DevicesWithDeviceIdRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<Device|null>
      * @link https://learn.microsoft.com/graph/api/device-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?DevicesWithDeviceIdRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -76,7 +76,7 @@ class DevicesWithDeviceIdRequestBuilder extends BaseRequestBuilder
      * Update the properties of a registered device. Only certain properties of a device can be updated through approved Mobile Device Managment (MDM) apps. This API is available in the following national cloud deployments.
      * @param Device $body The request body
      * @param DevicesWithDeviceIdRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<Device|null>
      * @link https://learn.microsoft.com/graph/api/device-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(Device $body, ?DevicesWithDeviceIdRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -106,6 +106,7 @@ class DevicesWithDeviceIdRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -119,7 +120,6 @@ class DevicesWithDeviceIdRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -127,6 +127,7 @@ class DevicesWithDeviceIdRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -141,11 +142,11 @@ class DevicesWithDeviceIdRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

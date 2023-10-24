@@ -34,7 +34,7 @@ class GetOffice365ActivationsUserCountsRequestBuilder extends BaseRequestBuilder
     /**
      * Invoke function getOffice365ActivationsUserCounts
      * @param GetOffice365ActivationsUserCountsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<StreamInterface|null>
     */
     public function get(?GetOffice365ActivationsUserCountsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -63,6 +63,7 @@ class GetOffice365ActivationsUserCountsRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/octet-stream, application/json, application/json");
         return $requestInfo;
     }
 

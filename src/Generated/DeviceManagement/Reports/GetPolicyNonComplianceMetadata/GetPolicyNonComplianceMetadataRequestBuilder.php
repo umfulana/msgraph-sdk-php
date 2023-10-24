@@ -35,7 +35,7 @@ class GetPolicyNonComplianceMetadataRequestBuilder extends BaseRequestBuilder
      * Not yet documented
      * @param GetPolicyNonComplianceMetadataPostRequestBody $body The request body
      * @param GetPolicyNonComplianceMetadataRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<StreamInterface|null>
      * @link https://learn.microsoft.com/graph/api/intune-reporting-devicemanagementreports-getpolicynoncompliancemetadata?view=graph-rest-1.0 Find more info here
     */
     public function post(GetPolicyNonComplianceMetadataPostRequestBody $body, ?GetPolicyNonComplianceMetadataRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -66,6 +66,7 @@ class GetPolicyNonComplianceMetadataRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/octet-stream, application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

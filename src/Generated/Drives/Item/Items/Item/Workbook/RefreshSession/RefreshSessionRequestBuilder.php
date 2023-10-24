@@ -33,7 +33,7 @@ class RefreshSessionRequestBuilder extends BaseRequestBuilder
     /**
      * Use this API to refresh an existing workbook session. This API is available in the following national cloud deployments.
      * @param RefreshSessionRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/workbook-refreshsession?view=graph-rest-1.0 Find more info here
     */
     public function post(?RefreshSessionRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -63,6 +63,7 @@ class RefreshSessionRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 

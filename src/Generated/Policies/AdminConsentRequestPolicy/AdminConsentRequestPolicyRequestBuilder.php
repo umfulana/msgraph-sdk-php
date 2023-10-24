@@ -34,7 +34,7 @@ class AdminConsentRequestPolicyRequestBuilder extends BaseRequestBuilder
     /**
      * Delete navigation property adminConsentRequestPolicy for policies
      * @param AdminConsentRequestPolicyRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?AdminConsentRequestPolicyRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -52,7 +52,7 @@ class AdminConsentRequestPolicyRequestBuilder extends BaseRequestBuilder
     /**
      * Read the properties and relationships of an adminConsentRequestPolicy object. This API is available in the following national cloud deployments.
      * @param AdminConsentRequestPolicyRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<AdminConsentRequestPolicy|null>
      * @link https://learn.microsoft.com/graph/api/adminconsentrequestpolicy-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?AdminConsentRequestPolicyRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -72,7 +72,7 @@ class AdminConsentRequestPolicyRequestBuilder extends BaseRequestBuilder
      * Update the properties of an adminConsentRequestPolicy object.
      * @param AdminConsentRequestPolicy $body The request body
      * @param AdminConsentRequestPolicyRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<AdminConsentRequestPolicy|null>
      * @link https://learn.microsoft.com/graph/api/adminconsentrequestpolicy-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(AdminConsentRequestPolicy $body, ?AdminConsentRequestPolicyRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -102,6 +102,7 @@ class AdminConsentRequestPolicyRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -115,7 +116,6 @@ class AdminConsentRequestPolicyRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -123,6 +123,7 @@ class AdminConsentRequestPolicyRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -137,11 +138,11 @@ class AdminConsentRequestPolicyRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

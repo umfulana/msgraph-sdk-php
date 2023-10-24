@@ -34,7 +34,7 @@ class SetPositionRequestBuilder extends BaseRequestBuilder
      * Positions the chart relative to cells on the worksheet. This API is available in the following national cloud deployments.
      * @param SetPositionPostRequestBody $body The request body
      * @param SetPositionRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/chart-setposition?view=graph-rest-1.0 Find more info here
     */
     public function post(SetPositionPostRequestBody $body, ?SetPositionRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -65,6 +65,7 @@ class SetPositionRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

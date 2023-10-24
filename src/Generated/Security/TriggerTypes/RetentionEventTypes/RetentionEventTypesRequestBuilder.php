@@ -55,7 +55,7 @@ class RetentionEventTypesRequestBuilder extends BaseRequestBuilder
     /**
      * Get a list of the retentionEventType objects and their properties. This API is available in the following national cloud deployments.
      * @param RetentionEventTypesRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<RetentionEventTypeCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/security-retentioneventtype-list?view=graph-rest-1.0 Find more info here
     */
     public function get(?RetentionEventTypesRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -75,7 +75,7 @@ class RetentionEventTypesRequestBuilder extends BaseRequestBuilder
      * Create a new retentionEventType object. This API is available in the following national cloud deployments.
      * @param RetentionEventType $body The request body
      * @param RetentionEventTypesRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<RetentionEventType|null>
      * @link https://learn.microsoft.com/graph/api/security-retentioneventtype-post?view=graph-rest-1.0 Find more info here
     */
     public function post(RetentionEventType $body, ?RetentionEventTypesRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -101,7 +101,6 @@ class RetentionEventTypesRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -109,6 +108,7 @@ class RetentionEventTypesRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -123,11 +123,11 @@ class RetentionEventTypesRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

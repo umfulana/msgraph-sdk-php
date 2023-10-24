@@ -34,7 +34,7 @@ class SetOrderRequestBuilder extends BaseRequestBuilder
      * Set the order of identityUserFlowAttributeAssignments being collected within a user flow. This API is available in the following national cloud deployments.
      * @param SetOrderPostRequestBody $body The request body
      * @param SetOrderRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/identityuserflowattributeassignment-setorder?view=graph-rest-1.0 Find more info here
     */
     public function post(SetOrderPostRequestBody $body, ?SetOrderRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -65,6 +65,7 @@ class SetOrderRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

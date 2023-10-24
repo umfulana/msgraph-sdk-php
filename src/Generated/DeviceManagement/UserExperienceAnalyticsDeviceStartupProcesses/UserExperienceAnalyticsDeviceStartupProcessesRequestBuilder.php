@@ -55,7 +55,7 @@ class UserExperienceAnalyticsDeviceStartupProcessesRequestBuilder extends BaseRe
     /**
      * User experience analytics device Startup Processes
      * @param UserExperienceAnalyticsDeviceStartupProcessesRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UserExperienceAnalyticsDeviceStartupProcessCollectionResponse|null>
     */
     public function get(?UserExperienceAnalyticsDeviceStartupProcessesRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -74,7 +74,7 @@ class UserExperienceAnalyticsDeviceStartupProcessesRequestBuilder extends BaseRe
      * Create new navigation property to userExperienceAnalyticsDeviceStartupProcesses for deviceManagement
      * @param UserExperienceAnalyticsDeviceStartupProcess $body The request body
      * @param UserExperienceAnalyticsDeviceStartupProcessesRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UserExperienceAnalyticsDeviceStartupProcess|null>
     */
     public function post(UserExperienceAnalyticsDeviceStartupProcess $body, ?UserExperienceAnalyticsDeviceStartupProcessesRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPostRequestInformation($body, $requestConfiguration);
@@ -99,7 +99,6 @@ class UserExperienceAnalyticsDeviceStartupProcessesRequestBuilder extends BaseRe
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -107,6 +106,7 @@ class UserExperienceAnalyticsDeviceStartupProcessesRequestBuilder extends BaseRe
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -121,11 +121,11 @@ class UserExperienceAnalyticsDeviceStartupProcessesRequestBuilder extends BaseRe
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

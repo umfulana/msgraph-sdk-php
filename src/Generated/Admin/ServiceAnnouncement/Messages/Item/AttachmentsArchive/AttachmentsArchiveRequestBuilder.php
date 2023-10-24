@@ -34,7 +34,7 @@ class AttachmentsArchiveRequestBuilder extends BaseRequestBuilder
     /**
      * The zip file that contains all attachments for a message.
      * @param AttachmentsArchiveRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<StreamInterface|null>
      * @link https://learn.microsoft.com/graph/api/serviceannouncement-list-messages?view=graph-rest-1.0 Find more info here
     */
     public function get(?AttachmentsArchiveRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -54,7 +54,7 @@ class AttachmentsArchiveRequestBuilder extends BaseRequestBuilder
      * The zip file that contains all attachments for a message.
      * @param StreamInterface $body Binary request body
      * @param AttachmentsArchiveRequestBuilderPutRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<StreamInterface|null>
     */
     public function put(StreamInterface $body, ?AttachmentsArchiveRequestBuilderPutRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPutRequestInformation($body, $requestConfiguration);
@@ -83,6 +83,7 @@ class AttachmentsArchiveRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/octet-stream, application/json, application/json");
         return $requestInfo;
     }
 
@@ -101,7 +102,8 @@ class AttachmentsArchiveRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
-        $requestInfo->setStreamContent($body);
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
+        $requestInfo->setStreamContent($body, "application/octet-stream");
         return $requestInfo;
     }
 

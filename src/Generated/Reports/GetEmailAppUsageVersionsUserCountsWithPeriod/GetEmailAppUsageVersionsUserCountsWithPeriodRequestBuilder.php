@@ -37,7 +37,7 @@ class GetEmailAppUsageVersionsUserCountsWithPeriodRequestBuilder extends BaseReq
     /**
      * Invoke function getEmailAppUsageVersionsUserCounts
      * @param GetEmailAppUsageVersionsUserCountsWithPeriodRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<StreamInterface|null>
     */
     public function get(?GetEmailAppUsageVersionsUserCountsWithPeriodRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -66,6 +66,7 @@ class GetEmailAppUsageVersionsUserCountsWithPeriodRequestBuilder extends BaseReq
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/octet-stream, application/json, application/json");
         return $requestInfo;
     }
 

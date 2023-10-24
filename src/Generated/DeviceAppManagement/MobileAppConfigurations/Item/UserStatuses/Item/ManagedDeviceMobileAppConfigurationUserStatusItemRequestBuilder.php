@@ -34,7 +34,7 @@ class ManagedDeviceMobileAppConfigurationUserStatusItemRequestBuilder extends Ba
     /**
      * Deletes a managedDeviceMobileAppConfigurationUserStatus.
      * @param ManagedDeviceMobileAppConfigurationUserStatusItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/intune-apps-manageddevicemobileappconfigurationuserstatus-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?ManagedDeviceMobileAppConfigurationUserStatusItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -53,7 +53,7 @@ class ManagedDeviceMobileAppConfigurationUserStatusItemRequestBuilder extends Ba
     /**
      * Read properties and relationships of the managedDeviceMobileAppConfigurationUserStatus object.
      * @param ManagedDeviceMobileAppConfigurationUserStatusItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ManagedDeviceMobileAppConfigurationUserStatus|null>
      * @link https://learn.microsoft.com/graph/api/intune-apps-manageddevicemobileappconfigurationuserstatus-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?ManagedDeviceMobileAppConfigurationUserStatusItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -73,7 +73,7 @@ class ManagedDeviceMobileAppConfigurationUserStatusItemRequestBuilder extends Ba
      * Update the properties of a managedDeviceMobileAppConfigurationUserStatus object.
      * @param ManagedDeviceMobileAppConfigurationUserStatus $body The request body
      * @param ManagedDeviceMobileAppConfigurationUserStatusItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ManagedDeviceMobileAppConfigurationUserStatus|null>
      * @link https://learn.microsoft.com/graph/api/intune-apps-manageddevicemobileappconfigurationuserstatus-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(ManagedDeviceMobileAppConfigurationUserStatus $body, ?ManagedDeviceMobileAppConfigurationUserStatusItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -103,6 +103,7 @@ class ManagedDeviceMobileAppConfigurationUserStatusItemRequestBuilder extends Ba
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -116,7 +117,6 @@ class ManagedDeviceMobileAppConfigurationUserStatusItemRequestBuilder extends Ba
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -124,6 +124,7 @@ class ManagedDeviceMobileAppConfigurationUserStatusItemRequestBuilder extends Ba
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -138,11 +139,11 @@ class ManagedDeviceMobileAppConfigurationUserStatusItemRequestBuilder extends Ba
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

@@ -56,7 +56,7 @@ class TaskReportsRequestBuilder extends BaseRequestBuilder
     /**
      * Get a list of the taskReport objects and their properties. This API is available in the following national cloud deployments.
      * @param TaskReportsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<TaskReportCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/identitygovernance-workflow-list-taskreports?view=graph-rest-1.0 Find more info here
     */
     public function get(?TaskReportsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -92,7 +92,6 @@ class TaskReportsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -100,6 +99,7 @@ class TaskReportsRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

@@ -50,7 +50,7 @@ class AccessReviewScheduleDefinitionItemRequestBuilder extends BaseRequestBuilde
     /**
      * Deletes an accessReviewScheduleDefinition object. This API is available in the following national cloud deployments.
      * @param AccessReviewScheduleDefinitionItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/accessreviewscheduledefinition-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?AccessReviewScheduleDefinitionItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -69,7 +69,7 @@ class AccessReviewScheduleDefinitionItemRequestBuilder extends BaseRequestBuilde
     /**
      * Read the properties and relationships of an accessReviewScheduleDefinition object. To retrieve the instances of the access review series, use the list accessReviewInstance API. This API is available in the following national cloud deployments.
      * @param AccessReviewScheduleDefinitionItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<AccessReviewScheduleDefinition|null>
      * @link https://learn.microsoft.com/graph/api/accessreviewscheduledefinition-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?AccessReviewScheduleDefinitionItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -89,7 +89,7 @@ class AccessReviewScheduleDefinitionItemRequestBuilder extends BaseRequestBuilde
      * Update an existing accessReviewScheduleDefinition object to change one or more of its properties.
      * @param AccessReviewScheduleDefinition $body The request body
      * @param AccessReviewScheduleDefinitionItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<AccessReviewScheduleDefinition|null>
      * @link https://learn.microsoft.com/graph/api/accessreviewscheduledefinition-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(AccessReviewScheduleDefinition $body, ?AccessReviewScheduleDefinitionItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -119,6 +119,7 @@ class AccessReviewScheduleDefinitionItemRequestBuilder extends BaseRequestBuilde
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -132,7 +133,6 @@ class AccessReviewScheduleDefinitionItemRequestBuilder extends BaseRequestBuilde
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -140,6 +140,7 @@ class AccessReviewScheduleDefinitionItemRequestBuilder extends BaseRequestBuilde
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -154,11 +155,11 @@ class AccessReviewScheduleDefinitionItemRequestBuilder extends BaseRequestBuilde
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

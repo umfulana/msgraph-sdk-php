@@ -34,7 +34,7 @@ class VerifyRequestBuilder extends BaseRequestBuilder
     /**
      * Validates the ownership of the domain. This API is available in the following national cloud deployments.
      * @param VerifyRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<Domain|null>
      * @link https://learn.microsoft.com/graph/api/domain-verify?view=graph-rest-1.0 Find more info here
     */
     public function post(?VerifyRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -60,11 +60,11 @@ class VerifyRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

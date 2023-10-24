@@ -34,7 +34,7 @@ class WindowsDefenderScanRequestBuilder extends BaseRequestBuilder
      * Not yet documented
      * @param WindowsDefenderScanPostRequestBody $body The request body
      * @param WindowsDefenderScanRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/intune-devices-manageddevice-windowsdefenderscan?view=graph-rest-1.0 Find more info here
     */
     public function post(WindowsDefenderScanPostRequestBody $body, ?WindowsDefenderScanRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -65,6 +65,7 @@ class WindowsDefenderScanRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

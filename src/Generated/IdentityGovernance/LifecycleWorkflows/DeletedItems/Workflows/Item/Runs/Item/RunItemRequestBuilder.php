@@ -50,7 +50,7 @@ class RunItemRequestBuilder extends BaseRequestBuilder
     /**
      * Read the properties and relationships of a run object. This API is available in the following national cloud deployments.
      * @param RunItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<Run|null>
      * @link https://learn.microsoft.com/graph/api/identitygovernance-run-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?RunItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -76,7 +76,6 @@ class RunItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -84,6 +83,7 @@ class RunItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

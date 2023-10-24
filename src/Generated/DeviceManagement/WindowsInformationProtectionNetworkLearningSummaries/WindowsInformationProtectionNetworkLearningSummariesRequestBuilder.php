@@ -55,7 +55,7 @@ class WindowsInformationProtectionNetworkLearningSummariesRequestBuilder extends
     /**
      * List properties and relationships of the windowsInformationProtectionNetworkLearningSummary objects.
      * @param WindowsInformationProtectionNetworkLearningSummariesRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<WindowsInformationProtectionNetworkLearningSummaryCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/intune-wip-windowsinformationprotectionnetworklearningsummary-list?view=graph-rest-1.0 Find more info here
     */
     public function get(?WindowsInformationProtectionNetworkLearningSummariesRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -75,7 +75,7 @@ class WindowsInformationProtectionNetworkLearningSummariesRequestBuilder extends
      * Create a new windowsInformationProtectionNetworkLearningSummary object.
      * @param WindowsInformationProtectionNetworkLearningSummary $body The request body
      * @param WindowsInformationProtectionNetworkLearningSummariesRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<WindowsInformationProtectionNetworkLearningSummary|null>
      * @link https://learn.microsoft.com/graph/api/intune-wip-windowsinformationprotectionnetworklearningsummary-create?view=graph-rest-1.0 Find more info here
     */
     public function post(WindowsInformationProtectionNetworkLearningSummary $body, ?WindowsInformationProtectionNetworkLearningSummariesRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -101,7 +101,6 @@ class WindowsInformationProtectionNetworkLearningSummariesRequestBuilder extends
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -109,6 +108,7 @@ class WindowsInformationProtectionNetworkLearningSummariesRequestBuilder extends
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -123,11 +123,11 @@ class WindowsInformationProtectionNetworkLearningSummariesRequestBuilder extends
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

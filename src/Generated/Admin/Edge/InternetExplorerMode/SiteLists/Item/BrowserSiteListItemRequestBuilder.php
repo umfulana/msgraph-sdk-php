@@ -58,7 +58,7 @@ class BrowserSiteListItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete a browserSiteList object. This API is available in the following national cloud deployments.
      * @param BrowserSiteListItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/internetexplorermode-delete-sitelists?view=graph-rest-1.0 Find more info here
     */
     public function delete(?BrowserSiteListItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -77,7 +77,7 @@ class BrowserSiteListItemRequestBuilder extends BaseRequestBuilder
     /**
      * Get a browserSiteList that contains browserSite and browserSharedCookie resources. This API is available in the following national cloud deployments.
      * @param BrowserSiteListItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<BrowserSiteList|null>
      * @link https://learn.microsoft.com/graph/api/browsersitelist-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?BrowserSiteListItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -97,7 +97,7 @@ class BrowserSiteListItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of a browserSiteList object. This API is available in the following national cloud deployments.
      * @param BrowserSiteList $body The request body
      * @param BrowserSiteListItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<BrowserSiteList|null>
      * @link https://learn.microsoft.com/graph/api/browsersitelist-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(BrowserSiteList $body, ?BrowserSiteListItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -127,6 +127,7 @@ class BrowserSiteListItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -140,7 +141,6 @@ class BrowserSiteListItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -148,6 +148,7 @@ class BrowserSiteListItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -162,11 +163,11 @@ class BrowserSiteListItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

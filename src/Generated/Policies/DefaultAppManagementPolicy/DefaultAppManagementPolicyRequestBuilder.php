@@ -34,7 +34,7 @@ class DefaultAppManagementPolicyRequestBuilder extends BaseRequestBuilder
     /**
      * Delete navigation property defaultAppManagementPolicy for policies
      * @param DefaultAppManagementPolicyRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?DefaultAppManagementPolicyRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -52,7 +52,7 @@ class DefaultAppManagementPolicyRequestBuilder extends BaseRequestBuilder
     /**
      * Read the properties of a tenantAppManagementPolicy object. This API is available in the following national cloud deployments.
      * @param DefaultAppManagementPolicyRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<TenantAppManagementPolicy|null>
      * @link https://learn.microsoft.com/graph/api/tenantappmanagementpolicy-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?DefaultAppManagementPolicyRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -72,7 +72,7 @@ class DefaultAppManagementPolicyRequestBuilder extends BaseRequestBuilder
      * Update the properties of a tenantAppManagementPolicy object. This API is available in the following national cloud deployments.
      * @param TenantAppManagementPolicy $body The request body
      * @param DefaultAppManagementPolicyRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<TenantAppManagementPolicy|null>
      * @link https://learn.microsoft.com/graph/api/tenantappmanagementpolicy-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(TenantAppManagementPolicy $body, ?DefaultAppManagementPolicyRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -102,6 +102,7 @@ class DefaultAppManagementPolicyRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -115,7 +116,6 @@ class DefaultAppManagementPolicyRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -123,6 +123,7 @@ class DefaultAppManagementPolicyRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -137,11 +138,11 @@ class DefaultAppManagementPolicyRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

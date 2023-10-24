@@ -90,7 +90,7 @@ class DomainItemRequestBuilder extends BaseRequestBuilder
     /**
      * Deletes a domain from a tenant. This API is available in the following national cloud deployments.
      * @param DomainItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/domain-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?DomainItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -109,7 +109,7 @@ class DomainItemRequestBuilder extends BaseRequestBuilder
     /**
      * Retrieve the properties and relationships of domain object. This API is available in the following national cloud deployments.
      * @param DomainItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<Domain|null>
      * @link https://learn.microsoft.com/graph/api/domain-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?DomainItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -129,7 +129,7 @@ class DomainItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of domain object. This API is available in the following national cloud deployments.
      * @param Domain $body The request body
      * @param DomainItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<Domain|null>
      * @link https://learn.microsoft.com/graph/api/domain-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(Domain $body, ?DomainItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -159,6 +159,7 @@ class DomainItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -172,7 +173,6 @@ class DomainItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -180,6 +180,7 @@ class DomainItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -194,11 +195,11 @@ class DomainItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

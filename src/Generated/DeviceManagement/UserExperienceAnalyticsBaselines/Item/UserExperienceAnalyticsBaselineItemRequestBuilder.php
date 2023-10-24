@@ -90,7 +90,7 @@ class UserExperienceAnalyticsBaselineItemRequestBuilder extends BaseRequestBuild
     /**
      * Delete navigation property userExperienceAnalyticsBaselines for deviceManagement
      * @param UserExperienceAnalyticsBaselineItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?UserExperienceAnalyticsBaselineItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -108,7 +108,7 @@ class UserExperienceAnalyticsBaselineItemRequestBuilder extends BaseRequestBuild
     /**
      * User experience analytics baselines
      * @param UserExperienceAnalyticsBaselineItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UserExperienceAnalyticsBaseline|null>
     */
     public function get(?UserExperienceAnalyticsBaselineItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -127,7 +127,7 @@ class UserExperienceAnalyticsBaselineItemRequestBuilder extends BaseRequestBuild
      * Update the navigation property userExperienceAnalyticsBaselines in deviceManagement
      * @param UserExperienceAnalyticsBaseline $body The request body
      * @param UserExperienceAnalyticsBaselineItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UserExperienceAnalyticsBaseline|null>
     */
     public function patch(UserExperienceAnalyticsBaseline $body, ?UserExperienceAnalyticsBaselineItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPatchRequestInformation($body, $requestConfiguration);
@@ -156,6 +156,7 @@ class UserExperienceAnalyticsBaselineItemRequestBuilder extends BaseRequestBuild
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -169,7 +170,6 @@ class UserExperienceAnalyticsBaselineItemRequestBuilder extends BaseRequestBuild
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -177,6 +177,7 @@ class UserExperienceAnalyticsBaselineItemRequestBuilder extends BaseRequestBuild
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -191,11 +192,11 @@ class UserExperienceAnalyticsBaselineItemRequestBuilder extends BaseRequestBuild
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

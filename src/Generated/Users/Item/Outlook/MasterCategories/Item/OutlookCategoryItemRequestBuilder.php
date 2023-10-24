@@ -34,7 +34,7 @@ class OutlookCategoryItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete the specified outlookCategory object. This API is available in the following national cloud deployments.
      * @param OutlookCategoryItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/outlookcategory-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?OutlookCategoryItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -53,7 +53,7 @@ class OutlookCategoryItemRequestBuilder extends BaseRequestBuilder
     /**
      * Get the properties and relationships of the specified outlookCategory object. This API is available in the following national cloud deployments.
      * @param OutlookCategoryItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<OutlookCategory|null>
      * @link https://learn.microsoft.com/graph/api/outlookcategory-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?OutlookCategoryItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -73,7 +73,7 @@ class OutlookCategoryItemRequestBuilder extends BaseRequestBuilder
      * Update the writable property, color, of the specified outlookCategory object. You can't modify the displayName propertyonce you have created the category. This API is available in the following national cloud deployments.
      * @param OutlookCategory $body The request body
      * @param OutlookCategoryItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<OutlookCategory|null>
      * @link https://learn.microsoft.com/graph/api/outlookcategory-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(OutlookCategory $body, ?OutlookCategoryItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -103,6 +103,7 @@ class OutlookCategoryItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -116,7 +117,6 @@ class OutlookCategoryItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -124,6 +124,7 @@ class OutlookCategoryItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -138,11 +139,11 @@ class OutlookCategoryItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

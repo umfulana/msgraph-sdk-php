@@ -42,7 +42,7 @@ class WorkflowTemplateItemRequestBuilder extends BaseRequestBuilder
     /**
      * Read the properties and relationships of a workflowTemplate object. This API is available in the following national cloud deployments.
      * @param WorkflowTemplateItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<WorkflowTemplate|null>
      * @link https://learn.microsoft.com/graph/api/identitygovernance-workflowtemplate-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?WorkflowTemplateItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -68,7 +68,6 @@ class WorkflowTemplateItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -76,6 +75,7 @@ class WorkflowTemplateItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

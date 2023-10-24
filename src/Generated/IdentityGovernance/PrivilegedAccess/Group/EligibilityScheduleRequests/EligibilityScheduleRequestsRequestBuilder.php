@@ -63,9 +63,9 @@ class EligibilityScheduleRequestsRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * Get a list of the privilegedAccessGroupEligibilityScheduleRequest objects and their properties.
+     * Get a list of the privilegedAccessGroupEligibilityScheduleRequest objects and their properties. This API is available in the following national cloud deployments.
      * @param EligibilityScheduleRequestsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<PrivilegedAccessGroupEligibilityScheduleRequestCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/privilegedaccessgroup-list-eligibilityschedulerequests?view=graph-rest-1.0 Find more info here
     */
     public function get(?EligibilityScheduleRequestsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -82,10 +82,10 @@ class EligibilityScheduleRequestsRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * Create a new privilegedAccessGroupEligibilityScheduleRequest object.
+     * Create a new privilegedAccessGroupEligibilityScheduleRequest object. This API is available in the following national cloud deployments.
      * @param PrivilegedAccessGroupEligibilityScheduleRequest $body The request body
      * @param EligibilityScheduleRequestsRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<PrivilegedAccessGroupEligibilityScheduleRequest|null>
      * @link https://learn.microsoft.com/graph/api/privilegedaccessgroup-post-eligibilityschedulerequests?view=graph-rest-1.0 Find more info here
     */
     public function post(PrivilegedAccessGroupEligibilityScheduleRequest $body, ?EligibilityScheduleRequestsRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -102,7 +102,7 @@ class EligibilityScheduleRequestsRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * Get a list of the privilegedAccessGroupEligibilityScheduleRequest objects and their properties.
+     * Get a list of the privilegedAccessGroupEligibilityScheduleRequest objects and their properties. This API is available in the following national cloud deployments.
      * @param EligibilityScheduleRequestsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return RequestInformation
     */
@@ -111,7 +111,6 @@ class EligibilityScheduleRequestsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -119,11 +118,12 @@ class EligibilityScheduleRequestsRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
     /**
-     * Create a new privilegedAccessGroupEligibilityScheduleRequest object.
+     * Create a new privilegedAccessGroupEligibilityScheduleRequest object. This API is available in the following national cloud deployments.
      * @param PrivilegedAccessGroupEligibilityScheduleRequest $body The request body
      * @param EligibilityScheduleRequestsRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return RequestInformation
@@ -133,11 +133,11 @@ class EligibilityScheduleRequestsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

@@ -99,7 +99,7 @@ class ListItemItemRequestBuilder extends BaseRequestBuilder
     /**
      * Removes an item from a list][]. This API is available in the following [national cloud deployments.
      * @param ListItemItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/listitem-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?ListItemItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -118,7 +118,7 @@ class ListItemItemRequestBuilder extends BaseRequestBuilder
     /**
      * Returns the metadata for an item][] in a [list][]. This API is available in the following [national cloud deployments.
      * @param ListItemItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ListItem|null>
      * @link https://learn.microsoft.com/graph/api/listitem-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?ListItemItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -149,7 +149,7 @@ class ListItemItemRequestBuilder extends BaseRequestBuilder
      * Update the navigation property items in sites
      * @param ListItem $body The request body
      * @param ListItemItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ListItem|null>
     */
     public function patch(ListItem $body, ?ListItemItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPatchRequestInformation($body, $requestConfiguration);
@@ -178,6 +178,7 @@ class ListItemItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -191,7 +192,6 @@ class ListItemItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -199,6 +199,7 @@ class ListItemItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -213,11 +214,11 @@ class ListItemItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

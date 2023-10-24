@@ -106,7 +106,7 @@ class BookingBusinessItemRequestBuilder extends BaseRequestBuilder
     /**
      * Delete a bookingBusiness object. This API is available in the following national cloud deployments.
      * @param BookingBusinessItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/bookingbusiness-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?BookingBusinessItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -125,7 +125,7 @@ class BookingBusinessItemRequestBuilder extends BaseRequestBuilder
     /**
      * Get the properties and relationships of a bookingBusiness object. This API is available in the following national cloud deployments.
      * @param BookingBusinessItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<BookingBusiness|null>
      * @link https://learn.microsoft.com/graph/api/bookingbusiness-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?BookingBusinessItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -145,7 +145,7 @@ class BookingBusinessItemRequestBuilder extends BaseRequestBuilder
      * Update the properties of a bookingBusiness object. This API is available in the following national cloud deployments.
      * @param BookingBusiness $body The request body
      * @param BookingBusinessItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<BookingBusiness|null>
      * @link https://learn.microsoft.com/graph/api/bookingbusiness-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(BookingBusiness $body, ?BookingBusinessItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -175,6 +175,7 @@ class BookingBusinessItemRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -188,7 +189,6 @@ class BookingBusinessItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -196,6 +196,7 @@ class BookingBusinessItemRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -210,11 +211,11 @@ class BookingBusinessItemRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

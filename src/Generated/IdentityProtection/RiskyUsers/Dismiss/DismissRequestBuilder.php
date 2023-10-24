@@ -34,7 +34,7 @@ class DismissRequestBuilder extends BaseRequestBuilder
      * Dismiss the risk of one or more riskyUser objects. This action sets the targeted user's risk level to none. This API is available in the following national cloud deployments.
      * @param DismissPostRequestBody $body The request body
      * @param DismissRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/riskyuser-dismiss?view=graph-rest-1.0 Find more info here
     */
     public function post(DismissPostRequestBody $body, ?DismissRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -65,6 +65,7 @@ class DismissRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

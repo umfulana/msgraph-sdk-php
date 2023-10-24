@@ -55,7 +55,7 @@ class UserExperienceAnalyticsWorkFromAnywhereMetricsRequestBuilder extends BaseR
     /**
      * User experience analytics work from anywhere metrics.
      * @param UserExperienceAnalyticsWorkFromAnywhereMetricsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UserExperienceAnalyticsWorkFromAnywhereMetricCollectionResponse|null>
     */
     public function get(?UserExperienceAnalyticsWorkFromAnywhereMetricsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -74,7 +74,7 @@ class UserExperienceAnalyticsWorkFromAnywhereMetricsRequestBuilder extends BaseR
      * Create new navigation property to userExperienceAnalyticsWorkFromAnywhereMetrics for deviceManagement
      * @param UserExperienceAnalyticsWorkFromAnywhereMetric $body The request body
      * @param UserExperienceAnalyticsWorkFromAnywhereMetricsRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UserExperienceAnalyticsWorkFromAnywhereMetric|null>
     */
     public function post(UserExperienceAnalyticsWorkFromAnywhereMetric $body, ?UserExperienceAnalyticsWorkFromAnywhereMetricsRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPostRequestInformation($body, $requestConfiguration);
@@ -99,7 +99,6 @@ class UserExperienceAnalyticsWorkFromAnywhereMetricsRequestBuilder extends BaseR
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -107,6 +106,7 @@ class UserExperienceAnalyticsWorkFromAnywhereMetricsRequestBuilder extends BaseR
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -121,11 +121,11 @@ class UserExperienceAnalyticsWorkFromAnywhereMetricsRequestBuilder extends BaseR
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

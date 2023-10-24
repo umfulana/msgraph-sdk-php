@@ -34,7 +34,7 @@ class WindowsInformationProtectionAppLockerFileItemRequestBuilder extends BaseRe
     /**
      * Delete navigation property exemptAppLockerFiles for deviceAppManagement
      * @param WindowsInformationProtectionAppLockerFileItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?WindowsInformationProtectionAppLockerFileItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -52,7 +52,7 @@ class WindowsInformationProtectionAppLockerFileItemRequestBuilder extends BaseRe
     /**
      * Another way to input exempt apps through xml files
      * @param WindowsInformationProtectionAppLockerFileItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<WindowsInformationProtectionAppLockerFile|null>
     */
     public function get(?WindowsInformationProtectionAppLockerFileItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -71,7 +71,7 @@ class WindowsInformationProtectionAppLockerFileItemRequestBuilder extends BaseRe
      * Update the navigation property exemptAppLockerFiles in deviceAppManagement
      * @param WindowsInformationProtectionAppLockerFile $body The request body
      * @param WindowsInformationProtectionAppLockerFileItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<WindowsInformationProtectionAppLockerFile|null>
     */
     public function patch(WindowsInformationProtectionAppLockerFile $body, ?WindowsInformationProtectionAppLockerFileItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPatchRequestInformation($body, $requestConfiguration);
@@ -100,6 +100,7 @@ class WindowsInformationProtectionAppLockerFileItemRequestBuilder extends BaseRe
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -113,7 +114,6 @@ class WindowsInformationProtectionAppLockerFileItemRequestBuilder extends BaseRe
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -121,6 +121,7 @@ class WindowsInformationProtectionAppLockerFileItemRequestBuilder extends BaseRe
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -135,11 +136,11 @@ class WindowsInformationProtectionAppLockerFileItemRequestBuilder extends BaseRe
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

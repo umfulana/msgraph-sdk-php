@@ -36,7 +36,7 @@ class GetRecentNotebooksWithIncludePersonalNotebooksRequestBuilder extends BaseR
     /**
      * Invoke function getRecentNotebooks
      * @param GetRecentNotebooksWithIncludePersonalNotebooksRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<GetRecentNotebooksWithIncludePersonalNotebooksGetResponse|null>
     */
     public function get(?GetRecentNotebooksWithIncludePersonalNotebooksRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -61,7 +61,6 @@ class GetRecentNotebooksWithIncludePersonalNotebooksRequestBuilder extends BaseR
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -69,6 +68,7 @@ class GetRecentNotebooksWithIncludePersonalNotebooksRequestBuilder extends BaseR
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

@@ -34,7 +34,7 @@ class MicrosoftGraphSecurityAddToReviewSetRequestBuilder extends BaseRequestBuil
      * Start the process of adding a collection from Microsoft 365 services to a review set. After the operation is created, you can get the status of the operation by retrieving the Location parameter from the response headers. The location provides a URL that will return a Add to review set operation. This API is available in the following national cloud deployments.
      * @param AddToReviewSetPostRequestBody $body The request body
      * @param MicrosoftGraphSecurityAddToReviewSetRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/security-ediscoveryreviewset-addtoreviewset?view=graph-rest-1.0 Find more info here
     */
     public function post(AddToReviewSetPostRequestBody $body, ?MicrosoftGraphSecurityAddToReviewSetRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -65,6 +65,7 @@ class MicrosoftGraphSecurityAddToReviewSetRequestBuilder extends BaseRequestBuil
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

@@ -34,7 +34,7 @@ class IdentitySecurityDefaultsEnforcementPolicyRequestBuilder extends BaseReques
     /**
      * Delete navigation property identitySecurityDefaultsEnforcementPolicy for policies
      * @param IdentitySecurityDefaultsEnforcementPolicyRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?IdentitySecurityDefaultsEnforcementPolicyRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -52,7 +52,7 @@ class IdentitySecurityDefaultsEnforcementPolicyRequestBuilder extends BaseReques
     /**
      * Retrieve the properties of an identitySecurityDefaultsEnforcementPolicy object. This API is available in the following national cloud deployments.
      * @param IdentitySecurityDefaultsEnforcementPolicyRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<IdentitySecurityDefaultsEnforcementPolicy|null>
      * @link https://learn.microsoft.com/graph/api/identitysecuritydefaultsenforcementpolicy-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?IdentitySecurityDefaultsEnforcementPolicyRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -72,7 +72,7 @@ class IdentitySecurityDefaultsEnforcementPolicyRequestBuilder extends BaseReques
      * Update the properties of an identitySecurityDefaultsEnforcementPolicy object. This API is available in the following national cloud deployments.
      * @param IdentitySecurityDefaultsEnforcementPolicy $body The request body
      * @param IdentitySecurityDefaultsEnforcementPolicyRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<IdentitySecurityDefaultsEnforcementPolicy|null>
      * @link https://learn.microsoft.com/graph/api/identitysecuritydefaultsenforcementpolicy-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(IdentitySecurityDefaultsEnforcementPolicy $body, ?IdentitySecurityDefaultsEnforcementPolicyRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -102,6 +102,7 @@ class IdentitySecurityDefaultsEnforcementPolicyRequestBuilder extends BaseReques
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -115,7 +116,6 @@ class IdentitySecurityDefaultsEnforcementPolicyRequestBuilder extends BaseReques
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -123,6 +123,7 @@ class IdentitySecurityDefaultsEnforcementPolicyRequestBuilder extends BaseReques
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -137,11 +138,11 @@ class IdentitySecurityDefaultsEnforcementPolicyRequestBuilder extends BaseReques
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

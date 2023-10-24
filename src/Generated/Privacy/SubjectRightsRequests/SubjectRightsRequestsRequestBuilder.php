@@ -55,7 +55,7 @@ class SubjectRightsRequestsRequestBuilder extends BaseRequestBuilder
     /**
      * Get a list of subjectRightsRequest objects and their properties. This API is available in the following national cloud deployments.
      * @param SubjectRightsRequestsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<SubjectRightsRequestCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/subjectrightsrequest-list?view=graph-rest-1.0 Find more info here
     */
     public function get(?SubjectRightsRequestsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -75,7 +75,7 @@ class SubjectRightsRequestsRequestBuilder extends BaseRequestBuilder
      * Create a new subjectRightsRequest object. This API is available in the following national cloud deployments.
      * @param SubjectRightsRequest $body The request body
      * @param SubjectRightsRequestsRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<SubjectRightsRequest|null>
      * @link https://learn.microsoft.com/graph/api/subjectrightsrequest-post?view=graph-rest-1.0 Find more info here
     */
     public function post(SubjectRightsRequest $body, ?SubjectRightsRequestsRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -101,7 +101,6 @@ class SubjectRightsRequestsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -109,6 +108,7 @@ class SubjectRightsRequestsRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -123,11 +123,11 @@ class SubjectRightsRequestsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

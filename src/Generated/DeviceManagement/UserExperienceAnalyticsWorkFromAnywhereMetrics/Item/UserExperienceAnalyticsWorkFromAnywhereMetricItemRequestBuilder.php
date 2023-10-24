@@ -42,7 +42,7 @@ class UserExperienceAnalyticsWorkFromAnywhereMetricItemRequestBuilder extends Ba
     /**
      * Delete navigation property userExperienceAnalyticsWorkFromAnywhereMetrics for deviceManagement
      * @param UserExperienceAnalyticsWorkFromAnywhereMetricItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
     */
     public function delete(?UserExperienceAnalyticsWorkFromAnywhereMetricItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -60,7 +60,7 @@ class UserExperienceAnalyticsWorkFromAnywhereMetricItemRequestBuilder extends Ba
     /**
      * User experience analytics work from anywhere metrics.
      * @param UserExperienceAnalyticsWorkFromAnywhereMetricItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UserExperienceAnalyticsWorkFromAnywhereMetric|null>
     */
     public function get(?UserExperienceAnalyticsWorkFromAnywhereMetricItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -79,7 +79,7 @@ class UserExperienceAnalyticsWorkFromAnywhereMetricItemRequestBuilder extends Ba
      * Update the navigation property userExperienceAnalyticsWorkFromAnywhereMetrics in deviceManagement
      * @param UserExperienceAnalyticsWorkFromAnywhereMetric $body The request body
      * @param UserExperienceAnalyticsWorkFromAnywhereMetricItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<UserExperienceAnalyticsWorkFromAnywhereMetric|null>
     */
     public function patch(UserExperienceAnalyticsWorkFromAnywhereMetric $body, ?UserExperienceAnalyticsWorkFromAnywhereMetricItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPatchRequestInformation($body, $requestConfiguration);
@@ -108,6 +108,7 @@ class UserExperienceAnalyticsWorkFromAnywhereMetricItemRequestBuilder extends Ba
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -121,7 +122,6 @@ class UserExperienceAnalyticsWorkFromAnywhereMetricItemRequestBuilder extends Ba
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -129,6 +129,7 @@ class UserExperienceAnalyticsWorkFromAnywhereMetricItemRequestBuilder extends Ba
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -143,11 +144,11 @@ class UserExperienceAnalyticsWorkFromAnywhereMetricItemRequestBuilder extends Ba
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

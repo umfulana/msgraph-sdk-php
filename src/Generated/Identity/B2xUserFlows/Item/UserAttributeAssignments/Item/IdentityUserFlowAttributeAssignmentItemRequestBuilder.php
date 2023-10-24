@@ -42,7 +42,7 @@ class IdentityUserFlowAttributeAssignmentItemRequestBuilder extends BaseRequestB
     /**
      * Delete an identityUserFlowAttributeAssignment object. This API is available in the following national cloud deployments.
      * @param IdentityUserFlowAttributeAssignmentItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/identityuserflowattributeassignment-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?IdentityUserFlowAttributeAssignmentItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
@@ -61,7 +61,7 @@ class IdentityUserFlowAttributeAssignmentItemRequestBuilder extends BaseRequestB
     /**
      * Read the properties and relationships of an identityUserFlowAttributeAssignment object. This API is available in the following national cloud deployments.
      * @param IdentityUserFlowAttributeAssignmentItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<IdentityUserFlowAttributeAssignment|null>
      * @link https://learn.microsoft.com/graph/api/identityuserflowattributeassignment-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?IdentityUserFlowAttributeAssignmentItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -81,7 +81,7 @@ class IdentityUserFlowAttributeAssignmentItemRequestBuilder extends BaseRequestB
      * Update the properties of a identityUserFlowAttributeAssignment object. This API is available in the following national cloud deployments.
      * @param IdentityUserFlowAttributeAssignment $body The request body
      * @param IdentityUserFlowAttributeAssignmentItemRequestBuilderPatchRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<IdentityUserFlowAttributeAssignment|null>
      * @link https://learn.microsoft.com/graph/api/identityuserflowattributeassignment-update?view=graph-rest-1.0 Find more info here
     */
     public function patch(IdentityUserFlowAttributeAssignment $body, ?IdentityUserFlowAttributeAssignmentItemRequestBuilderPatchRequestConfiguration $requestConfiguration = null): Promise {
@@ -111,6 +111,7 @@ class IdentityUserFlowAttributeAssignmentItemRequestBuilder extends BaseRequestB
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         return $requestInfo;
     }
 
@@ -124,7 +125,6 @@ class IdentityUserFlowAttributeAssignmentItemRequestBuilder extends BaseRequestB
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -132,6 +132,7 @@ class IdentityUserFlowAttributeAssignmentItemRequestBuilder extends BaseRequestB
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -146,11 +147,11 @@ class IdentityUserFlowAttributeAssignmentItemRequestBuilder extends BaseRequestB
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::PATCH;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

@@ -9,6 +9,7 @@ use Microsoft\Graph\Generated\Models\ODataErrors\ODataError;
 use Microsoft\Graph\Generated\Models\SiteCollectionResponse;
 use Microsoft\Graph\Generated\Sites\Add\AddRequestBuilder;
 use Microsoft\Graph\Generated\Sites\Count\CountRequestBuilder;
+use Microsoft\Graph\Generated\Sites\Delta\DeltaRequestBuilder;
 use Microsoft\Graph\Generated\Sites\GetAllSites\GetAllSitesRequestBuilder;
 use Microsoft\Graph\Generated\Sites\Item\SiteItemRequestBuilder;
 use Microsoft\Graph\Generated\Sites\Remove\RemoveRequestBuilder;
@@ -34,6 +35,13 @@ class SitesRequestBuilder extends BaseRequestBuilder
     */
     public function count(): CountRequestBuilder {
         return new CountRequestBuilder($this->pathParameters, $this->requestAdapter);
+    }
+    
+    /**
+     * Provides operations to call the delta method.
+    */
+    public function delta(): DeltaRequestBuilder {
+        return new DeltaRequestBuilder($this->pathParameters, $this->requestAdapter);
     }
     
     /**
@@ -78,7 +86,7 @@ class SitesRequestBuilder extends BaseRequestBuilder
     /**
      * List all available [sites][] in an organization. Specific filter criteria and query options are also supported and described below: In addition, you can use a [$search][] query against the /sites collection to find sites matching given keywords.If you want to list all sites across all geographies, refer to getAllSites][]. For more guidance about building applications that use site discovery for scanning purposes, see [Best practices for discovering files and detecting changes at scale. This API is available in the following national cloud deployments.
      * @param SitesRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<SiteCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/site-list?view=graph-rest-1.0 Find more info here
     */
     public function get(?SitesRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -104,7 +112,6 @@ class SitesRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -112,6 +119,7 @@ class SitesRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 

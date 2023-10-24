@@ -53,10 +53,10 @@ class MobileAppConfigurationsRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * List properties and relationships of the managedDeviceMobileAppConfiguration objects.
+     * List properties and relationships of the iosMobileAppConfiguration objects.
      * @param MobileAppConfigurationsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
-     * @link https://learn.microsoft.com/graph/api/intune-apps-manageddevicemobileappconfiguration-list?view=graph-rest-1.0 Find more info here
+     * @return Promise<ManagedDeviceMobileAppConfigurationCollectionResponse|null>
+     * @link https://learn.microsoft.com/graph/api/intune-apps-iosmobileappconfiguration-list?view=graph-rest-1.0 Find more info here
     */
     public function get(?MobileAppConfigurationsRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -75,7 +75,7 @@ class MobileAppConfigurationsRequestBuilder extends BaseRequestBuilder
      * Create a new iosMobileAppConfiguration object.
      * @param ManagedDeviceMobileAppConfiguration $body The request body
      * @param MobileAppConfigurationsRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ManagedDeviceMobileAppConfiguration|null>
      * @link https://learn.microsoft.com/graph/api/intune-apps-iosmobileappconfiguration-create?view=graph-rest-1.0 Find more info here
     */
     public function post(ManagedDeviceMobileAppConfiguration $body, ?MobileAppConfigurationsRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -92,7 +92,7 @@ class MobileAppConfigurationsRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * List properties and relationships of the managedDeviceMobileAppConfiguration objects.
+     * List properties and relationships of the iosMobileAppConfiguration objects.
      * @param MobileAppConfigurationsRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return RequestInformation
     */
@@ -101,7 +101,6 @@ class MobileAppConfigurationsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -109,6 +108,7 @@ class MobileAppConfigurationsRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -123,11 +123,11 @@ class MobileAppConfigurationsRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

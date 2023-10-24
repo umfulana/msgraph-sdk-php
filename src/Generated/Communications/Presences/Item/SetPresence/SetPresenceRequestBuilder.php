@@ -34,7 +34,7 @@ class SetPresenceRequestBuilder extends BaseRequestBuilder
      * Set the state of a user's presence session as an application. This API is available in the following national cloud deployments.
      * @param SetPresencePostRequestBody $body The request body
      * @param SetPresenceRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/presence-setpresence?view=graph-rest-1.0 Find more info here
     */
     public function post(SetPresencePostRequestBody $body, ?SetPresenceRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -65,6 +65,7 @@ class SetPresenceRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

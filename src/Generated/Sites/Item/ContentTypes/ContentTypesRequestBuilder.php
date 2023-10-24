@@ -79,7 +79,7 @@ class ContentTypesRequestBuilder extends BaseRequestBuilder
     /**
      * Get the collection of contentType][contentType] resources in a [site][]. This API is available in the following [national cloud deployments.
      * @param ContentTypesRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ContentTypeCollectionResponse|null>
      * @link https://learn.microsoft.com/graph/api/site-list-contenttypes?view=graph-rest-1.0 Find more info here
     */
     public function get(?ContentTypesRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
@@ -99,7 +99,7 @@ class ContentTypesRequestBuilder extends BaseRequestBuilder
      * Create a new contentType][] in a [site][]. This API is available in the following [national cloud deployments.
      * @param ContentType $body The request body
      * @param ContentTypesRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<ContentType|null>
      * @link https://learn.microsoft.com/graph/api/site-post-contenttypes?view=graph-rest-1.0 Find more info here
     */
     public function post(ContentType $body, ?ContentTypesRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -125,7 +125,6 @@ class ContentTypesRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::GET;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             if ($requestConfiguration->queryParameters !== null) {
@@ -133,6 +132,7 @@ class ContentTypesRequestBuilder extends BaseRequestBuilder
             }
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         return $requestInfo;
     }
 
@@ -147,11 +147,11 @@ class ContentTypesRequestBuilder extends BaseRequestBuilder
         $requestInfo->urlTemplate = $this->urlTemplate;
         $requestInfo->pathParameters = $this->pathParameters;
         $requestInfo->httpMethod = HttpMethod::POST;
-        $requestInfo->addHeader('Accept', "application/json");
         if ($requestConfiguration !== null) {
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json;q=1");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }

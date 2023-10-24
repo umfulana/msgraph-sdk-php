@@ -34,7 +34,7 @@ class MicrosoftGraphSecurityApplyTagsRequestBuilder extends BaseRequestBuilder
      * Apply tags to files in an eDiscovery review set. For details, see Tag documents in a review set in eDiscovery. This API is available in the following national cloud deployments.
      * @param ApplyTagsPostRequestBody $body The request body
      * @param MicrosoftGraphSecurityApplyTagsRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
-     * @return Promise
+     * @return Promise<void|null>
      * @link https://learn.microsoft.com/graph/api/security-ediscoveryreviewsetquery-applytags?view=graph-rest-1.0 Find more info here
     */
     public function post(ApplyTagsPostRequestBody $body, ?MicrosoftGraphSecurityApplyTagsRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
@@ -65,6 +65,7 @@ class MicrosoftGraphSecurityApplyTagsRequestBuilder extends BaseRequestBuilder
             $requestInfo->addHeaders($requestConfiguration->headers);
             $requestInfo->addRequestOptions(...$requestConfiguration->options);
         }
+        $requestInfo->tryAddHeader('Accept', "application/json, application/json");
         $requestInfo->setContentFromParsable($this->requestAdapter, "application/json", $body);
         return $requestInfo;
     }
