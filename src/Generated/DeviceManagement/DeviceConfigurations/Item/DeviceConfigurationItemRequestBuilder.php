@@ -88,11 +88,11 @@ class DeviceConfigurationItemRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * Deletes a windowsDefenderAdvancedThreatProtectionConfiguration.
+     * Deletes a macOSCustomConfiguration.
      * @param DeviceConfigurationItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return Promise<void|null>
      * @throws Exception
-     * @link https://learn.microsoft.com/graph/api/intune-deviceconfig-windowsdefenderadvancedthreatprotectionconfiguration-delete?view=graph-rest-1.0 Find more info here
+     * @link https://learn.microsoft.com/graph/api/intune-deviceconfig-macoscustomconfiguration-delete?view=graph-rest-1.0 Find more info here
     */
     public function delete(?DeviceConfigurationItemRequestBuilderDeleteRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toDeleteRequestInformation($requestConfiguration);
@@ -104,11 +104,11 @@ class DeviceConfigurationItemRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * Read properties and relationships of the iosCertificateProfile object.
+     * Read properties and relationships of the androidGeneralDeviceConfiguration object.
      * @param DeviceConfigurationItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return Promise<DeviceConfiguration|null>
      * @throws Exception
-     * @link https://learn.microsoft.com/graph/api/intune-deviceconfig-ioscertificateprofile-get?view=graph-rest-1.0 Find more info here
+     * @link https://learn.microsoft.com/graph/api/intune-deviceconfig-androidgeneraldeviceconfiguration-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?DeviceConfigurationItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -146,7 +146,7 @@ class DeviceConfigurationItemRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * Deletes a windowsDefenderAdvancedThreatProtectionConfiguration.
+     * Deletes a macOSCustomConfiguration.
      * @param DeviceConfigurationItemRequestBuilderDeleteRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return RequestInformation
     */
@@ -164,7 +164,7 @@ class DeviceConfigurationItemRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * Read properties and relationships of the iosCertificateProfile object.
+     * Read properties and relationships of the androidGeneralDeviceConfiguration object.
      * @param DeviceConfigurationItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return RequestInformation
     */

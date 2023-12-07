@@ -1,13 +1,13 @@
 <?php
 
-namespace Microsoft\Graph\Generated\Groups\Item\Sites\Item\Lists\Item;
+namespace Microsoft\Graph\Generated\Admin\People\Pronouns;
 
 use Microsoft\Kiota\Abstractions\QueryParameter;
 
 /**
- * Returns the metadata for a [list][].
+ * Get pronouns from admin
 */
-class ListItemRequestBuilderGetQueryParameters 
+class PronounsRequestBuilderGetQueryParameters 
 {
     /**
      * @QueryParameter("%24expand")
@@ -22,7 +22,7 @@ class ListItemRequestBuilderGetQueryParameters
     public ?array $select = null;
     
     /**
-     * Instantiates a new ListItemRequestBuilderGetQueryParameters and sets the default values.
+     * Instantiates a new pronounsRequestBuilderGetQueryParameters and sets the default values.
      * @param array<string>|null $expand Expand related entities
      * @param array<string>|null $select Select properties to be returned
     */
