@@ -51,7 +51,7 @@ class MembersRequestBuilder extends BaseRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct($pathParametersOrRawUrl, RequestAdapter $requestAdapter) {
-        parent::__construct($requestAdapter, [], '{+baseurl}/teams/{team%2Did}/channels/{channel%2Did}/members{?%24top,%24skip,%24search,%24filter,%24count,%24orderby,%24select,%24expand}');
+        parent::__construct($requestAdapter, [], '{+baseurl}/teams/{team%2Did}/channels/{channel%2Did}/members{?%24count,%24expand,%24filter,%24orderby,%24search,%24select,%24skip,%24top}');
         if (is_array($pathParametersOrRawUrl)) {
             $this->pathParameters = $pathParametersOrRawUrl;
         } else {
@@ -76,12 +76,12 @@ class MembersRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * Add a conversationMember to a channel. This operation is allowed only for channels with a membershipType value of private or shared.
+     * Add a conversationMember to a channel.
      * @param ConversationMember $body The request body
      * @param MembersRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return Promise<ConversationMember|null>
      * @throws Exception
-     * @link https://learn.microsoft.com/graph/api/channel-post-members?view=graph-rest-1.0 Find more info here
+     * @link https://learn.microsoft.com/graph/api/conversationmember-add?view=graph-rest-1.0 Find more info here
     */
     public function post(ConversationMember $body, ?MembersRequestBuilderPostRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toPostRequestInformation($body, $requestConfiguration);
@@ -114,7 +114,7 @@ class MembersRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * Add a conversationMember to a channel. This operation is allowed only for channels with a membershipType value of private or shared.
+     * Add a conversationMember to a channel.
      * @param ConversationMember $body The request body
      * @param MembersRequestBuilderPostRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return RequestInformation

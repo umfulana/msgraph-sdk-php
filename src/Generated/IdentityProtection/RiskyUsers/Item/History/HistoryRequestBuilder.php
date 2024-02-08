@@ -43,7 +43,7 @@ class HistoryRequestBuilder extends BaseRequestBuilder
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct($pathParametersOrRawUrl, RequestAdapter $requestAdapter) {
-        parent::__construct($requestAdapter, [], '{+baseurl}/identityProtection/riskyUsers/{riskyUser%2Did}/history{?%24top,%24skip,%24search,%24filter,%24count,%24orderby,%24select,%24expand}');
+        parent::__construct($requestAdapter, [], '{+baseurl}/identityProtection/riskyUsers/{riskyUser%2Did}/history{?%24count,%24expand,%24filter,%24orderby,%24search,%24select,%24skip,%24top}');
         if (is_array($pathParametersOrRawUrl)) {
             $this->pathParameters = $pathParametersOrRawUrl;
         } else {
@@ -52,11 +52,11 @@ class HistoryRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * Read the properties and relationships of a riskyUserHistoryItem object.
+     * Get the riskyUserHistoryItems from the history navigation property.
      * @param HistoryRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return Promise<RiskyUserHistoryItemCollectionResponse|null>
      * @throws Exception
-     * @link https://learn.microsoft.com/graph/api/riskyuser-get-riskyuserhistoryitem?view=graph-rest-1.0 Find more info here
+     * @link https://learn.microsoft.com/graph/api/riskyuser-list-history?view=graph-rest-1.0 Find more info here
     */
     public function get(?HistoryRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -84,7 +84,7 @@ class HistoryRequestBuilder extends BaseRequestBuilder
     }
 
     /**
-     * Read the properties and relationships of a riskyUserHistoryItem object.
+     * Get the riskyUserHistoryItems from the history navigation property.
      * @param HistoryRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return RequestInformation
     */

@@ -70,7 +70,7 @@ class ManagedDeviceMobileAppConfigurationItemRequestBuilder extends BaseRequestB
      * @param RequestAdapter $requestAdapter The request adapter to use to execute the requests.
     */
     public function __construct($pathParametersOrRawUrl, RequestAdapter $requestAdapter) {
-        parent::__construct($requestAdapter, [], '{+baseurl}/deviceAppManagement/mobileAppConfigurations/{managedDeviceMobileAppConfiguration%2Did}{?%24select,%24expand}');
+        parent::__construct($requestAdapter, [], '{+baseurl}/deviceAppManagement/mobileAppConfigurations/{managedDeviceMobileAppConfiguration%2Did}{?%24expand,%24select}');
         if (is_array($pathParametersOrRawUrl)) {
             $this->pathParameters = $pathParametersOrRawUrl;
         } else {
@@ -95,11 +95,11 @@ class ManagedDeviceMobileAppConfigurationItemRequestBuilder extends BaseRequestB
     }
 
     /**
-     * Read properties and relationships of the iosMobileAppConfiguration object.
+     * Read properties and relationships of the managedDeviceMobileAppConfiguration object.
      * @param ManagedDeviceMobileAppConfigurationItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return Promise<ManagedDeviceMobileAppConfiguration|null>
      * @throws Exception
-     * @link https://learn.microsoft.com/graph/api/intune-apps-iosmobileappconfiguration-get?view=graph-rest-1.0 Find more info here
+     * @link https://learn.microsoft.com/graph/api/intune-apps-manageddevicemobileappconfiguration-get?view=graph-rest-1.0 Find more info here
     */
     public function get(?ManagedDeviceMobileAppConfigurationItemRequestBuilderGetRequestConfiguration $requestConfiguration = null): Promise {
         $requestInfo = $this->toGetRequestInformation($requestConfiguration);
@@ -146,7 +146,7 @@ class ManagedDeviceMobileAppConfigurationItemRequestBuilder extends BaseRequestB
     }
 
     /**
-     * Read properties and relationships of the iosMobileAppConfiguration object.
+     * Read properties and relationships of the managedDeviceMobileAppConfiguration object.
      * @param ManagedDeviceMobileAppConfigurationItemRequestBuilderGetRequestConfiguration|null $requestConfiguration Configuration for the request such as headers, query parameters, and middleware options.
      * @return RequestInformation
     */
