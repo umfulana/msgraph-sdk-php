@@ -319,7 +319,7 @@ class GraphRequest
             },
             // On fail, log the error and return null
             function ($reason) {
-                trigger_error("Async call failed: " . $reason->getMessage());
+                trigger_error("Async call failed: ".$reason->getMessage());
                 return null;
             }
         );

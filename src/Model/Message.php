@@ -1,7 +1,9 @@
 <?php
+/** @noinspection PhpUnused */
+
 /**
 * Copyright (c) Microsoft Corporation.  All Rights Reserved.  Licensed under the MIT License.  See License in the project root for license information.
-* 
+*
 * Message File
 * PHP version 7
 *
@@ -13,6 +15,10 @@
 * @link      https://graph.microsoft.io/
 */
 namespace Microsoft\Graph\Model;
+
+use DateTime;
+use Exception;
+use Microsoft\Graph\Exception\GraphException;
 
 /**
 * Message class
@@ -26,30 +32,37 @@ namespace Microsoft\Graph\Model;
 */
 class Message extends OutlookItem
 {
-    /**
-    * Gets the receivedDateTime
-    * The date and time the message was received.
-    *
-    * @return \DateTime The receivedDateTime
-    */
+	public function __construct($propDict = []) {
+		parent::__construct($propDict);
+
+		$this->_propDict['@odata.type'] = '#microsoft.graph.message';
+	}
+
+	/**
+	 * Gets the receivedDateTime
+	 * The date and time the message was received.
+	 *
+	 * @return DateTime The receivedDateTime
+	 * @throws Exception
+	 */
     public function getReceivedDateTime()
     {
         if (array_key_exists("receivedDateTime", $this->_propDict)) {
             if (is_a($this->_propDict["receivedDateTime"], "\DateTime")) {
                 return $this->_propDict["receivedDateTime"];
             } else {
-                $this->_propDict["receivedDateTime"] = new \DateTime($this->_propDict["receivedDateTime"]);
+                $this->_propDict["receivedDateTime"] = new DateTime($this->_propDict["receivedDateTime"]);
                 return $this->_propDict["receivedDateTime"];
             }
         }
         return null;
     }
-    
+
     /**
     * Sets the receivedDateTime
     * The date and time the message was received.
     *
-    * @param \DateTime $val The receivedDateTime
+    * @param DateTime $val The receivedDateTime
     *
     * @return Message
     */
@@ -58,31 +71,32 @@ class Message extends OutlookItem
         $this->_propDict["receivedDateTime"] = $val;
         return $this;
     }
-    
-    /**
-    * Gets the sentDateTime
-    * The date and time the message was sent.
-    *
-    * @return \DateTime The sentDateTime
-    */
+
+	/**
+	 * Gets the sentDateTime
+	 * The date and time the message was sent.
+	 *
+	 * @return DateTime The sentDateTime
+	 * @throws Exception
+	 */
     public function getSentDateTime()
     {
         if (array_key_exists("sentDateTime", $this->_propDict)) {
             if (is_a($this->_propDict["sentDateTime"], "\DateTime")) {
                 return $this->_propDict["sentDateTime"];
             } else {
-                $this->_propDict["sentDateTime"] = new \DateTime($this->_propDict["sentDateTime"]);
+                $this->_propDict["sentDateTime"] = new DateTime($this->_propDict["sentDateTime"]);
                 return $this->_propDict["sentDateTime"];
             }
         }
         return null;
     }
-    
+
     /**
     * Sets the sentDateTime
     * The date and time the message was sent.
     *
-    * @param \DateTime $val The sentDateTime
+    * @param DateTime $val The sentDateTime
     *
     * @return Message
     */
@@ -91,7 +105,7 @@ class Message extends OutlookItem
         $this->_propDict["sentDateTime"] = $val;
         return $this;
     }
-    
+
     /**
     * Gets the hasAttachments
     * Indicates whether the message has attachments. This property doesn't include inline attachments, so if a message contains only inline attachments, this property is false. To verify the existence of inline attachments, parse the body property to look for a src attribute, such as &amp;lt;IMG src='cid:image001.jpg@01D26CD8.6C05F070'&amp;gt;.
@@ -106,7 +120,7 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
+
     /**
     * Sets the hasAttachments
     * Indicates whether the message has attachments. This property doesn't include inline attachments, so if a message contains only inline attachments, this property is false. To verify the existence of inline attachments, parse the body property to look for a src attribute, such as &amp;lt;IMG src='cid:image001.jpg@01D26CD8.6C05F070'&amp;gt;.
@@ -120,7 +134,7 @@ class Message extends OutlookItem
         $this->_propDict["hasAttachments"] = boolval($val);
         return $this;
     }
-    
+
     /**
     * Gets the internetMessageId
     * The message ID in the format specified by RFC2822.
@@ -135,7 +149,7 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
+
     /**
     * Sets the internetMessageId
     * The message ID in the format specified by RFC2822.
@@ -149,9 +163,9 @@ class Message extends OutlookItem
         $this->_propDict["internetMessageId"] = $val;
         return $this;
     }
-    
 
-     /** 
+
+     /**
      * Gets the internetMessageHeaders
     * A collection of message headers defined by RFC5322. The set includes message headers indicating the network path taken by a message from the sender to the recipient. It can also contain custom message headers that hold app data for the message.  Returned only on applying a $select query option. Read-only.
      *
@@ -165,8 +179,8 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
-    /** 
+
+    /**
     * Sets the internetMessageHeaders
     * A collection of message headers defined by RFC5322. The set includes message headers indicating the network path taken by a message from the sender to the recipient. It can also contain custom message headers that hold app data for the message.  Returned only on applying a $select query option. Read-only.
     *
@@ -179,7 +193,7 @@ class Message extends OutlookItem
 		$this->_propDict["internetMessageHeaders"] = $val;
         return $this;
     }
-    
+
     /**
     * Gets the subject
     * The subject of the message.
@@ -194,7 +208,7 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
+
     /**
     * Sets the subject
     * The subject of the message.
@@ -208,7 +222,7 @@ class Message extends OutlookItem
         $this->_propDict["subject"] = $val;
         return $this;
     }
-    
+
     /**
     * Gets the body
     * The body of the message. It can be in HTML or text format. Find out about safe HTML in a message body.
@@ -227,7 +241,7 @@ class Message extends OutlookItem
         }
         return null;
     }
-    
+
     /**
     * Sets the body
     * The body of the message. It can be in HTML or text format. Find out about safe HTML in a message body.
@@ -241,7 +255,7 @@ class Message extends OutlookItem
         $this->_propDict["body"] = $val;
         return $this;
     }
-    
+
     /**
     * Gets the bodyPreview
     * The first 255 characters of the message body. It is in text format.
@@ -256,7 +270,7 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
+
     /**
     * Sets the bodyPreview
     * The first 255 characters of the message body. It is in text format.
@@ -270,13 +284,14 @@ class Message extends OutlookItem
         $this->_propDict["bodyPreview"] = $val;
         return $this;
     }
-    
-    /**
-    * Gets the importance
-    * The importance of the message: Low, Normal, High.
-    *
-    * @return Importance The importance
-    */
+
+	/**
+	 * Gets the importance
+	 * The importance of the message: Low, Normal, High.
+	 *
+	 * @return Importance The importance
+	 * @throws GraphException
+	 */
     public function getImportance()
     {
         if (array_key_exists("importance", $this->_propDict)) {
@@ -289,7 +304,7 @@ class Message extends OutlookItem
         }
         return null;
     }
-    
+
     /**
     * Sets the importance
     * The importance of the message: Low, Normal, High.
@@ -303,7 +318,7 @@ class Message extends OutlookItem
         $this->_propDict["importance"] = $val;
         return $this;
     }
-    
+
     /**
     * Gets the parentFolderId
     * The unique identifier for the message's parent mailFolder.
@@ -318,7 +333,7 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
+
     /**
     * Sets the parentFolderId
     * The unique identifier for the message's parent mailFolder.
@@ -332,7 +347,7 @@ class Message extends OutlookItem
         $this->_propDict["parentFolderId"] = $val;
         return $this;
     }
-    
+
     /**
     * Gets the sender
     * The account that is actually used to generate the message. In most cases, this value is the same as the from property. You can set this property to a different value when sending a message from a shared mailbox, or sending a message as a delegate. In any case, the value must correspond to the actual mailbox used. Find out more about setting the from and sender properties of a message.
@@ -351,7 +366,7 @@ class Message extends OutlookItem
         }
         return null;
     }
-    
+
     /**
     * Sets the sender
     * The account that is actually used to generate the message. In most cases, this value is the same as the from property. You can set this property to a different value when sending a message from a shared mailbox, or sending a message as a delegate. In any case, the value must correspond to the actual mailbox used. Find out more about setting the from and sender properties of a message.
@@ -365,7 +380,7 @@ class Message extends OutlookItem
         $this->_propDict["sender"] = $val;
         return $this;
     }
-    
+
     /**
     * Gets the from
     * The mailbox owner and sender of the message. The value must correspond to the actual mailbox used. Find out more about setting the from and sender properties of a message.
@@ -384,7 +399,7 @@ class Message extends OutlookItem
         }
         return null;
     }
-    
+
     /**
     * Sets the from
     * The mailbox owner and sender of the message. The value must correspond to the actual mailbox used. Find out more about setting the from and sender properties of a message.
@@ -398,9 +413,9 @@ class Message extends OutlookItem
         $this->_propDict["from"] = $val;
         return $this;
     }
-    
 
-     /** 
+
+     /**
      * Gets the toRecipients
     * The To: recipients for the message.
      *
@@ -414,12 +429,12 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
-    /** 
+
+    /**
     * Sets the toRecipients
     * The To: recipients for the message.
     *
-    * @param Recipient $val The toRecipients
+    * @param Recipient[] $val The toRecipients
     *
     * @return Message
     */
@@ -428,9 +443,9 @@ class Message extends OutlookItem
 		$this->_propDict["toRecipients"] = $val;
         return $this;
     }
-    
 
-     /** 
+
+     /**
      * Gets the ccRecipients
     * The Cc: recipients for the message.
      *
@@ -444,12 +459,12 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
-    /** 
+
+    /**
     * Sets the ccRecipients
     * The Cc: recipients for the message.
     *
-    * @param Recipient $val The ccRecipients
+    * @param Recipient[] $val The ccRecipients
     *
     * @return Message
     */
@@ -458,9 +473,9 @@ class Message extends OutlookItem
 		$this->_propDict["ccRecipients"] = $val;
         return $this;
     }
-    
 
-     /** 
+
+     /**
      * Gets the bccRecipients
     * The Bcc: recipients for the message.
      *
@@ -474,12 +489,12 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
-    /** 
+
+    /**
     * Sets the bccRecipients
     * The Bcc: recipients for the message.
     *
-    * @param Recipient $val The bccRecipients
+    * @param Recipient[] $val The bccRecipients
     *
     * @return Message
     */
@@ -488,9 +503,9 @@ class Message extends OutlookItem
 		$this->_propDict["bccRecipients"] = $val;
         return $this;
     }
-    
 
-     /** 
+
+     /**
      * Gets the replyTo
     * The email addresses to use when replying.
      *
@@ -504,8 +519,8 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
-    /** 
+
+    /**
     * Sets the replyTo
     * The email addresses to use when replying.
     *
@@ -518,7 +533,7 @@ class Message extends OutlookItem
 		$this->_propDict["replyTo"] = $val;
         return $this;
     }
-    
+
     /**
     * Gets the conversationId
     * The ID of the conversation the email belongs to.
@@ -533,7 +548,7 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
+
     /**
     * Sets the conversationId
     * The ID of the conversation the email belongs to.
@@ -547,7 +562,7 @@ class Message extends OutlookItem
         $this->_propDict["conversationId"] = $val;
         return $this;
     }
-    
+
     /**
     * Gets the uniqueBody
     * The part of the body of the message that is unique to the current message. uniqueBody is not returned by default but can be retrieved for a given message by use of the ?$select=uniqueBody query. It can be in HTML or text format.
@@ -566,7 +581,7 @@ class Message extends OutlookItem
         }
         return null;
     }
-    
+
     /**
     * Sets the uniqueBody
     * The part of the body of the message that is unique to the current message. uniqueBody is not returned by default but can be retrieved for a given message by use of the ?$select=uniqueBody query. It can be in HTML or text format.
@@ -580,7 +595,7 @@ class Message extends OutlookItem
         $this->_propDict["uniqueBody"] = $val;
         return $this;
     }
-    
+
     /**
     * Gets the isDeliveryReceiptRequested
     * Indicates whether a read receipt is requested for the message.
@@ -595,7 +610,7 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
+
     /**
     * Sets the isDeliveryReceiptRequested
     * Indicates whether a read receipt is requested for the message.
@@ -609,7 +624,7 @@ class Message extends OutlookItem
         $this->_propDict["isDeliveryReceiptRequested"] = boolval($val);
         return $this;
     }
-    
+
     /**
     * Gets the isReadReceiptRequested
     * Indicates whether a read receipt is requested for the message.
@@ -624,7 +639,7 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
+
     /**
     * Sets the isReadReceiptRequested
     * Indicates whether a read receipt is requested for the message.
@@ -638,7 +653,7 @@ class Message extends OutlookItem
         $this->_propDict["isReadReceiptRequested"] = boolval($val);
         return $this;
     }
-    
+
     /**
     * Gets the isRead
     * Indicates whether the message has been read.
@@ -653,7 +668,7 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
+
     /**
     * Sets the isRead
     * Indicates whether the message has been read.
@@ -667,7 +682,7 @@ class Message extends OutlookItem
         $this->_propDict["isRead"] = boolval($val);
         return $this;
     }
-    
+
     /**
     * Gets the isDraft
     * Indicates whether the message is a draft. A message is a draft if it hasn't been sent yet.
@@ -682,7 +697,7 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
+
     /**
     * Sets the isDraft
     * Indicates whether the message is a draft. A message is a draft if it hasn't been sent yet.
@@ -696,7 +711,7 @@ class Message extends OutlookItem
         $this->_propDict["isDraft"] = boolval($val);
         return $this;
     }
-    
+
     /**
     * Gets the webLink
     * The URL to open the message in Outlook Web App.You can append an ispopout argument to the end of the URL to change how the message is displayed. If ispopout is not present or if it is set to 1, then the message is shown in a popout window. If ispopout is set to 0, then the browser will show the message in the Outlook Web App review pane.The message will open in the browser if you are logged in to your mailbox via Outlook Web App. You will be prompted to login if you are not already logged in with the browser.This URL can be accessed from within an iFrame.
@@ -711,7 +726,7 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
+
     /**
     * Sets the webLink
     * The URL to open the message in Outlook Web App.You can append an ispopout argument to the end of the URL to change how the message is displayed. If ispopout is not present or if it is set to 1, then the message is shown in a popout window. If ispopout is set to 0, then the browser will show the message in the Outlook Web App review pane.The message will open in the browser if you are logged in to your mailbox via Outlook Web App. You will be prompted to login if you are not already logged in with the browser.This URL can be accessed from within an iFrame.
@@ -725,13 +740,14 @@ class Message extends OutlookItem
         $this->_propDict["webLink"] = $val;
         return $this;
     }
-    
-    /**
-    * Gets the inferenceClassification
-    * The classification of the message for the user, based on inferred relevance or importance, or on an explicit override. The possible values are: focused or other.
-    *
-    * @return InferenceClassificationType The inferenceClassification
-    */
+
+	/**
+	 * Gets the inferenceClassification
+	 * The classification of the message for the user, based on inferred relevance or importance, or on an explicit override. The possible values are: focused or other.
+	 *
+	 * @return InferenceClassificationType The inferenceClassification
+	 * @throws GraphException
+	 */
     public function getInferenceClassification()
     {
         if (array_key_exists("inferenceClassification", $this->_propDict)) {
@@ -744,7 +760,7 @@ class Message extends OutlookItem
         }
         return null;
     }
-    
+
     /**
     * Sets the inferenceClassification
     * The classification of the message for the user, based on inferred relevance or importance, or on an explicit override. The possible values are: focused or other.
@@ -758,7 +774,7 @@ class Message extends OutlookItem
         $this->_propDict["inferenceClassification"] = $val;
         return $this;
     }
-    
+
     /**
     * Gets the flag
     * The flag value that indicates the status, start date, due date, or completion date for the message.
@@ -777,7 +793,7 @@ class Message extends OutlookItem
         }
         return null;
     }
-    
+
     /**
     * Sets the flag
     * The flag value that indicates the status, start date, due date, or completion date for the message.
@@ -791,9 +807,9 @@ class Message extends OutlookItem
         $this->_propDict["flag"] = $val;
         return $this;
     }
-    
 
-     /** 
+
+     /**
      * Gets the singleValueExtendedProperties
     * The collection of single-value extended properties defined for the message. Nullable.
      *
@@ -807,8 +823,8 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
-    /** 
+
+    /**
     * Sets the singleValueExtendedProperties
     * The collection of single-value extended properties defined for the message. Nullable.
     *
@@ -821,9 +837,9 @@ class Message extends OutlookItem
 		$this->_propDict["singleValueExtendedProperties"] = $val;
         return $this;
     }
-    
 
-     /** 
+
+     /**
      * Gets the multiValueExtendedProperties
     * The collection of multi-value extended properties defined for the message. Nullable.
      *
@@ -837,8 +853,8 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
-    /** 
+
+    /**
     * Sets the multiValueExtendedProperties
     * The collection of multi-value extended properties defined for the message. Nullable.
     *
@@ -851,9 +867,9 @@ class Message extends OutlookItem
 		$this->_propDict["multiValueExtendedProperties"] = $val;
         return $this;
     }
-    
 
-     /** 
+
+     /**
      * Gets the attachments
     * The fileAttachment and itemAttachment attachments for the message.
      *
@@ -867,12 +883,12 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
-    /** 
+
+    /**
     * Sets the attachments
     * The fileAttachment and itemAttachment attachments for the message.
     *
-    * @param Attachment $val The attachments
+    * @param Attachment[] $val The attachments
     *
     * @return Message
     */
@@ -881,9 +897,9 @@ class Message extends OutlookItem
 		$this->_propDict["attachments"] = $val;
         return $this;
     }
-    
 
-     /** 
+
+     /**
      * Gets the extensions
     * The collection of open extensions defined for the message. Nullable.
      *
@@ -897,8 +913,8 @@ class Message extends OutlookItem
             return null;
         }
     }
-    
-    /** 
+
+    /**
     * Sets the extensions
     * The collection of open extensions defined for the message. Nullable.
     *
@@ -911,5 +927,5 @@ class Message extends OutlookItem
 		$this->_propDict["extensions"] = $val;
         return $this;
     }
-    
+
 }

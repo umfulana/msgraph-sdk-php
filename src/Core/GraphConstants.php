@@ -28,7 +28,7 @@ final class GraphConstants
 
     // Define error constants
     const MAX_PAGE_SIZE = 999;
-    const MAX_PAGE_SIZE_ERROR = "Page size must be less than " . self::MAX_PAGE_SIZE;
+    const MAX_PAGE_SIZE_ERROR = "Page size must be less than ".self::MAX_PAGE_SIZE;
     const TIMEOUT = "Timeout error";
 
     // Define error message constants

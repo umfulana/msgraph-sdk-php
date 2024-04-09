@@ -1,9 +1,9 @@
-<?php 
+<?php
 /**
-* Copyright (c) Microsoft Corporation.  All Rights Reserved.  
-* Licensed under the MIT License.  See License in the project root 
+* Copyright (c) Microsoft Corporation.  All Rights Reserved.
+* Licensed under the MIT License.  See License in the project root
 * for license information.
-* 
+*
 * HttpResponse File
 * PHP version 7
 *
@@ -37,7 +37,7 @@ class GraphResponse
     */
     private $_body;
     /**
-    * The body of the response, 
+    * The body of the response,
     * decoded into an array
     *
     * @var array(string)
@@ -55,8 +55,9 @@ class GraphResponse
     * @var string
     */
     private $_httpStatusCode;
+	private object $_request;
 
-    /**
+	/**
     * Creates a new Graph HTTP response entity
     *
     * @param object $request        The request
@@ -149,8 +150,6 @@ class GraphResponse
                 foreach ($values as $obj) {
                     $objArray[] = new $class($obj);
                 }
-            } else {
-                return new $class($result);
             }
             return $objArray;
         } else {

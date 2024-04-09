@@ -49,7 +49,7 @@ class ItemBody extends Entity
     * Sets the contentType
     * The type of the content. Possible values are text and HTML.
     *
-    * @param BodyType $val The value to assign to the contentType
+    * @param string $val The value to assign to the contentType
     *
     * @return ItemBody The ItemBody
     */

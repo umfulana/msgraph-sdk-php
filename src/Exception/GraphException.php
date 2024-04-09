@@ -46,6 +46,6 @@ class GraphException extends \Exception
     */
     public function __toString()
     {
-        return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
+        return __CLASS__.": [{$this->code}]: {$this->message}\n";
     }
 }
